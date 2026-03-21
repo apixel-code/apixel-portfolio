@@ -1,0 +1,133 @@
+{
+  "brand_identity": {
+    "name": "APIXEL",
+    "mission": "To propel businesses into the future with cutting-edge digital solutions.",
+    "tone": "Futuristic, Premium, Tech-savvy, Authoritative, Innovative",
+    "aesthetic": "Dark Luxury, Glassmorphism, Cyber-Future, Neon Accents"
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Syne",
+      "body": "DM Sans"
+    },
+    "imports": [
+      "https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;500;700&display=swap"
+    ],
+    "usage": {
+      "h1": "font-syne font-bold text-5xl md:text-7xl tracking-tight leading-tight",
+      "h2": "font-syne font-semibold text-3xl md:text-5xl tracking-tight",
+      "h3": "font-syne font-medium text-2xl md:text-3xl",
+      "body": "font-dm-sans text-base md:text-lg text-slate-300 leading-relaxed",
+      "label": "font-dm-sans text-xs uppercase tracking-widest text-slate-500 font-bold"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "purple": "#9333EA",
+        "cyan": "#00F5FF",
+        "gold": "#FFD700"
+      },
+      "background": {
+        "main": "#020617",
+        "card": "rgba(255, 255, 255, 0.03)",
+        "card_hover": "rgba(255, 255, 255, 0.07)"
+      },
+      "text": {
+        "primary": "#F8FAFC",
+        "secondary": "#94A3B8",
+        "muted": "#64748B"
+      },
+      "border": {
+        "subtle": "rgba(255, 255, 255, 0.05)",
+        "highlight": "rgba(147, 51, 234, 0.5)"
+      }
+    },
+    "tailwind_config": {
+      "colors": {
+        "brand": {
+          "purple": "#9333EA",
+          "cyan": "#00F5FF",
+          "gold": "#FFD700",
+          "dark": "#020617"
+        }
+      }
+    }
+  },
+  "layout_strategies": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing": {
+      "section_padding": "py-20 md:py-32",
+      "element_gap": "gap-8 md:gap-12"
+    },
+    "grids": {
+      "bento": "grid grid-cols-1 md:grid-cols-3 gap-6",
+      "services": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-brand-purple hover:bg-brand-purple/90 text-white font-dm-sans font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(147,51,234,0.5)] transition-all hover:scale-105",
+      "secondary": "bg-transparent border border-brand-cyan/30 text-brand-cyan hover:bg-brand-cyan/10 font-dm-sans font-medium py-3 px-8 rounded-full transition-all",
+      "outline": "border border-white/10 text-white hover:bg-white/5 font-dm-sans py-2 px-6 rounded-lg"
+    },
+    "cards": {
+      "glass": "bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-brand-purple/50 transition-colors duration-300 relative overflow-hidden group",
+      "feature": "bg-brand-dark border border-white/5 rounded-xl p-6 hover:shadow-[0_0_30px_rgba(0,245,255,0.1)] transition-shadow"
+    },
+    "inputs": {
+      "default": "bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 focus:border-brand-purple focus:ring-1 focus:ring-brand-purple focus:outline-none transition-all"
+    }
+  },
+  "motion": {
+    "library": "framer-motion",
+    "page_transition": {
+      "initial": { "opacity": 0, "y": 20 },
+      "animate": { "opacity": 1, "y": 0 },
+      "exit": { "opacity": 0, "y": -20 },
+      "transition": { "duration": 0.5, "ease": "easeOut" }
+    },
+    "scroll_reveal": {
+      "variants": {
+        "hidden": { "opacity": 0, "y": 50 },
+        "visible": { "opacity": 1, "y": 0, "transition": { "duration": 0.6, "ease": "easeOut" } }
+      }
+    },
+    "hover_effects": {
+      "scale": 1.05,
+      "glow": "box-shadow: 0 0 20px rgba(147, 51, 234, 0.4)"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1764258559605-5b769b04550e?q=80&w=2070&auto=format&fit=crop",
+      "team_meeting": "https://images.unsplash.com/photo-1758520145178-29eafeda9908?q=80&w=2070&auto=format&fit=crop",
+      "web_development": "https://images.unsplash.com/photo-1565382038303-8c62e88d119a?q=80&w=2070&auto=format&fit=crop",
+      "digital_marketing": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+      "graphic_design": "https://images.pexels.com/photos/4443133/pexels-photo-4443133.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "logo_placeholder": "https://cdn-icons-png.flaticon.com/512/3176/3176395.png" 
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-1 md:stroke-2"
+    }
+  },
+  "admin_panel": {
+    "theme": "dark",
+    "sidebar": "bg-[#020617] border-r border-white/5",
+    "header": "bg-[#020617]/80 backdrop-blur-md border-b border-white/5",
+    "content_area": "bg-[#0B0F19] p-6"
+  },
+  "universal_guidelines": [
+    "Always use the 'Syne' font for headings to maintain the futuristic brand identity.",
+    "Ensure all backgrounds are dark (#020617) with high contrast text for readability.",
+    "Use glassmorphism sparingly (cards, headers) to avoid performance issues.",
+    "Implement 'framer-motion' for all major interactions to create a fluid, premium feel.",
+    "Use 'lucide-react' icons with a stroke width of 1.5 or 2px.",
+    "Ensure all images have an alt text for accessibility.",
+    "Do NOT use gradients for text unless it is a very large heading.",
+    "Maintain a 'mobile-first' approach for all layouts.",
+    "Use the specific hex codes provided for consistency."
+  ],
+  "instructions_to_main_agent": "Focus on creating a high-performance, visually stunning website. Use the provided assets and color palette strictly. Implement the admin panel with a focus on usability and security. Ensure all forms have validation and feedback. Use 'sonner' for notifications. Generate a 'globals.css' file that imports the fonts and sets the base styles."
+}
