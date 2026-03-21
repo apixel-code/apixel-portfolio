@@ -72,7 +72,7 @@ const AdminMessages = () => {
   return (
     <>
       <Helmet>
-        <title>Messages - APIXEL Admin</title>
+        <title>Messages - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>

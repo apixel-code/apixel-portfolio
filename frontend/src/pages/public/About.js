@@ -49,7 +49,7 @@ const About = () => {
   return (
     <>
       <Helmet>
-        <title>About Us - APIXEL Digital Agency</title>
+        <title>About Us - Apixel | Complete IT Solution</title>
         <meta name="description" content="Learn about APIXEL, our mission, vision, and the talented team behind our digital solutions." />
       </Helmet>
 

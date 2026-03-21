@@ -62,7 +62,7 @@ const AdminBlogs = () => {
   return (
     <>
       <Helmet>
-        <title>Blog Management - APIXEL Admin</title>
+        <title>Blog Management - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>

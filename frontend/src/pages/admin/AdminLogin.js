@@ -32,7 +32,7 @@ const AdminLogin = () => {
   return (
     <>
       <Helmet>
-        <title>Admin Login - APIXEL</title>
+        <title>Admin Login - Apixel</title>
       </Helmet>
 
       <div className="min-h-screen bg-brand-dark flex items-center justify-center p-4 bg-grid">
@@ -49,8 +49,9 @@ const AdminLogin = () => {
             <div className="text-center mb-8">
               <img 
                 src="https://customer-assets.emergentagent.com/job_3236cc25-3db2-4b9c-b71a-3f5cecd39ced/artifacts/wwj92o2i_apixel.png" 
-                alt="APIXEL Logo" 
+                alt="Apixel Logo" 
                 className="h-12 mx-auto mb-4"
+                style={{ filter: 'drop-shadow(0 0 8px rgba(147, 51, 234, 0.3))' }}
               />
               <h1 className="font-syne font-bold text-2xl text-white">Admin Login</h1>
               <p className="text-slate-400 text-sm mt-2">Sign in to access the dashboard</p>

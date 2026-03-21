@@ -10,7 +10,7 @@ const NotFound = () => {
   return (
     <>
       <Helmet>
-        <title>404 - Page Not Found | APIXEL</title>
+        <title>404 - Page Not Found | Apixel</title>
         <meta name="description" content="The page you're looking for doesn't exist." />
       </Helmet>
 

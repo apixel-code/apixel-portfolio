@@ -58,7 +58,7 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Us - APIXEL Digital Agency</title>
+        <title>Contact Us - Apixel | Complete IT Solution</title>
         <meta name="description" content="Get in touch with APIXEL for your digital needs. Contact us for website development, digital marketing, social media, and design services." />
       </Helmet>
 

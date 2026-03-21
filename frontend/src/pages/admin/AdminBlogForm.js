@@ -121,7 +121,7 @@ const AdminBlogForm = () => {
   return (
     <>
       <Helmet>
-        <title>{isEdit ? 'Edit Blog' : 'New Blog'} - APIXEL Admin</title>
+        <title>{isEdit ? 'Edit Blog' : 'New Blog'} - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>

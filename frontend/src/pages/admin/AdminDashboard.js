@@ -65,7 +65,7 @@ const AdminDashboard = () => {
   return (
     <>
       <Helmet>
-        <title>Dashboard - APIXEL Admin</title>
+        <title>Dashboard - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>

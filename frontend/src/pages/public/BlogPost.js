@@ -78,7 +78,7 @@ const BlogPost = () => {
   return (
     <>
       <Helmet>
-        <title>{blog.title} - APIXEL Blog</title>
+        <title>{blog.title} - Apixel Blog</title>
         <meta name="description" content={blog.excerpt} />
         <meta property="og:title" content={blog.title} />
         <meta property="og:description" content={blog.excerpt} />

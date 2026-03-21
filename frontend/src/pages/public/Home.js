@@ -156,10 +156,10 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>APIXEL - Digital Solutions That Propel Your Business</title>
-        <meta name="description" content="APIXEL is a premier IT agency offering Website Development (MERN), Meta & Google Ads with Conversion API, Social Media Management, and Graphic Design services." />
-        <meta property="og:title" content="APIXEL - Digital Solutions That Propel Your Business" />
-        <meta property="og:description" content="Transform your digital presence with cutting-edge solutions from APIXEL." />
+        <title>Apixel - Complete IT Solution</title>
+        <meta name="description" content="Apixel - Complete IT Solution. Premier IT Agency offering Website Development (MERN), Meta & Google Ads with Conversion API, Social Media Management, and Graphic Design services." />
+        <meta property="og:title" content="Apixel - Complete IT Solution" />
+        <meta property="og:description" content="Transform your digital presence with cutting-edge solutions from Apixel." />
       </Helmet>
 
       <Navbar />
@@ -185,7 +185,7 @@ const Home = () => {
                 transition={{ delay: 0.2 }}
                 className="inline-block px-4 py-2 bg-brand-purple/20 rounded-full border border-brand-purple/30 mb-8"
               >
-                <span className="text-brand-cyan text-sm font-dm-sans">Welcome to APIXEL</span>
+                <span className="text-brand-cyan text-sm font-dm-sans">Welcome to Apixel</span>
               </motion.div>
 
               <h1 className="font-syne font-bold text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
@@ -306,7 +306,7 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">Why Us</span>
-              <h2 className="font-syne font-bold text-3xl md:text-5xl text-white mt-4">Why Choose APIXEL</h2>
+              <h2 className="font-syne font-bold text-3xl md:text-5xl text-white mt-4">Why Choose Apixel</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -406,7 +406,7 @@ const Home = () => {
                   Ready to Transform Your Business?
                 </h2>
                 <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
-                  Let's discuss how APIXEL can help you achieve your digital goals. 
+                  Let's discuss how Apixel can help you achieve your digital goals. 
                   Get a free consultation today!
                 </p>
                 <Link

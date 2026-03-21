@@ -71,7 +71,7 @@ const Blog = () => {
   return (
     <>
       <Helmet>
-        <title>Blog - APIXEL Digital Agency</title>
+        <title>Blog - Apixel | Complete IT Solution</title>
         <meta name="description" content="Read our latest insights on web development, digital marketing, social media trends, and design tips." />
       </Helmet>
 

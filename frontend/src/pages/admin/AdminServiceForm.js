@@ -97,7 +97,7 @@ const AdminServiceForm = () => {
   return (
     <>
       <Helmet>
-        <title>{isEdit ? 'Edit Service' : 'New Service'} - APIXEL Admin</title>
+        <title>{isEdit ? 'Edit Service' : 'New Service'} - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>

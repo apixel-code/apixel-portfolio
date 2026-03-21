@@ -38,7 +38,7 @@ const Services = () => {
   return (
     <>
       <Helmet>
-        <title>Our Services - APIXEL Digital Agency</title>
+        <title>Our Services - Apixel | Complete IT Solution</title>
         <meta name="description" content="Explore our comprehensive digital services including MERN Stack Web Development, Meta & Google Ads, Social Media Management, and Graphic Design." />
       </Helmet>
 

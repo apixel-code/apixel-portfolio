@@ -45,7 +45,7 @@ const AdminServices = () => {
   return (
     <>
       <Helmet>
-        <title>Service Management - APIXEL Admin</title>
+        <title>Service Management - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>

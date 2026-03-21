@@ -29,12 +29,13 @@ const Footer = () => {
             <Link to="/" className="flex items-center gap-3">
               <img 
                 src="https://customer-assets.emergentagent.com/job_3236cc25-3db2-4b9c-b71a-3f5cecd39ced/artifacts/wwj92o2i_apixel.png" 
-                alt="APIXEL Logo" 
+                alt="Apixel Logo" 
                 className="h-10 w-auto"
+                style={{ filter: 'drop-shadow(0 0 8px rgba(147, 51, 234, 0.3))' }}
               />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Propelling businesses into the future with cutting-edge digital solutions. 
+              Apixel - Complete IT Solution. Propelling businesses into the future with cutting-edge digital solutions. 
               Your success is our mission.
             </p>
             <div className="flex gap-4">
@@ -156,7 +157,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-500 text-sm">
-            © {currentYear} APIXEL. All rights reserved.
+            © {currentYear} Apixel. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link to="/privacy" className="text-slate-500 hover:text-slate-300 text-sm">
