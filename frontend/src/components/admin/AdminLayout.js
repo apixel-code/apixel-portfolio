@@ -1,6 +1,5 @@
-import React from 'react';
+import { Briefcase, ChevronRight, FileText, LayoutDashboard, LogOut, MessageSquare } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FileText, Briefcase, MessageSquare, LogOut, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const AdminLayout = ({ children }) => {
@@ -27,12 +26,12 @@ const AdminLayout = ({ children }) => {
       {/* Sidebar */}
       <aside className="w-64 bg-brand-dark border-r border-white/5 fixed h-full">
         <div className="p-6 border-b border-white/5">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
             <img 
-              src="https://customer-assets.emergentagent.com/job_3236cc25-3db2-4b9c-b71a-3f5cecd39ced/artifacts/wwj92o2i_apixel.png" 
+              src="/assets/f.png" 
               alt="Apixel Logo" 
-              className="h-8 w-auto"
-              style={{ filter: 'drop-shadow(0 0 6px rgba(147, 51, 234, 0.3))' }}
+              className="h-12 w-auto object-contain mix-blend-screen"
+              style={{ filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' }}
             />
             <span className="text-xs text-brand-cyan font-dm-sans">Admin</span>
           </Link>

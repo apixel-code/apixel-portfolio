@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const AdminLogin = () => {
@@ -48,10 +48,10 @@ const AdminLogin = () => {
             {/* Logo */}
             <div className="text-center mb-8">
               <img 
-                src="https://customer-assets.emergentagent.com/job_3236cc25-3db2-4b9c-b71a-3f5cecd39ced/artifacts/wwj92o2i_apixel.png" 
+                src="/assets/f.png" 
                 alt="Apixel Logo" 
-                className="h-12 mx-auto mb-4"
-                style={{ filter: 'drop-shadow(0 0 8px rgba(147, 51, 234, 0.3))' }}
+                className="h-16 sm:h-20 mx-auto mb-4 w-auto object-contain mix-blend-screen"
+                style={{ filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' }}
               />
               <h1 className="font-syne font-bold text-2xl text-white">Admin Login</h1>
               <p className="text-slate-400 text-sm mt-2">Sign in to access the dashboard</p>
