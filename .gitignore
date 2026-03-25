@@ -1,4 +1,27 @@
 -e 
 # Environment files
+
 *.env
 *.env.*
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/__pycache__/
+*.pyc
+__pycache__/
+
+# Build outputs
+frontend/build/
+dist/
+*.egg-info/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
