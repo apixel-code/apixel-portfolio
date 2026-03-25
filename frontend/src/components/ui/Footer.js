@@ -1,6 +1,5 @@
-import React from 'react';
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -26,12 +25,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
               <img 
-                src="https://customer-assets.emergentagent.com/job_3236cc25-3db2-4b9c-b71a-3f5cecd39ced/artifacts/wwj92o2i_apixel.png" 
+                src="/assets/f.png" 
                 alt="Apixel Logo" 
-                className="h-10 w-auto"
-                style={{ filter: 'drop-shadow(0 0 8px rgba(147, 51, 234, 0.3))' }}
+                className="h-16 sm:h-20 w-auto object-contain mix-blend-screen"
+                style={{ filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' }}
               />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed">

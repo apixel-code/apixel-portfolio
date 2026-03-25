@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,12 +22,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
             <img 
-              src="https://customer-assets.emergentagent.com/job_3236cc25-3db2-4b9c-b71a-3f5cecd39ced/artifacts/wwj92o2i_apixel.png" 
+              src="/assets/f.png" 
               alt="Apixel Logo" 
-              className="h-10 w-auto"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(147, 51, 234, 0.3))' }}
+              className="h-12 sm:h-14 md:h-16 w-auto object-contain mix-blend-screen"
+              style={{ filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.28))' }}
+              loading="eager"
             />
           </Link>
 
