@@ -6,7 +6,6 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const AdminServices = () => {
   const [services, setServices] = useState([]);
@@ -14,7 +13,7 @@ const AdminServices = () => {
 
   const fetchServices = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/services`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/services`);
       setServices(response.data);
     } catch (error) {
       console.error('Error fetching services:', error);
@@ -32,7 +31,7 @@ const AdminServices = () => {
 
     try {
       const token = localStorage.getItem('apixel_token');
-      await axios.delete(`${API_URL}/api/services/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/services/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Service deleted successfully');

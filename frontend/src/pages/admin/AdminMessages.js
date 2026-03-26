@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Trash2, Mail, Phone, CheckCircle, XCircle, Eye } from 'lucide-react';
 import axios from 'axios';
+import { CheckCircle, Eye, Mail, Phone, Trash2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -15,7 +14,7 @@ const AdminMessages = () => {
   const fetchMessages = async () => {
     try {
       const token = localStorage.getItem('apixel_token');
-      const response = await axios.get(`${API_URL}/api/contact`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/contact`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(response.data);
@@ -33,7 +32,7 @@ const AdminMessages = () => {
   const handleMarkRead = async (id) => {
     try {
       const token = localStorage.getItem('apixel_token');
-      await axios.put(`${API_URL}/api/contact/${id}/read`, {}, {
+      await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/contact/${id}/read`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchMessages();
@@ -48,7 +47,7 @@ const AdminMessages = () => {
 
     try {
       const token = localStorage.getItem('apixel_token');
-      await axios.delete(`${API_URL}/api/contact/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/contact/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Message deleted');

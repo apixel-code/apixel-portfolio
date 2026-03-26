@@ -8,7 +8,6 @@ import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -22,7 +21,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/blogs`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/blogs`);
         setBlogs(response.data);
         setFilteredBlogs(response.data);
       } catch (error) {

@@ -6,7 +6,6 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const AdminServiceForm = () => {
   const { id } = useParams();
@@ -30,7 +29,7 @@ const AdminServiceForm = () => {
     if (isEdit) {
       const fetchService = async () => {
         try {
-          const response = await axios.get(`${API_URL}/api/services`);
+          const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/services`);
           const service = response.data.find(s => s.id === id);
           if (service) {
             setFormData({
@@ -71,10 +70,10 @@ const AdminServiceForm = () => {
       };
 
       if (isEdit) {
-        await axios.put(`${API_URL}/api/services/${id}`, data, { headers });
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/services/${id}`, data, { headers });
         toast.success('Service updated successfully');
       } else {
-        await axios.post(`${API_URL}/api/services`, data, { headers });
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/services`, data, { headers });
         toast.success('Service created successfully');
       }
       

@@ -8,7 +8,6 @@ import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -20,11 +19,11 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/blogs/${slug}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/blogs/${slug}`);
         setBlog(response.data);
         
         // Fetch related blogs
-        const allBlogs = await axios.get(`${API_URL}/api/blogs`);
+        const allBlogs = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/blogs`);
         const related = allBlogs.data
           .filter(b => b.slug !== slug && b.category === response.data.category)
           .slice(0, 3);

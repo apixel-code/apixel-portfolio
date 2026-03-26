@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Code, Target, Share2, Palette, ArrowRight, CheckCircle, Zap, Users, Award, TrendingUp, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import axios from 'axios';
-import Navbar from '../../components/ui/Navbar';
+import { motion, useInView } from 'framer-motion';
+import { ArrowRight, Award, ChevronLeft, ChevronRight, Code, Palette, Share2, Star, Target, TrendingUp, Users, Zap } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Footer from '../../components/ui/Footer';
+import Navbar from '../../components/ui/Navbar';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Typewriter Effect Component
 const TypewriterText = ({ words }) => {
@@ -123,7 +121,7 @@ const Home = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/services`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/services`);
         setServices(response.data);
       } catch (error) {
         console.error('Error fetching services:', error);

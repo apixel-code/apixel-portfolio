@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { FileText, Briefcase, MessageSquare, Users, Plus, ArrowUpRight } from 'lucide-react';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Briefcase, FileText, MessageSquare, Users } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/admin/AdminLayout';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -25,8 +24,8 @@ const AdminDashboard = () => {
         const headers = { Authorization: `Bearer ${token}` };
         
         const [statsRes, messagesRes] = await Promise.all([
-          axios.get(`${API_URL}/api/stats`, { headers }),
-          axios.get(`${API_URL}/api/contact`, { headers }),
+          axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/stats`, { headers }),
+          axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/contact`, { headers }),
         ]);
         
         setStats(statsRes.data);
@@ -122,7 +121,7 @@ const AdminDashboard = () => {
                     className="flex items-center gap-2 px-4 py-2 bg-brand-purple/20 text-brand-purple rounded-lg hover:bg-brand-purple/30 transition-colors"
                     data-testid={`quick-action-${action.title.toLowerCase().replace(' ', '-')}`}
                   >
-                    <Plus size={18} />
+                    <Icon size={18} />
                     {action.title}
                   </Link>
                 );

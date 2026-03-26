@@ -8,7 +8,6 @@ import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -24,7 +23,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/services`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/services`);
         setServices(response.data);
       } catch (error) {
         console.error('Error fetching services:', error);

@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import { Code, Database, Eye, Globe, Heart, Palette, Rocket, Smartphone, Target, Zap } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
-import { Target, Eye, Heart, Code, Zap, Palette, Database, Globe, Smartphone, Users, Award, Rocket } from 'lucide-react';
-import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
+import Navbar from '../../components/ui/Navbar';
 
 const About = () => {
   const team = [

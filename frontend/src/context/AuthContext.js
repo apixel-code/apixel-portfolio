@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const AuthContext = createContext(null);
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('apixel_token'));
@@ -20,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const response = await axios.post(`${API_URL}/api/auth/login`, { email, password });
+    const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { email, password });
     const { access_token } = response.data;
     localStorage.setItem('apixel_token', access_token);
     setToken(access_token);

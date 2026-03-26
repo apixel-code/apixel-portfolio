@@ -6,7 +6,6 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const AdminBlogForm = () => {
   const { id } = useParams();
@@ -33,7 +32,7 @@ const AdminBlogForm = () => {
       const fetchBlog = async () => {
         try {
           const token = localStorage.getItem('apixel_token');
-          const response = await axios.get(`${API_URL}/api/blogs?published_only=false`, {
+          const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/blogs?published_only=false`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           const blog = response.data.find(b => b.id === id);
@@ -93,10 +92,10 @@ const AdminBlogForm = () => {
       };
 
       if (isEdit) {
-        await axios.put(`${API_URL}/api/blogs/${id}`, data, { headers });
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/blogs/${id}`, data, { headers });
         toast.success('Blog updated successfully');
       } else {
-        await axios.post(`${API_URL}/api/blogs`, data, { headers });
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/blogs`, data, { headers });
         toast.success('Blog created successfully');
       }
       

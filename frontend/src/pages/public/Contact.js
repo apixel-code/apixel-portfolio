@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +36,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(`${API_URL}/api/contact`, formData);
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/contact`, formData);
       setIsSubmitted(true);
       toast.success('Message sent successfully! We\'ll get back to you soon.');
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });

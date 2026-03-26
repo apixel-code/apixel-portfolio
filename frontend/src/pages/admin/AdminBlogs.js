@@ -6,7 +6,6 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const AdminBlogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -16,7 +15,7 @@ const AdminBlogs = () => {
   const fetchBlogs = async () => {
     try {
       const token = localStorage.getItem('apixel_token');
-      const response = await axios.get(`${API_URL}/api/blogs?published_only=false`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/blogs?published_only=false`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBlogs(response.data);
@@ -36,7 +35,7 @@ const AdminBlogs = () => {
 
     try {
       const token = localStorage.getItem('apixel_token');
-      await axios.delete(`${API_URL}/api/blogs/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/blogs/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Blog deleted successfully');
