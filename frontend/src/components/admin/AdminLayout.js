@@ -1,4 +1,4 @@
-import { Briefcase, ChevronRight, FileText, LayoutDashboard, LogOut, MessageSquare } from 'lucide-react';
+import { Briefcase, ChevronRight, FileText, LayoutDashboard, LayoutTemplate, LogOut, MessageSquare } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -11,6 +11,7 @@ const AdminLayout = ({ children }) => {
     { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Blogs', path: '/admin/blogs', icon: FileText },
     { name: 'Services', path: '/admin/services', icon: Briefcase },
+    { name: 'Store', path: '/admin/templates', icon: LayoutTemplate },
     { name: 'Messages', path: '/admin/messages', icon: MessageSquare },
   ];
 

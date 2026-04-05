@@ -13,6 +13,8 @@ import Blog from './pages/public/Blog';
 import BlogPost from './pages/public/BlogPost';
 import About from './pages/public/About';
 import Contact from './pages/public/Contact';
+import Templates from './pages/public/Templates';
+import TemplateDetails from './pages/public/TemplateDetails';
 import NotFound from './pages/public/NotFound';
 
 // Admin Pages
@@ -22,6 +24,8 @@ import AdminBlogs from './pages/admin/AdminBlogs';
 import AdminBlogForm from './pages/admin/AdminBlogForm';
 import AdminServices from './pages/admin/AdminServices';
 import AdminServiceForm from './pages/admin/AdminServiceForm';
+import AdminTemplates from './pages/admin/AdminTemplates';
+import AdminTemplateForm from './pages/admin/AdminTemplateForm';
 import AdminMessages from './pages/admin/AdminMessages';
 
 // Components
@@ -61,6 +65,8 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/templates" element={<Templates />} />
+            <Route path="/templates/:slug" element={<TemplateDetails />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             
@@ -86,6 +92,15 @@ function App() {
             } />
             <Route path="/admin/services/edit/:id" element={
               <ProtectedRoute><AdminServiceForm /></ProtectedRoute>
+            } />
+            <Route path="/admin/templates" element={
+              <ProtectedRoute><AdminTemplates /></ProtectedRoute>
+            } />
+            <Route path="/admin/templates/new" element={
+              <ProtectedRoute><AdminTemplateForm /></ProtectedRoute>
+            } />
+            <Route path="/admin/templates/edit/:id" element={
+              <ProtectedRoute><AdminTemplateForm /></ProtectedRoute>
             } />
             <Route path="/admin/messages" element={
               <ProtectedRoute><AdminMessages /></ProtectedRoute>

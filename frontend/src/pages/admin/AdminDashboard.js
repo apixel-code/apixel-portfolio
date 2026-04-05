@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Briefcase, FileText, MessageSquare, Users } from 'lucide-react';
+import { ArrowUpRight, Briefcase, FileText, LayoutTemplate, MessageSquare, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({
     totalBlogs: 0,
     totalServices: 0,
+    totalTemplates: 0,
     totalMessages: 0,
     unreadMessages: 0,
   });
@@ -42,6 +43,7 @@ const AdminDashboard = () => {
   const statCards = [
     { title: 'Total Blogs', value: stats.totalBlogs, icon: FileText, color: 'purple' },
     { title: 'Total Services', value: stats.totalServices, icon: Briefcase, color: 'cyan' },
+    { title: 'Total Store Items', value: stats.totalTemplates, icon: LayoutTemplate, color: 'gold' },
     { title: 'Total Messages', value: stats.totalMessages, icon: MessageSquare, color: 'gold' },
     { title: 'Unread Messages', value: stats.unreadMessages, icon: Users, color: 'red' },
   ];
@@ -49,6 +51,7 @@ const AdminDashboard = () => {
   const quickActions = [
     { title: 'New Blog', path: '/admin/blogs/new', icon: FileText },
     { title: 'New Service', path: '/admin/services/new', icon: Briefcase },
+    { title: 'New Store Item', path: '/admin/templates/new', icon: LayoutTemplate },
     { title: 'View Messages', path: '/admin/messages', icon: MessageSquare },
   ];
 

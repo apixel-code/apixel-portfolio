@@ -99,6 +99,51 @@ class ServiceResponse(ServiceBase):
     id: str
     createdAt: str
 
+class TemplateBase(BaseModel):
+    title: str
+    slug: str
+    category: str
+    excerpt: str
+    description: str
+    thumbnailUrl: str = ""
+    gallery: List[str] = []
+    tags: List[str] = []
+    features: List[str] = []
+    priceLabel: str = ""
+    status: str = "Available"
+    techStack: List[str] = []
+    useCases: List[str] = []
+    valuePoints: List[str] = []
+    demoUrl: str = ""
+    ctaLabel: str = "Get This Template"
+    published: bool = True
+
+class TemplateCreate(TemplateBase):
+    pass
+
+class TemplateUpdate(BaseModel):
+    title: Optional[str] = None
+    slug: Optional[str] = None
+    category: Optional[str] = None
+    excerpt: Optional[str] = None
+    description: Optional[str] = None
+    thumbnailUrl: Optional[str] = None
+    gallery: Optional[List[str]] = None
+    tags: Optional[List[str]] = None
+    features: Optional[List[str]] = None
+    priceLabel: Optional[str] = None
+    status: Optional[str] = None
+    techStack: Optional[List[str]] = None
+    useCases: Optional[List[str]] = None
+    valuePoints: Optional[List[str]] = None
+    demoUrl: Optional[str] = None
+    ctaLabel: Optional[str] = None
+    published: Optional[bool] = None
+
+class TemplateResponse(TemplateBase):
+    id: str
+    createdAt: str
+
 class ContactBase(BaseModel):
     name: str
     email: str
@@ -439,6 +484,53 @@ async def delete_service(id: str, user: str = Depends(verify_token)):
         raise HTTPException(status_code=404, detail="Service not found")
     return {"message": "Service deleted successfully"}
 
+# Template Routes
+@app.get("/api/templates", response_model=List[TemplateResponse])
+async def get_templates(published_only: bool = True):
+    query = {"published": True} if published_only else {}
+    templates = list(db.templates.find(query).sort("createdAt", -1))
+    return [serialize_doc(template) for template in templates]
+
+@app.get("/api/templates/{slug}", response_model=TemplateResponse)
+async def get_template(slug: str):
+    template = db.templates.find_one({"slug": slug, "published": True})
+    if not template:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return serialize_doc(template)
+
+@app.post("/api/templates", response_model=TemplateResponse)
+async def create_template(template: TemplateCreate, user: str = Depends(verify_token)):
+    template_dict = template.model_dump()
+    template_dict["slug"] = slugify(template_dict["title"]) if not template_dict["slug"] else template_dict["slug"]
+    template_dict["createdAt"] = datetime.now(timezone.utc)
+    result = db.templates.insert_one(template_dict)
+    template_dict["_id"] = result.inserted_id
+    return serialize_doc(template_dict)
+
+@app.put("/api/templates/{id}", response_model=TemplateResponse)
+async def update_template(id: str, template: TemplateUpdate, user: str = Depends(verify_token)):
+    update_data = {k: v for k, v in template.model_dump().items() if v is not None}
+    if "title" in update_data and ("slug" not in update_data or not update_data["slug"]):
+        update_data["slug"] = slugify(update_data["title"])
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No data to update")
+
+    result = db.templates.find_one_and_update(
+        {"_id": ObjectId(id)},
+        {"$set": update_data},
+        return_document=True
+    )
+    if not result:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return serialize_doc(result)
+
+@app.delete("/api/templates/{id}")
+async def delete_template(id: str, user: str = Depends(verify_token)):
+    result = db.templates.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return {"message": "Template deleted successfully"}
+
 # Contact Routes
 @app.post("/api/contact", response_model=ContactResponse)
 async def create_contact(contact: ContactCreate):
@@ -478,6 +570,7 @@ async def get_stats(user: str = Depends(verify_token)):
     return {
         "totalBlogs": db.blogs.count_documents({}),
         "totalServices": db.services.count_documents({}),
+        "totalTemplates": db.templates.count_documents({}),
         "totalMessages": db.contacts.count_documents({}),
         "unreadMessages": db.contacts.count_documents({"read": False})
     }
