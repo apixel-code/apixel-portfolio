@@ -97,7 +97,7 @@ const Templates = () => {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 gap-8 sm:[grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] 2xl:[grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
                 {templates.map((template, index) => (
                   <TemplateCard key={template.id} template={template} index={index} />
                 ))}
