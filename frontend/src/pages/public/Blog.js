@@ -51,6 +51,10 @@ const Blog = () => {
     setCurrentPage(1);
   }, [searchTerm, selectedCategory, blogs]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
+
   const categories = ['All', ...new Set(blogs.map(blog => blog.category))];
 
   // Pagination
