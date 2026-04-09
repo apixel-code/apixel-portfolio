@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { Search, Calendar, User, Clock, ArrowRight } from 'lucide-react';
 import axios from 'axios';
-import Navbar from '../../components/ui/Navbar';
+import { motion } from 'framer-motion';
+import { ArrowRight, Calendar, Clock, Search, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
+import Navbar from '../../components/ui/Navbar';
 
 
 const Blog = () => {
@@ -103,13 +103,13 @@ const Blog = () => {
             <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
               {/* Search */}
               <div className="relative w-full md:w-80">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" size={18} />
                 <input
                   type="text"
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="input-dark pl-12 w-full"
+                  className="input-dark !pl-12 w-full"
                   data-testid="blog-search-input"
                 />
               </div>
@@ -154,11 +154,11 @@ const Blog = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       viewport={{ once: true }}
-                      className="card-glass group overflow-hidden"
+                      className="group h-full flex flex-col rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-brand-purple/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.2)]"
                       data-testid={`blog-card-${index}`}
                     >
                       {/* Thumbnail */}
-                      <div className="aspect-video w-full overflow-hidden rounded-lg mb-6 bg-brand-dark">
+                      <div className="aspect-[16/10] w-full overflow-hidden bg-brand-dark">
                         <img
                           src={blog.thumbnailUrl || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800'}
                           alt={blog.title}
@@ -167,42 +167,44 @@ const Blog = () => {
                         />
                       </div>
 
-                      {/* Category */}
-                      <span className="inline-block px-3 py-1 bg-brand-purple/20 text-brand-cyan text-xs font-dm-sans rounded-full mb-4">
-                        {blog.category}
-                      </span>
-
-                      {/* Title */}
-                      <h2 className="font-syne font-semibold text-xl text-white mb-3 group-hover:text-brand-cyan transition-colors line-clamp-2">
-                        <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
-                      </h2>
-
-                      {/* Excerpt */}
-                      <p className="text-slate-400 text-sm mb-4 line-clamp-3">{blog.excerpt}</p>
-
-                      {/* Meta */}
-                      <div className="flex items-center gap-4 text-xs text-slate-500 mb-4">
-                        <span className="flex items-center gap-1">
-                          <User size={14} />
-                          {blog.author}
+                      <div className="p-5 flex-1 flex flex-col">
+                        {/* Category */}
+                        <span className="inline-block w-fit px-3 py-1 bg-brand-purple/20 text-brand-cyan text-xs font-dm-sans rounded-full mb-3">
+                          {blog.category}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Calendar size={14} />
-                          {formatDate(blog.createdAt)}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock size={14} />
-                          {blog.readTime}
-                        </span>
+
+                        {/* Title */}
+                        <h2 className="font-syne font-semibold text-xl text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-2 min-h-[56px]">
+                          <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
+                        </h2>
+
+                        {/* Excerpt */}
+                        <p className="text-slate-400 text-sm mb-4 line-clamp-3 min-h-[66px]">{blog.excerpt}</p>
+
+                        {/* Meta */}
+                        <div className="grid grid-cols-3 gap-2 text-xs text-slate-500 mb-4 min-h-[38px]">
+                          <span className="flex items-center gap-1 truncate">
+                            <User size={14} />
+                            {blog.author}
+                          </span>
+                          <span className="flex items-center gap-1 truncate">
+                            <Calendar size={14} />
+                            {formatDate(blog.createdAt)}
+                          </span>
+                          <span className="flex items-center gap-1 truncate justify-self-end">
+                            <Clock size={14} />
+                            {blog.readTime}
+                          </span>
+                        </div>
+
+                        {/* Read More */}
+                        <Link 
+                          to={`/blog/${blog.slug}`}
+                          className="mt-auto text-brand-cyan text-sm font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                        >
+                          Read More <ArrowRight size={16} />
+                        </Link>
                       </div>
-
-                      {/* Read More */}
-                      <Link 
-                        to={`/blog/${blog.slug}`}
-                        className="text-brand-cyan text-sm font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-                      >
-                        Read More <ArrowRight size={16} />
-                      </Link>
                     </motion.article>
                   ))}
                 </div>

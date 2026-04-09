@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { Calendar, User, Clock, ArrowLeft, Tag, Facebook, Linkedin, Twitter } from 'lucide-react';
 import axios from 'axios';
-import Navbar from '../../components/ui/Navbar';
+import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Calendar, Clock, Facebook, Linkedin, Tag, Twitter, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
+import Navbar from '../../components/ui/Navbar';
 
 
 const BlogPost = () => {
@@ -236,9 +236,9 @@ const BlogPost = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="card-glass group"
+                    className="group h-full flex flex-col rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-brand-purple/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.2)]"
                   >
-                    <div className="aspect-video w-full overflow-hidden rounded-lg mb-4 bg-brand-dark">
+                    <div className="aspect-[16/10] w-full overflow-hidden bg-brand-dark">
                       <img
                         src={related.thumbnailUrl || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800'}
                         alt={related.title}
@@ -246,10 +246,25 @@ const BlogPost = () => {
                         loading="lazy"
                       />
                     </div>
-                    <h3 className="font-syne font-semibold text-lg text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-2">
-                      <Link to={`/blog/${related.slug}`}>{related.title}</Link>
-                    </h3>
-                    <p className="text-slate-400 text-sm line-clamp-2">{related.excerpt}</p>
+
+                    <div className="p-5 flex-1 flex flex-col">
+                      <span className="inline-block w-fit px-3 py-1 bg-brand-purple/20 text-brand-cyan text-xs font-dm-sans rounded-full mb-3">
+                        {related.category}
+                      </span>
+
+                      <h3 className="font-syne font-semibold text-lg text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-2 min-h-[56px]">
+                        <Link to={`/blog/${related.slug}`}>{related.title}</Link>
+                      </h3>
+
+                      <p className="text-slate-400 text-sm line-clamp-3 min-h-[66px]">{related.excerpt}</p>
+
+                      <Link
+                        to={`/blog/${related.slug}`}
+                        className="mt-auto pt-4 text-brand-cyan text-sm font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                      >
+                        Read More <ArrowRight size={16} />
+                      </Link>
+                    </div>
                   </motion.article>
                 ))}
               </div>
