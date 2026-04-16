@@ -1,9 +1,18 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Layers3, Tag } from 'lucide-react';
+import { ArrowRight, Flame, Layers3, Star, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { resolveImageUrl } from '../../utils/imageUrl';
 
+const BADGES = [
+  { label: 'Most Popular', icon: Flame, bg: 'bg-orange-500/90', text: 'text-white' },
+  { label: 'Best Seller', icon: Star, bg: 'bg-brand-gold/90', text: 'text-brand-dark' },
+  { label: 'Trending', icon: Flame, bg: 'bg-rose-500/90', text: 'text-white' },
+];
+
 const TemplateCard = ({ template, index = 0 }) => {
+  const badge = BADGES[index % BADGES.length];
+  const BadgeIcon = badge.icon;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
@@ -13,13 +22,17 @@ const TemplateCard = ({ template, index = 0 }) => {
       className="group h-full flex flex-col rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-brand-purple/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.2)]"
       data-testid={`template-card-${index}`}
     >
-      <div className="aspect-[16/9] w-full overflow-hidden bg-brand-dark">
+      <div className="aspect-[16/9] w-full overflow-hidden bg-brand-dark relative">
         <img
           src={resolveImageUrl(template.thumbnailUrl)}
           alt={template.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />
+        <span className={`absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-dm-sans font-bold ${badge.bg} ${badge.text} shadow-lg`} data-testid={`template-badge-${index}`}>
+          <BadgeIcon size={12} />
+          {badge.label}
+        </span>
       </div>
 
       <div className="p-4 pt-3 flex-1 flex flex-col">

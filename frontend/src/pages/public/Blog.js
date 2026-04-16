@@ -162,7 +162,7 @@ const Blog = () => {
                       data-testid={`blog-card-${index}`}
                     >
                       {/* Thumbnail */}
-                      <div className="aspect-[16/10] w-full overflow-hidden bg-brand-dark">
+                      <div className="aspect-[16/9] w-full overflow-hidden bg-brand-dark">
                         <img
                           src={blog.thumbnailUrl || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800'}
                           alt={blog.title}
@@ -171,43 +171,41 @@ const Blog = () => {
                         />
                       </div>
 
-                      <div className="p-5 flex-1 flex flex-col">
+                      <div className="p-4 pt-3 flex-1 flex flex-col">
                         {/* Category */}
                         <span className="inline-block w-fit px-3 py-1 bg-brand-purple/20 text-brand-cyan text-xs font-dm-sans rounded-full mb-3">
                           {blog.category}
                         </span>
 
                         {/* Title */}
-                        <h2 className="font-syne font-semibold text-xl text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-2 min-h-[56px]">
+                        <h2 className="font-syne font-semibold text-xl text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-2">
                           <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
                         </h2>
 
                         {/* Excerpt */}
-                        <p className="text-slate-400 text-sm mb-4 line-clamp-3 min-h-[66px]">{blog.excerpt}</p>
+                        <p className="text-slate-400 text-sm mb-3 line-clamp-2 flex-1">{blog.excerpt}</p>
 
                         {/* Meta */}
-                        <div className="grid grid-cols-3 gap-2 text-xs text-slate-500 mb-4 min-h-[38px]">
+                        <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
                           <span className="flex items-center gap-1 truncate">
                             <User size={14} />
                             {blog.author}
                           </span>
                           <span className="flex items-center gap-1 truncate">
-                            <Calendar size={14} />
-                            {formatDate(blog.createdAt)}
-                          </span>
-                          <span className="flex items-center gap-1 truncate justify-self-end">
                             <Clock size={14} />
                             {blog.readTime}
                           </span>
                         </div>
 
                         {/* Read More */}
-                        <Link 
-                          to={`/blog/${blog.slug}`}
-                          className="mt-auto text-brand-cyan text-sm font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-                        >
-                          Read More <ArrowRight size={16} />
-                        </Link>
+                        <div className="mt-auto pt-3 border-t border-white/10">
+                          <Link 
+                            to={`/blog/${blog.slug}`}
+                            className="text-brand-cyan text-sm font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                          >
+                            Read More <ArrowRight size={16} />
+                          </Link>
+                        </div>
                       </div>
                     </motion.article>
                   ))}

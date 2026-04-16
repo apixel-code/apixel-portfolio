@@ -382,6 +382,164 @@ def seed_database():
         }
         db.admins.insert_one(admin)
         print("Admin user seeded successfully")
+    else:
+        # Always ensure admin password is correct
+        db.admins.update_one(
+            {"email": "admin@agency.com"},
+            {"$set": {"password": pwd_context.hash("Admin@123")}},
+            upsert=True
+        )
+
+    # Seed templates if none exist
+    if db.templates.count_documents({}) == 0:
+        templates = [
+            {
+                "title": "Agency Pro - Digital Agency Website",
+                "slug": "agency-pro-digital-agency",
+                "category": "Agency",
+                "excerpt": "A sleek, conversion-focused website template built for digital agencies that want to look premium and close deals faster.",
+                "description": "Agency Pro is a fully responsive, modern digital agency template designed with conversion in mind. Every section is crafted to guide visitors from curiosity to contact. Dark-themed with bold accents, this template communicates authority and professionalism.",
+                "thumbnailUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
+                "gallery": [
+                    "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800",
+                    "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800",
+                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800"
+                ],
+                "tags": ["Agency", "Dark Theme", "MERN Stack"],
+                "features": ["Hero with CTA", "Service Showcase", "Portfolio Gallery", "Testimonial Slider", "Contact Form", "Blog Section"],
+                "priceLabel": "$499",
+                "status": "Available",
+                "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+                "useCases": ["Digital Agencies", "Marketing Firms", "Creative Studios", "Consulting"],
+                "valuePoints": ["Mobile-first responsive design", "SEO-optimized structure", "Fast load times under 2 seconds"],
+                "demoUrl": "",
+                "ctaLabel": "Get This Template",
+                "published": True,
+                "createdAt": datetime.now(timezone.utc) - timedelta(days=2)
+            },
+            {
+                "title": "ShopLaunch - E-Commerce Starter",
+                "slug": "shoplaunch-ecommerce-starter",
+                "category": "E-Commerce",
+                "excerpt": "Launch your online store in days, not months. A beautiful e-commerce template with product pages, cart, and checkout flow.",
+                "description": "ShopLaunch gives you everything you need to start selling online. With built-in product grids, filter options, a smooth cart experience, and checkout flow — this template is designed to turn browsers into buyers.",
+                "thumbnailUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800",
+                "gallery": [
+                    "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800",
+                    "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800",
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"
+                ],
+                "tags": ["E-Commerce", "Shopping", "Product Store"],
+                "features": ["Product Grid", "Shopping Cart", "Checkout Flow", "Search & Filters", "Product Detail Pages", "Wishlist"],
+                "priceLabel": "$699",
+                "status": "Available",
+                "techStack": ["React", "Node.js", "MongoDB", "Stripe"],
+                "useCases": ["Online Stores", "Fashion Brands", "Handmade Shops", "Electronics"],
+                "valuePoints": ["Built-in payment integration ready", "Inventory management system", "Customer reviews section"],
+                "demoUrl": "",
+                "ctaLabel": "Get This Template",
+                "published": True,
+                "createdAt": datetime.now(timezone.utc) - timedelta(days=5)
+            },
+            {
+                "title": "FolioX - Portfolio & Personal Brand",
+                "slug": "foliox-portfolio-personal-brand",
+                "category": "Portfolio",
+                "excerpt": "Stand out from the crowd. A minimal yet bold portfolio template for freelancers, developers, and creatives.",
+                "description": "FolioX is a personal branding powerhouse. Showcase your work, share your story, and let potential clients reach you effortlessly. Minimal design with maximum impact — built to make you look like the expert you are.",
+                "thumbnailUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
+                "gallery": [
+                    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800",
+                    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800",
+                    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800"
+                ],
+                "tags": ["Portfolio", "Minimal", "Personal Brand"],
+                "features": ["Project Showcase", "About Section", "Skills Display", "Contact Form", "Resume Download", "Smooth Animations"],
+                "priceLabel": "$349",
+                "status": "Available",
+                "techStack": ["React", "Framer Motion", "Tailwind CSS"],
+                "useCases": ["Freelancers", "Developers", "Designers", "Photographers"],
+                "valuePoints": ["Lightning fast performance", "Smooth scroll animations", "One-page & multi-page layouts"],
+                "demoUrl": "",
+                "ctaLabel": "Get This Template",
+                "published": True,
+                "createdAt": datetime.now(timezone.utc) - timedelta(days=8)
+            },
+            {
+                "title": "SaaSKit - SaaS Landing Page",
+                "slug": "saaskit-saas-landing-page",
+                "category": "SaaS",
+                "excerpt": "Convert visitors into trial users. A high-converting SaaS landing page with pricing tables, feature sections, and CTA blocks.",
+                "description": "SaaSKit is engineered for software companies that need to acquire users fast. With pricing comparison tables, feature highlights, social proof sections, and strategically placed CTAs — every pixel is designed to drive sign-ups.",
+                "thumbnailUrl": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800",
+                "gallery": [
+                    "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800",
+                    "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800",
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"
+                ],
+                "tags": ["SaaS", "Landing Page", "Startup"],
+                "features": ["Pricing Table", "Feature Grid", "Testimonials", "FAQ Accordion", "Newsletter Signup", "Analytics Ready"],
+                "priceLabel": "$599",
+                "status": "Available",
+                "techStack": ["React", "Node.js", "Tailwind CSS", "Framer Motion"],
+                "useCases": ["SaaS Products", "Startups", "Tech Companies", "App Landing Pages"],
+                "valuePoints": ["A/B test ready structure", "Conversion-optimized layout", "Integration-ready contact forms"],
+                "demoUrl": "",
+                "ctaLabel": "Get This Template",
+                "published": True,
+                "createdAt": datetime.now(timezone.utc) - timedelta(days=12)
+            },
+            {
+                "title": "RestroHub - Restaurant & Cafe Website",
+                "slug": "restrohub-restaurant-cafe",
+                "category": "Restaurant",
+                "excerpt": "Make your restaurant irresistible online. A beautiful template with menu display, reservation system, and gallery.",
+                "description": "RestroHub brings your restaurant to life online. Showcase your menu with stunning imagery, accept table reservations, display opening hours, and let your food photography do the talking. Designed to make visitors hungry and ready to book.",
+                "thumbnailUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
+                "gallery": [
+                    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+                    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
+                    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800"
+                ],
+                "tags": ["Restaurant", "Food", "Hospitality"],
+                "features": ["Menu Display", "Reservation Form", "Photo Gallery", "Opening Hours", "Location Map", "Customer Reviews"],
+                "priceLabel": "$449",
+                "status": "Available",
+                "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+                "useCases": ["Restaurants", "Cafes", "Bars", "Food Trucks"],
+                "valuePoints": ["Appetizing food photography layouts", "Online reservation system", "Google Maps integration"],
+                "demoUrl": "",
+                "ctaLabel": "Get This Template",
+                "published": True,
+                "createdAt": datetime.now(timezone.utc) - timedelta(days=15)
+            },
+            {
+                "title": "EduLearn - Online Course Platform",
+                "slug": "edulearn-online-course-platform",
+                "category": "Education",
+                "excerpt": "Teach the world. A comprehensive course platform template with lesson pages, enrollment flow, and instructor profiles.",
+                "description": "EduLearn is built for educators, coaches, and training companies who want to sell courses online. With course listings, lesson pages, instructor profiles, and enrollment flow — it's everything you need to start your online education business.",
+                "thumbnailUrl": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800",
+                "gallery": [
+                    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
+                    "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800",
+                    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800"
+                ],
+                "tags": ["Education", "Courses", "E-Learning"],
+                "features": ["Course Listings", "Lesson Pages", "Instructor Profiles", "Enrollment Flow", "Progress Tracking", "Certificate System"],
+                "priceLabel": "$549",
+                "status": "Available",
+                "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+                "useCases": ["Online Courses", "Coaching", "Corporate Training", "Tutoring"],
+                "valuePoints": ["Student dashboard included", "Video lesson support", "Payment gateway ready"],
+                "demoUrl": "",
+                "ctaLabel": "Get This Template",
+                "published": True,
+                "createdAt": datetime.now(timezone.utc) - timedelta(days=18)
+            }
+        ]
+        db.templates.insert_many(templates)
+        print("Templates seeded successfully")
 
 # Run seed on startup
 @app.on_event("startup")

@@ -22,7 +22,9 @@ export const AuthProvider = ({ children }) => {
     const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, { email, password });
     const { access_token } = response.data;
     localStorage.setItem('apixel_token', access_token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
     setToken(access_token);
+    setIsAuthenticated(true);
     return response.data;
   };
 

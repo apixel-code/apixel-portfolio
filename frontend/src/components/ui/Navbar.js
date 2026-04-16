@@ -54,13 +54,6 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
-            <Link
-              to="/contact"
-              className="btn-primary text-sm py-2 px-6"
-              data-testid="nav-get-started-btn"
-            >
-              Get Started
-            </Link>
             <button
               onClick={toggleTheme}
               className="w-9 h-9 rounded-full bg-white/10 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-all duration-300"
@@ -69,6 +62,13 @@ const Navbar = () => {
             >
               {isDark ? <Sun size={16} className="text-brand-gold" /> : <Moon size={16} className="text-brand-purple" />}
             </button>
+            <Link
+              to="/contact"
+              className="btn-primary text-sm py-2 px-6"
+              data-testid="nav-get-started-btn"
+            >
+              Get Started
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}

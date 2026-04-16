@@ -69,10 +69,10 @@ const Templates = () => {
                 Your Website Is Ready
               </span>
               <h1 className="font-syne font-bold text-4xl md:text-6xl text-white mt-5 mb-6">
-                Stop Waiting. Your Customers Are Already Looking For You Online.
+                Skip the Struggle. Start Selling Today.
               </h1>
               <p className="text-slate-300 text-lg leading-relaxed">
-                Every day without a website, you lose customers to competitors who showed up first. Pick a design, launch this week, and start getting orders.
+                Don't lose another customer to a bad website. Choose a premium, ready-to-launch store engineered to turn clicks into cash. Zero coding. Zero delays. Just instant growth.
               </p>
             </motion.div>
           </div>
