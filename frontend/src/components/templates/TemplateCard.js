@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Flame, Star } from 'lucide-react';
+import { ArrowRight, Flame, Layers3, Star, Tag } from 'lucide-react';
 import { resolveImageUrl } from '../../utils/imageUrl';
 
 const BADGES = [
@@ -23,7 +23,8 @@ const TemplateCard = ({ template, index = 0 }) => {
       className="group h-full flex flex-col rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-brand-purple/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.2)]"
       data-testid={`template-card-${index}`}
     >
-      <div className="aspect-[4/3] w-full overflow-hidden bg-brand-dark relative">
+      {/* Image - reduced height */}
+      <div className="aspect-[16/10] w-full overflow-hidden bg-brand-dark relative">
         <img
           src={resolveImageUrl(template.thumbnailUrl)}
           alt={template.title}
@@ -36,29 +37,63 @@ const TemplateCard = ({ template, index = 0 }) => {
         </span>
       </div>
 
+      {/* Content */}
       <div className="p-5 flex-1 flex flex-col">
-        <span className="text-brand-cyan text-xs font-dm-sans font-medium mb-2">
-          {template.category}
-        </span>
+        {/* Category + Status Row */}
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-purple/20 text-brand-cyan text-xs font-dm-sans font-medium rounded-full">
+            <Layers3 size={12} />
+            {template.category}
+          </span>
+          <span className={`text-xs px-3 py-1 rounded-full font-dm-sans font-medium ${
+            template.status === 'Available'
+              ? 'bg-green-500/20 text-green-400'
+              : 'bg-yellow-500/20 text-yellow-400'
+          }`}>
+            {template.status}
+          </span>
+        </div>
 
-        <h2 className="font-syne font-semibold text-lg text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-1">
+        {/* Title */}
+        <h2 className="font-syne font-semibold text-xl text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-1">
           {template.title}
         </h2>
 
-        <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2 flex-1">
+        {/* Description */}
+        <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
           {template.excerpt}
         </p>
 
-        <a
-          href={visitUrl}
-          target={hasDemo ? '_blank' : '_self'}
-          rel={hasDemo ? 'noopener noreferrer' : undefined}
-          className="inline-flex items-center gap-1.5 text-brand-cyan text-sm font-medium group-hover:gap-2.5 transition-all mt-auto"
-          data-testid={`template-visit-${index}`}
-        >
-          Visit Site
-          <ArrowUpRight size={14} />
-        </a>
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {template.tags?.slice(0, 2).map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-300"
+            >
+              <Tag size={11} />
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Price + Visit Site */}
+        <div className="flex items-center justify-between gap-3 pt-4 border-t border-white/10 mt-auto">
+          <div>
+            <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-0.5">Starting At</p>
+            <p className="font-syne font-bold text-brand-gold text-lg">{template.priceLabel}</p>
+          </div>
+          <a
+            href={visitUrl}
+            target={hasDemo ? '_blank' : '_self'}
+            rel={hasDemo ? 'noopener noreferrer' : undefined}
+            className="inline-flex items-center gap-1.5 text-brand-cyan text-sm font-medium group-hover:gap-2.5 transition-all"
+            data-testid={`template-visit-${index}`}
+          >
+            Visit Site
+            <ArrowRight size={14} />
+          </a>
+        </div>
       </div>
     </motion.article>
   );
