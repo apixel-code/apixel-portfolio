@@ -66,13 +66,13 @@ const Templates = () => {
             >
               <span className="inline-flex items-center gap-2 text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">
                 <Sparkles size={16} />
-                Your Website Is Ready
+                Selected Works
               </span>
               <h1 className="font-syne font-bold text-4xl md:text-6xl text-white mt-5 mb-6">
-                Skip the Struggle. Start Selling Today.
+                Websites and platforms we've shipped.
               </h1>
               <p className="text-slate-300 text-lg leading-relaxed">
-                Don't lose another customer to a bad website. Choose a premium, ready-to-launch store engineered to turn clicks into cash. Zero coding. Zero delays. Just instant growth.
+                A selection of recent projects spanning agencies, e-commerce, SaaS, portfolios and more.
               </p>
             </motion.div>
           </div>
@@ -82,16 +82,10 @@ const Templates = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
               <div>
-                <p className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">
-                  Choose Your Look
-                </p>
-                <h2 className="font-syne font-bold text-3xl md:text-5xl text-white mt-3">
-                  One Decision Away From a Professional Online Presence
+                <h2 className="font-syne font-bold text-3xl md:text-4xl text-white">
+                  Our Portfolio
                 </h2>
               </div>
-              <p className="text-slate-400 max-w-xl">
-                Real businesses are using these exact designs to get clients and close deals. Your turn.
-              </p>
             </div>
 
             {loading ? (

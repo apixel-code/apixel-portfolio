@@ -15,7 +15,6 @@ import BlogPost from './pages/public/BlogPost';
 import About from './pages/public/About';
 import Contact from './pages/public/Contact';
 import Templates from './pages/public/Templates';
-import TemplateDetails from './pages/public/TemplateDetails';
 import NotFound from './pages/public/NotFound';
 
 // Admin Pages
@@ -31,6 +30,7 @@ import AdminMessages from './pages/admin/AdminMessages';
 
 // Components
 import WhatsAppButton from './components/ui/WhatsAppButton';
+import ScrollToTop from './components/ui/ScrollToTop';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
     <ThemeProvider>
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <Toaster 
           position="top-right"
           toastOptions={{
@@ -68,7 +69,6 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/templates" element={<Templates />} />
-            <Route path="/templates/:slug" element={<TemplateDetails />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             

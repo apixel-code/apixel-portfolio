@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -61,40 +61,36 @@ const AdminLogin = () => {
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm text-slate-400 mb-2">Email</label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                  <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="input-dark pl-12"
-                    placeholder="admin@agency.com"
-                    data-testid="admin-email-input"
-                  />
-                </div>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="input-dark"
+                  placeholder="admin@agency.com"
+                  data-testid="admin-email-input"
+                />
               </div>
 
               {/* Password */}
               <div>
                 <label htmlFor="password" className="block text-sm text-slate-400 mb-2">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="input-dark pl-12 pr-12"
-                    placeholder="••••••••"
+                    className="input-dark pr-12"
+                    placeholder="Enter your password"
                     data-testid="admin-password-input"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>

@@ -412,7 +412,7 @@ def seed_database():
                 "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
                 "useCases": ["Digital Agencies", "Marketing Firms", "Creative Studios", "Consulting"],
                 "valuePoints": ["Mobile-first responsive design", "SEO-optimized structure", "Fast load times under 2 seconds"],
-                "demoUrl": "",
+                "demoUrl": "https://agencypro-demo.apixel.net",
                 "ctaLabel": "Get This Template",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=2)
@@ -436,7 +436,7 @@ def seed_database():
                 "techStack": ["React", "Node.js", "MongoDB", "Stripe"],
                 "useCases": ["Online Stores", "Fashion Brands", "Handmade Shops", "Electronics"],
                 "valuePoints": ["Built-in payment integration ready", "Inventory management system", "Customer reviews section"],
-                "demoUrl": "",
+                "demoUrl": "https://shoplaunch-demo.apixel.net",
                 "ctaLabel": "Get This Template",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=5)
@@ -460,7 +460,7 @@ def seed_database():
                 "techStack": ["React", "Framer Motion", "Tailwind CSS"],
                 "useCases": ["Freelancers", "Developers", "Designers", "Photographers"],
                 "valuePoints": ["Lightning fast performance", "Smooth scroll animations", "One-page & multi-page layouts"],
-                "demoUrl": "",
+                "demoUrl": "https://foliox-demo.apixel.net",
                 "ctaLabel": "Get This Template",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=8)
@@ -484,7 +484,7 @@ def seed_database():
                 "techStack": ["React", "Node.js", "Tailwind CSS", "Framer Motion"],
                 "useCases": ["SaaS Products", "Startups", "Tech Companies", "App Landing Pages"],
                 "valuePoints": ["A/B test ready structure", "Conversion-optimized layout", "Integration-ready contact forms"],
-                "demoUrl": "",
+                "demoUrl": "https://saaskit-demo.apixel.net",
                 "ctaLabel": "Get This Template",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=12)
@@ -508,7 +508,7 @@ def seed_database():
                 "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
                 "useCases": ["Restaurants", "Cafes", "Bars", "Food Trucks"],
                 "valuePoints": ["Appetizing food photography layouts", "Online reservation system", "Google Maps integration"],
-                "demoUrl": "",
+                "demoUrl": "https://restrohub-demo.apixel.net",
                 "ctaLabel": "Get This Template",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=15)
@@ -532,7 +532,7 @@ def seed_database():
                 "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
                 "useCases": ["Online Courses", "Coaching", "Corporate Training", "Tutoring"],
                 "valuePoints": ["Student dashboard included", "Video lesson support", "Payment gateway ready"],
-                "demoUrl": "",
+                "demoUrl": "https://edulearn-demo.apixel.net",
                 "ctaLabel": "Get This Template",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=18)

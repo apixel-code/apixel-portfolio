@@ -71,14 +71,24 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-white"
-            data-testid="mobile-menu-toggle"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: Toggle + Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="w-9 h-9 rounded-full bg-white/10 border border-white/10 flex items-center justify-center hover:bg-white/20 transition-all duration-300"
+              data-testid="theme-toggle-mobile-btn"
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun size={16} className="text-brand-gold" /> : <Moon size={16} className="text-brand-purple" />}
+            </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-white"
+              data-testid="mobile-menu-toggle"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -111,14 +121,6 @@ const Navbar = () => {
               >
                 Get Started
               </Link>
-              <button
-                onClick={toggleTheme}
-                className="w-full mt-3 py-2 rounded-full bg-white/10 border border-white/10 flex items-center justify-center gap-2 text-sm font-dm-sans text-slate-300 hover:bg-white/20 transition-all"
-                data-testid="theme-toggle-mobile-btn"
-              >
-                {isDark ? <Sun size={16} className="text-brand-gold" /> : <Moon size={16} className="text-brand-purple" />}
-                {isDark ? 'Light Mode' : 'Dark Mode'}
-              </button>
             </div>
           </motion.div>
         )}
