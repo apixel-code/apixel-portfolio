@@ -1,55 +1,44 @@
 # Apixel Portfolio - PRD
 
 ## Original Problem Statement
-Clone GitHub repo `apixel-code/apixel-portfolio` and make these changes:
-1. Phone/WhatsApp: +8801754407239
-2. Store page copy: emotional, conversion-focused
-3. Store card height: 10% reduced
-4. "View Store Item" → "View Details"
-5. Template Details page cleanup
-6. Dark/Light mode toggle next to "Get Started"
+Clone GitHub repo `apixel-code/apixel-portfolio` and make changes: phone number, store copy, card height, dark/light mode toggle.
 
-## Iteration 2 Changes (User Request)
-1. Toggle button moved to LEFT of "Get Started"
-2. Blog card size matched to Store card size
-3. 6 demo templates seeded in Store page
-4. "Most Popular" / "Best Seller" / "Trending" badges on cards
-5. Store page copy updated to: "Skip the Struggle. Start Selling Today."
-6. Mobile responsiveness check & fix
-7. Admin panel made mobile responsive (hamburger sidebar)
-8. Admin login fixed (race condition in AuthContext)
+## Iteration History
+
+### Iteration 1
+- Phone/WhatsApp: +8801754407239
+- Store page emotional copy, card height reduced, "View Details" button
+- Dark/Light mode toggle, Template Details cleanup
+
+### Iteration 2
+- Toggle to left of Get Started, Blog card = Store card size
+- 6 demo templates seeded, social proof badges
+- Admin login fixed, admin panel mobile responsive
+
+### Iteration 3
+- Mobile toggle moved next to hamburger menu button
+- ScrollToTop fix - pages now start from top on navigation
+- Store copy simplified like Nextive: "Websites and platforms we've shipped."
+- Card size 4:3 ratio like Nextive, simpler layout
+- "Visit Site" button links to external demo URL (set via admin)
+- Template Details page removed - cards link directly to demo
+- Admin login inputs cleaned (removed icon overlays)
 
 ## Architecture
 - **Frontend**: React 18 + Tailwind CSS + Framer Motion
 - **Backend**: FastAPI + MongoDB
 - **Auth**: JWT-based admin auth
 
-## User Personas
-- **Visitors**: Browse services, store templates, blog, contact
-- **Admin**: Manage blogs, services, templates, messages via /admin
+## What's Implemented
+- Full portfolio site: Home, Services, Store, Blog, About, Contact
+- Admin panel: CRUD for blogs, services, templates, messages
+- Dark/Light mode with localStorage persistence
+- ScrollToTop on route changes
+- Mobile responsive across all pages + admin panel
+- 6 demo templates with demo URLs
 
-## What's Been Implemented
-### Phase 1 (Jan 16, 2026)
-- Full repo clone and setup
-- Phone/WhatsApp number updated everywhere
-- Store page emotional copy
-- Card height reduced, "View Details" button
-- Template Details page improved
-- Dark/Light mode toggle with localStorage persistence
+## Testing: 100% pass rate (3/3 iterations)
 
-### Phase 2 (Jan 16, 2026)
-- Toggle moved to left of "Get Started"
-- Blog cards made compact (16/9, reduced padding)
-- 6 demo templates seeded: Agency Pro, ShopLaunch, FolioX, SaaSKit, RestroHub, EduLearn
-- Social proof badges on template cards (Most Popular, Best Seller, Trending)
-- Store copy: "Skip the Struggle. Start Selling Today."
-- Admin panel mobile responsive (slide-out sidebar)
-- Admin login race condition fixed
-- Full mobile responsiveness verified
-
-## Testing: 100% pass rate (backend + frontend) - Both iterations
-
-## Prioritized Backlog
-- P0: None
-- P1: Add template image gallery/demo URLs from admin
-- P2: SEO optimizations, blog pagination improvements
+## Backlog
+- P1: Real demo URLs for templates
+- P2: Blog pagination, SEO improvements
