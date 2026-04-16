@@ -1,45 +1,55 @@
 # Apixel Portfolio - PRD
 
 ## Original Problem Statement
-Clone GitHub repo `apixel-code/apixel-portfolio`. Make the following changes:
-1. Replace phone/WhatsApp number with +8801754407239
-2. Update Store page copy with emotional, reptilian-brain-targeting copy
-3. Reduce Store page card height by 10%
-4. Change "View Store Item" button to "View Details"
-5. Clean up Template Details page for clarity
-6. Add Dark/Light mode toggle next to "Get Started" button on Home page navbar
+Clone GitHub repo `apixel-code/apixel-portfolio` and make these changes:
+1. Phone/WhatsApp: +8801754407239
+2. Store page copy: emotional, conversion-focused
+3. Store card height: 10% reduced
+4. "View Store Item" → "View Details"
+5. Template Details page cleanup
+6. Dark/Light mode toggle next to "Get Started"
+
+## Iteration 2 Changes (User Request)
+1. Toggle button moved to LEFT of "Get Started"
+2. Blog card size matched to Store card size
+3. 6 demo templates seeded in Store page
+4. "Most Popular" / "Best Seller" / "Trending" badges on cards
+5. Store page copy updated to: "Skip the Struggle. Start Selling Today."
+6. Mobile responsiveness check & fix
+7. Admin panel made mobile responsive (hamburger sidebar)
+8. Admin login fixed (race condition in AuthContext)
 
 ## Architecture
 - **Frontend**: React 18 + Tailwind CSS + Framer Motion
 - **Backend**: FastAPI + MongoDB
-- **Auth**: JWT-based admin auth (admin@agency.com / Admin@123)
+- **Auth**: JWT-based admin auth
 
 ## User Personas
 - **Visitors**: Browse services, store templates, blog, contact
 - **Admin**: Manage blogs, services, templates, messages via /admin
 
-## Core Requirements (Static)
-- Portfolio website for Apixel digital agency
-- Services: Web Dev, Ads, Social Media, Graphic Design
-- Blog system with CRUD
-- Template/Store marketplace (admin-managed)
-- Contact form
-- WhatsApp floating button
+## What's Been Implemented
+### Phase 1 (Jan 16, 2026)
+- Full repo clone and setup
+- Phone/WhatsApp number updated everywhere
+- Store page emotional copy
+- Card height reduced, "View Details" button
+- Template Details page improved
+- Dark/Light mode toggle with localStorage persistence
 
-## What's Been Implemented (Jan 16, 2026)
-- Cloned and set up full repo from GitHub
-- Phone/WhatsApp number updated to +8801754407239 in WhatsAppButton, Footer, Contact
-- Store page copy rewritten with emotional, conversion-focused messaging
-- Store card height reduced by 10% (tighter padding, 16/9 aspect ratio)
-- "View Store Item" -> "View Details" button text
-- Template Details page cleaned up with clearer sections and better CTA
-- Dark/Light mode toggle added next to "Get Started" in Navbar
-- Theme persists via localStorage
-- Light mode CSS overrides for all components
+### Phase 2 (Jan 16, 2026)
+- Toggle moved to left of "Get Started"
+- Blog cards made compact (16/9, reduced padding)
+- 6 demo templates seeded: Agency Pro, ShopLaunch, FolioX, SaaSKit, RestroHub, EduLearn
+- Social proof badges on template cards (Most Popular, Best Seller, Trending)
+- Store copy: "Skip the Struggle. Start Selling Today."
+- Admin panel mobile responsive (slide-out sidebar)
+- Admin login race condition fixed
+- Full mobile responsiveness verified
 
-## Testing: 100% pass rate (backend + frontend)
+## Testing: 100% pass rate (backend + frontend) - Both iterations
 
 ## Prioritized Backlog
-- P0: None (all required changes complete)
-- P1: Add template seed data for store demos
-- P2: SEO optimizations, image lazy loading improvements
+- P0: None
+- P1: Add template image gallery/demo URLs from admin
+- P2: SEO optimizations, blog pagination improvements
