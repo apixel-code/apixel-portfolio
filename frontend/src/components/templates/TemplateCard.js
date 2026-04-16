@@ -23,8 +23,8 @@ const TemplateCard = ({ template, index = 0 }) => {
       className="group h-full flex flex-col rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-brand-purple/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.2)]"
       data-testid={`template-card-${index}`}
     >
-      {/* Image - reduced height */}
-      <div className="aspect-[16/10] w-full overflow-hidden bg-brand-dark relative">
+      {/* Image */}
+      <div className="aspect-[2/1] w-full overflow-hidden bg-brand-dark relative">
         <img
           src={resolveImageUrl(template.thumbnailUrl)}
           alt={template.title}
@@ -38,9 +38,9 @@ const TemplateCard = ({ template, index = 0 }) => {
       </div>
 
       {/* Content */}
-      <div className="p-5 flex-1 flex flex-col">
+      <div className="p-4 flex-1 flex flex-col">
         {/* Category + Status Row */}
-        <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="flex items-center justify-between gap-2 mb-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-purple/20 text-brand-cyan text-xs font-dm-sans font-medium rounded-full">
             <Layers3 size={12} />
             {template.category}
@@ -55,17 +55,17 @@ const TemplateCard = ({ template, index = 0 }) => {
         </div>
 
         {/* Title */}
-        <h2 className="font-syne font-semibold text-xl text-white mb-2 group-hover:text-brand-cyan transition-colors line-clamp-1">
+        <h2 className="font-syne font-semibold text-lg text-white mb-1.5 group-hover:text-brand-cyan transition-colors line-clamp-1">
           {template.title}
         </h2>
 
         {/* Description */}
-        <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
+        <p className="text-slate-400 text-sm leading-relaxed mb-3 line-clamp-2 flex-1">
           {template.excerpt}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-3">
           {template.tags?.slice(0, 2).map((tag) => (
             <span
               key={tag}
@@ -78,7 +78,7 @@ const TemplateCard = ({ template, index = 0 }) => {
         </div>
 
         {/* Price + Visit Site */}
-        <div className="flex items-center justify-between gap-3 pt-4 border-t border-white/10 mt-auto">
+        <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/10 mt-auto">
           <div>
             <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-0.5">Starting At</p>
             <p className="font-syne font-bold text-brand-gold text-lg">{template.priceLabel}</p>
