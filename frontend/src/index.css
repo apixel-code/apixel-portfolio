@@ -166,6 +166,12 @@ body {
   @apply bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 focus:border-brand-purple focus:ring-1 focus:ring-brand-purple focus:outline-none transition-all w-full;
 }
 
+/* Select dropdown fix for dark mode */
+.input-dark option {
+  background-color: #1e1b4b;
+  color: #F8FAFC;
+}
+
 /* Mobile menu */
 .mobile-menu {
   @apply fixed inset-0 bg-brand-dark/95 backdrop-blur-xl z-50 transform transition-transform duration-300;
@@ -191,8 +197,8 @@ body {
 }
 
 .light-mode nav.fixed {
-  background-color: rgba(248, 250, 252, 0.85);
-  border-bottom-color: rgba(0, 0, 0, 0.06);
+  background-color: rgba(248, 250, 252, 0.9);
+  border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
 .light-mode .text-white {
@@ -200,21 +206,21 @@ body {
 }
 
 .light-mode .text-slate-300 {
-  color: #475569;
+  color: #334155;
 }
 
 .light-mode .text-slate-400 {
-  color: #64748b;
+  color: #475569;
 }
 
 .light-mode .text-slate-500 {
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .light-mode .card-glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   border-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .light-mode .card-glass:hover {
@@ -235,7 +241,7 @@ body {
 }
 
 .light-mode .border-white\/10 {
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 .light-mode .bg-grid {
@@ -249,12 +255,12 @@ body {
 
 .light-mode footer {
   background-color: #f1f5f9;
-  border-top-color: rgba(0, 0, 0, 0.06);
+  border-top-color: rgba(0, 0, 0, 0.08);
 }
 
 .light-mode .input-dark {
-  background-color: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.12);
   color: #0f172a;
 }
 
@@ -262,8 +268,17 @@ body {
   color: #94a3b8;
 }
 
+.light-mode .input-dark option {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
 .light-mode .text-brand-cyan {
   color: #7c3aed;
+}
+
+.light-mode .text-brand-gold {
+  color: #b45309;
 }
 
 .light-mode ::-webkit-scrollbar-track {
@@ -279,7 +294,7 @@ body {
 }
 
 .light-mode .bg-brand-dark\/80 {
-  background-color: rgba(248, 250, 252, 0.85);
+  background-color: rgba(248, 250, 252, 0.9);
 }
 
 .light-mode .bg-brand-dark\/95 {
@@ -304,5 +319,21 @@ body {
 
 .light-mode .bg-brand-purple\/10 {
   background-color: rgba(147, 51, 234, 0.06);
+}
+
+.light-mode .btn-secondary {
+  border-color: rgba(124, 58, 237, 0.3);
+  color: #7c3aed;
+}
+
+.light-mode .btn-secondary:hover {
+  background-color: rgba(124, 58, 237, 0.08);
+}
+
+.light-mode .gradient-text {
+  background: linear-gradient(135deg, #7c3aed, #9333EA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 

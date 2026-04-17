@@ -1,8 +1,10 @@
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { isDark } = useTheme();
 
   const quickLinks = [
     { name: 'Home', path: '/' },
@@ -28,10 +30,10 @@ const Footer = () => {
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
               <img 
-                src="/assets/f.png" 
+                src={isDark ? "/assets/f.png" : "/assets/f-light.png"}
                 alt="Apixel Logo" 
-                className="h-16 sm:h-20 w-auto object-contain mix-blend-screen"
-                style={{ filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' }}
+                className={`h-16 sm:h-20 w-auto object-contain ${isDark ? 'mix-blend-screen' : ''}`}
+                style={isDark ? { filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' } : {}}
               />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed">
