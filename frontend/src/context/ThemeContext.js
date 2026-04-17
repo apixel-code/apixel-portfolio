@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ThemeContext = createContext(null);
 
@@ -8,21 +9,33 @@ export const ThemeProvider = ({ children }) => {
     return stored ? stored === 'dark' : true;
   });
 
+  const applyTheme = useCallback((dark) => {
+    // Check if currently on admin pages
+    const isAdmin = window.location.pathname.startsWith('/admin');
+    if (isAdmin) {
+      // Force dark on admin pages - admin has its own toggle
+      document.documentElement.classList.remove('light-mode');
+      document.documentElement.classList.add('dark-mode');
+    } else {
+      if (dark) {
+        document.documentElement.classList.add('dark-mode');
+        document.documentElement.classList.remove('light-mode');
+      } else {
+        document.documentElement.classList.add('light-mode');
+        document.documentElement.classList.remove('dark-mode');
+      }
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('apixel_theme', isDark ? 'dark' : 'light');
-    if (isDark) {
-      document.documentElement.classList.add('dark-mode');
-      document.documentElement.classList.remove('light-mode');
-    } else {
-      document.documentElement.classList.add('light-mode');
-      document.documentElement.classList.remove('dark-mode');
-    }
-  }, [isDark]);
+    applyTheme(isDark);
+  }, [isDark, applyTheme]);
 
   const toggleTheme = () => setIsDark((prev) => !prev);
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+    <ThemeContext.Provider value={{ isDark, toggleTheme, applyTheme }}>
       {children}
     </ThemeContext.Provider>
   );

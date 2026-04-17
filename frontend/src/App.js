@@ -5,7 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider, AdminThemeProvider } from './context/ThemeContext';
 
 // Public Pages
 import Home from './pages/public/Home';

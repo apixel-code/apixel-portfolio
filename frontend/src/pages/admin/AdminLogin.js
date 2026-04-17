@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,12 @@ const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  // Force dark mode on admin login
+  useEffect(() => {
+    document.documentElement.classList.remove('light-mode');
+    document.documentElement.classList.add('dark-mode');
+  }, []);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();

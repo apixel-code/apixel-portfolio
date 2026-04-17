@@ -52,10 +52,8 @@ const Templates = () => {
       <Navbar />
 
       <main className="bg-brand-dark min-h-screen pt-20">
-        <section className="py-20 bg-grid relative overflow-hidden">
+        <section className="py-8 bg-grid relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-radial from-brand-purple/10 via-transparent to-transparent" />
-          <div className="absolute top-20 left-10 w-72 h-72 bg-brand-purple/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-brand-cyan/10 rounded-full blur-3xl" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
@@ -68,25 +66,15 @@ const Templates = () => {
                 <Sparkles size={16} />
                 Selected Works
               </span>
-              <h1 className="font-syne font-bold text-4xl md:text-6xl text-white mt-5 mb-6">
-                Websites and platforms we've shipped.
+              <h1 className="font-syne font-bold text-2xl md:text-4xl text-white mt-4 mb-0">
+                Your business deserves to look expensive.
               </h1>
-              <p className="text-slate-300 text-lg leading-relaxed">
-                A selection of recent projects spanning agencies, e-commerce, SaaS, portfolios and more.
-              </p>
             </motion.div>
           </div>
         </section>
 
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-              <div>
-                <h2 className="font-syne font-bold text-3xl md:text-4xl text-white">
-                  Our Portfolio
-                </h2>
-              </div>
-            </div>
 
             {loading ? (
               <Loading />
