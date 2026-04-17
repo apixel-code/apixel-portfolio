@@ -97,7 +97,7 @@ const AdminLayout = ({ children }) => {
   );
 
   return (
-    <div className={`min-h-screen ${isAdminDark ? 'bg-[#0B0F19]' : 'bg-slate-100'}`}>
+    <div className={`min-h-screen ${isAdminDark ? 'bg-[#0B0F19]' : 'bg-slate-100 admin-light'}`}>
       {/* Mobile Header */}
       <header className={`md:hidden fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b px-4 py-3 flex items-center justify-between ${isAdminDark ? 'bg-brand-dark/95 border-white/5' : 'bg-white/95 border-slate-200'}`}>
         <button
