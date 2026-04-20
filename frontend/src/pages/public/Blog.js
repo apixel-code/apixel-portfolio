@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Clock, Search, User } from 'lucide-react';
+import { ArrowRight, Clock, Search, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -62,14 +62,6 @@ const Blog = () => {
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
   const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
   const totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   return (
     <>

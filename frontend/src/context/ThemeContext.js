@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 const ThemeContext = createContext(null);
 

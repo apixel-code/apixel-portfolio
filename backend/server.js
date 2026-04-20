@@ -340,6 +340,10 @@ app.get("/api/stats", verifyToken, async (_req, res) => {
 
 // ── Start ────────────────────────────────────────────────
 async function start() {
+  if (!MONGO_URL) {
+    throw new Error("Missing MONGO_URL in environment variables");
+  }
+
   const client = new MongoClient(MONGO_URL);
   await client.connect();
   db = client.db(DB_NAME);
