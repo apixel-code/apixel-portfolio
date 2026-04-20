@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const { MongoClient, ObjectId } = require("mongodb");
 
 // ── Config ──────────────────────────────────────────────
-const PORT = process.env.PORT || 8001;
+const PORT = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
 const DB_NAME = process.env.DB_NAME || "apixel_agency";
 const JWT_SECRET = process.env.JWT_SECRET || "apixel_super_secret_jwt_key_2024";
