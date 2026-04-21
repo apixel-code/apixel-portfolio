@@ -15,7 +15,16 @@ const JWT_EXPIRES_IN = "24h";
 
 // ── App Setup ───────────────────────────────────────────
 const app = express();
-app.use(cors({ origin: "*", credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "https://apixel-portfolio.vercel.app",
+      "https://www.apixel.net",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  }),
+);
 app.use(express.json({ limit: "10mb" }));
 
 let db;
