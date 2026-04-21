@@ -337,6 +337,84 @@ body {
   background-clip: text;
 }
 
+/* 1. Navbar hover: visible in light mode */
+.light-mode .hover\:text-white:hover {
+  color: #7c3aed !important;
+}
+
+.light-mode nav .text-slate-300.hover\:text-white:hover {
+  color: #7c3aed !important;
+}
+
+/* 2. Footer link hover: visible in light mode */
+.light-mode .hover\:text-brand-cyan:hover {
+  color: #7c3aed !important;
+}
+
+.light-mode footer .hover\:text-white:hover {
+  color: #7c3aed !important;
+}
+
+.light-mode footer .hover\:text-slate-300:hover {
+  color: #475569 !important;
+}
+
+/* 3. Card title hover: visible in light mode */
+.light-mode .group-hover\:text-brand-cyan {
+  transition: color 0.2s;
+}
+
+.light-mode .group:hover .group-hover\:text-brand-cyan {
+  color: #7c3aed !important;
+}
+
+/* 4. Buttons (Get Started, CTA) keep white text in light mode */
+.light-mode .btn-primary {
+  color: #ffffff !important;
+}
+
+/* 5. Blog detail page prose content */
+.light-mode .prose-invert {
+  --tw-prose-body: #334155;
+  --tw-prose-headings: #0f172a;
+  --tw-prose-links: #7c3aed;
+  --tw-prose-bold: #0f172a;
+  --tw-prose-bullets: #475569;
+  --tw-prose-counters: #475569;
+}
+
+.light-mode .prose-headings\:text-white h1,
+.light-mode .prose-headings\:text-white h2,
+.light-mode .prose-headings\:text-white h3,
+.light-mode .prose-headings\:text-white h4 {
+  color: #0f172a !important;
+}
+
+.light-mode .prose-p\:text-slate-300 p {
+  color: #334155 !important;
+}
+
+.light-mode .prose-strong\:text-white strong {
+  color: #0f172a !important;
+}
+
+.light-mode .prose-ul\:text-slate-300 ul,
+.light-mode .prose-ol\:text-slate-300 ol,
+.light-mode .prose-ul\:text-slate-300 li,
+.light-mode .prose-ol\:text-slate-300 li {
+  color: #334155 !important;
+}
+
+.light-mode .prose-code\:text-brand-cyan code {
+  color: #7c3aed !important;
+  background-color: rgba(124, 58, 237, 0.08) !important;
+}
+
+.light-mode .prose-pre\:bg-white\/5 pre {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
 
 
 /* ─── Admin Light Mode ─── */
