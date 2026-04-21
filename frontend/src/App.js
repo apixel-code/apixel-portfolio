@@ -37,7 +37,7 @@ function App() {
     <ThemeProvider>
     <AuthProvider>
       <Router>
-        <ScrollToTop />
+        <ScrollToTop/>
         <Toaster 
           position="top-right"
           toastOptions={{
