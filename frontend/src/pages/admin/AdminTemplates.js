@@ -135,15 +135,17 @@ const AdminTemplates = () => {
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex items-center justify-end gap-2">
-                            <a
-                              href={`/templates/${template.slug}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-                              title="View"
-                            >
-                              <Eye size={18} className="text-slate-400" />
-                            </a>
+                            {template.demoUrl && (
+                              <a
+                                href={template.demoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                                title="View Demo"
+                              >
+                                <Eye size={18} className="text-slate-400" />
+                              </a>
+                            )}
                             <Link
                               to={`/admin/templates/edit/${template.id}`}
                               className="p-2 hover:bg-white/10 rounded-lg transition-colors"

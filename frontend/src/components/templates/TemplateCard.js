@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Flame, Layers3, Star, Tag } from 'lucide-react';
+import { ArrowRight, Flame, Layers3, Star, Tag, TrendingUp } from 'lucide-react';
 import { resolveImageUrl } from '../../utils/imageUrl';
 
-const BADGES = [
-  { label: 'Most Popular', icon: Flame, bg: 'bg-orange-500/90', text: 'text-white' },
-  { label: 'Best Seller', icon: Star, bg: 'bg-brand-gold/90', text: 'text-brand-dark' },
-  { label: 'Trending', icon: Flame, bg: 'bg-rose-500/90', text: 'text-white' },
-];
+const BADGE_STYLES = {
+  'Most Popular': { icon: Flame, bg: 'bg-orange-500/90', text: 'text-white' },
+  'Best Seller': { icon: Star, bg: 'bg-brand-gold/90', text: 'text-brand-dark' },
+  'Trending': { icon: TrendingUp, bg: 'bg-rose-500/90', text: 'text-white' },
+};
 
 const TemplateCard = ({ template, index = 0 }) => {
-  const badge = BADGES[index % BADGES.length];
-  const BadgeIcon = badge.icon;
+  const badge = template.badge && BADGE_STYLES[template.badge] ? BADGE_STYLES[template.badge] : null;
+  const BadgeIcon = badge?.icon;
   const visitUrl = template.demoUrl || '#';
   const hasDemo = !!template.demoUrl;
 
@@ -31,10 +31,15 @@ const TemplateCard = ({ template, index = 0 }) => {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />
-        <span className={`absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-dm-sans font-bold ${badge.bg} ${badge.text} shadow-lg`} data-testid={`template-badge-${index}`}>
-          <BadgeIcon size={12} />
-          {badge.label}
-        </span>
+        {badge && (
+          <span
+            className={`absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-dm-sans font-bold ${badge.bg} ${badge.text} shadow-lg`}
+            data-testid={`template-badge-${index}`}
+          >
+            <BadgeIcon size={12} />
+            {template.badge}
+          </span>
+        )}
       </div>
 
       {/* Content */}

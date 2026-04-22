@@ -1,32 +1,52 @@
+import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Code, Database, Eye, Globe, Heart, Palette, Rocket, Smartphone, Target, Zap } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/ui/Footer';
 import Navbar from '../../components/ui/Navbar';
+import { resolveImageUrl } from '../../utils/imageUrl';
+
+const DEFAULT_TEAM = [
+  {
+    name: 'Mahabub Islam',
+    role: 'Founder & CEO',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
+  },
+  {
+    name: 'Tanvir Ahmed',
+    role: 'Lead Developer',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop',
+  },
+  {
+    name: 'Sabrina Rahman',
+    role: 'Marketing Head',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop',
+  },
+  {
+    name: 'Rifat Hossain',
+    role: 'Creative Director',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop',
+  },
+];
 
 const About = () => {
-  const team = [
-    {
-      name: 'Mahabub Islam',
-      role: 'Founder & CEO',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-    },
-    {
-      name: 'Tanvir Ahmed',
-      role: 'Lead Developer',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop',
-    },
-    {
-      name: 'Sabrina Rahman',
-      role: 'Marketing Head',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop',
-    },
-    {
-      name: 'Rifat Hossain',
-      role: 'Creative Director',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop',
-    },
-  ];
+  const [team, setTeam] = useState(DEFAULT_TEAM);
+
+  useEffect(() => {
+    const fetchExperts = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/experts`);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setTeam(response.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch experts, using defaults:', error);
+      }
+    };
+
+    fetchExperts();
+  }, []);
 
   const values = [
     { icon: Target, title: 'Mission', description: 'To propel businesses into the future with cutting-edge digital solutions that drive growth and success.' },
@@ -181,7 +201,7 @@ const About = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {team.map((member, index) => (
                 <motion.div
-                  key={member.name}
+                  key={member.id || member.name}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -191,7 +211,7 @@ const About = () => {
                 >
                   <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-2 border-brand-purple/30 group-hover:border-brand-cyan transition-colors">
                     <img
-                      src={member.image}
+                      src={resolveImageUrl(member.image)}
                       alt={member.name}
                       className="w-full h-full object-cover"
                       loading="lazy"

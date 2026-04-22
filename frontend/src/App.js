@@ -5,7 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider, AdminThemeProvider } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Public Pages
 import Home from './pages/public/Home';
@@ -26,6 +26,8 @@ import AdminServices from './pages/admin/AdminServices';
 import AdminServiceForm from './pages/admin/AdminServiceForm';
 import AdminTemplates from './pages/admin/AdminTemplates';
 import AdminTemplateForm from './pages/admin/AdminTemplateForm';
+import AdminExperts from './pages/admin/AdminExperts';
+import AdminExpertForm from './pages/admin/AdminExpertForm';
 import AdminMessages from './pages/admin/AdminMessages';
 
 // Components
@@ -103,6 +105,15 @@ function App() {
             } />
             <Route path="/admin/templates/edit/:id" element={
               <ProtectedRoute><AdminTemplateForm /></ProtectedRoute>
+            } />
+            <Route path="/admin/experts" element={
+              <ProtectedRoute><AdminExperts /></ProtectedRoute>
+            } />
+            <Route path="/admin/experts/new" element={
+              <ProtectedRoute><AdminExpertForm /></ProtectedRoute>
+            } />
+            <Route path="/admin/experts/edit/:id" element={
+              <ProtectedRoute><AdminExpertForm /></ProtectedRoute>
             } />
             <Route path="/admin/messages" element={
               <ProtectedRoute><AdminMessages /></ProtectedRoute>

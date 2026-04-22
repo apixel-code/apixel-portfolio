@@ -7,23 +7,19 @@ import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { resolveImageUrl } from '../../utils/imageUrl';
 
+const BADGE_OPTIONS = ['', 'Most Popular', 'Best Seller', 'Trending'];
+
 const emptyForm = {
   title: '',
   slug: '',
   category: '',
   excerpt: '',
-  description: '',
   thumbnailUrl: '',
-  gallery: '',
   tags: '',
-  features: '',
   priceLabel: '',
   status: 'Available',
-  techStack: '',
-  useCases: '',
-  valuePoints: '',
   demoUrl: '',
-  ctaLabel: 'Get This Store Item',
+  badge: '',
   published: true,
 };
 
@@ -50,13 +46,17 @@ const AdminTemplateForm = () => {
           const template = response.data.find((item) => item.id === id);
           if (template) {
             setFormData({
-              ...template,
-              gallery: template.gallery?.join(', ') || '',
+              title: template.title || '',
+              slug: template.slug || '',
+              category: template.category || '',
+              excerpt: template.excerpt || '',
+              thumbnailUrl: template.thumbnailUrl || '',
               tags: template.tags?.join(', ') || '',
-              features: template.features?.join(', ') || '',
-              techStack: template.techStack?.join(', ') || '',
-              useCases: template.useCases?.join(', ') || '',
-              valuePoints: template.valuePoints?.join(', ') || '',
+              priceLabel: template.priceLabel || '',
+              status: template.status || 'Available',
+              demoUrl: template.demoUrl || '',
+              badge: template.badge || '',
+              published: template.published ?? true,
             });
           }
         } catch (error) {
@@ -103,12 +103,7 @@ const AdminTemplateForm = () => {
       const headers = { Authorization: `Bearer ${token}` };
       const data = {
         ...formData,
-        gallery: parseCommaSeparated(formData.gallery),
         tags: parseCommaSeparated(formData.tags),
-        features: parseCommaSeparated(formData.features),
-        techStack: parseCommaSeparated(formData.techStack),
-        useCases: parseCommaSeparated(formData.useCases),
-        valuePoints: parseCommaSeparated(formData.valuePoints),
       };
 
       if (isEdit) {
@@ -227,20 +222,6 @@ const AdminTemplateForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm text-slate-400 mb-2">Description *</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="input-dark resize-none"
-                  placeholder="Longer description for the store detail page"
-                  data-testid="template-description-input"
-                />
-              </div>
-
-              <div>
                 <label className="block text-sm text-slate-400 mb-2">Thumbnail URL</label>
                 <input
                   type="text"
@@ -260,19 +241,6 @@ const AdminTemplateForm = () => {
                 )}
               </div>
 
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Gallery URLs (comma-separated)</label>
-                <textarea
-                  name="gallery"
-                  value={formData.gallery}
-                  onChange={handleChange}
-                  rows={3}
-                  className="input-dark resize-none"
-                  placeholder="https://image1.jpg, https://image2.jpg"
-                  data-testid="template-gallery-input"
-                />
-              </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">Tags (comma-separated)</label>
@@ -288,95 +256,49 @@ const AdminTemplateForm = () => {
                 </div>
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">Status</label>
-                  <input
-                    type="text"
+                  <select
                     name="status"
                     value={formData.status}
                     onChange={handleChange}
                     className="input-dark"
-                    placeholder="Available"
                     data-testid="template-status-input"
-                  />
+                  >
+                    <option value="Available">Available</option>
+                    <option value="Coming Soon">Coming Soon</option>
+                    <option value="Sold Out">Sold Out</option>
+                  </select>
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Features (comma-separated)</label>
-                <textarea
-                  name="features"
-                  value={formData.features}
-                  onChange={handleChange}
-                  rows={3}
-                  className="input-dark resize-none"
-                  placeholder="Hero section, Gallery, CTA blocks"
-                  data-testid="template-features-input"
-                />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Tech Stack (comma-separated)</label>
-                  <input
-                    type="text"
-                    name="techStack"
-                    value={formData.techStack}
-                    onChange={handleChange}
-                    className="input-dark"
-                    placeholder="React, Tailwind"
-                    data-testid="template-stack-input"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-slate-400 mb-2">Use Cases (comma-separated)</label>
-                  <input
-                    type="text"
-                    name="useCases"
-                    value={formData.useCases}
-                    onChange={handleChange}
-                    className="input-dark"
-                    placeholder="Agencies, Startups, Portfolios"
-                    data-testid="template-usecases-input"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Value Points (comma-separated)</label>
-                <textarea
-                  name="valuePoints"
-                  value={formData.valuePoints}
-                  onChange={handleChange}
-                  rows={3}
-                  className="input-dark resize-none"
-                  placeholder="Responsive by default, Conversion-first structure"
-                  data-testid="template-valuepoints-input"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm text-slate-400 mb-2">Demo URL</label>
+                  <label className="block text-sm text-slate-400 mb-2">Demo URL *</label>
                   <input
                     type="url"
                     name="demoUrl"
                     value={formData.demoUrl}
                     onChange={handleChange}
+                    required
                     className="input-dark"
                     placeholder="https://example.com/demo"
                     data-testid="template-demo-input"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">CTA Label</label>
-                  <input
-                    type="text"
-                    name="ctaLabel"
-                    value={formData.ctaLabel}
+                  <label className="block text-sm text-slate-400 mb-2">Badge</label>
+                  <select
+                    name="badge"
+                    value={formData.badge}
                     onChange={handleChange}
                     className="input-dark"
-                    placeholder="Get This Store Item"
-                    data-testid="template-cta-input"
-                  />
+                    data-testid="template-badge-input"
+                  >
+                    {BADGE_OPTIONS.map((option) => (
+                      <option key={option || 'none'} value={option}>
+                        {option || 'None'}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
@@ -390,7 +312,7 @@ const AdminTemplateForm = () => {
                   className="w-5 h-5 rounded border-white/20 bg-white/5 text-brand-purple focus:ring-brand-purple"
                   data-testid="template-published-checkbox"
                 />
-                <label htmlFor="published" className="text-white">Publish this template</label>
+                <label htmlFor="published" className="text-white">Publish this store item</label>
               </div>
             </div>
 

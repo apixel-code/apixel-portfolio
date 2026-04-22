@@ -104,18 +104,12 @@ class TemplateBase(BaseModel):
     slug: str
     category: str
     excerpt: str
-    description: str
     thumbnailUrl: str = ""
-    gallery: List[str] = []
     tags: List[str] = []
-    features: List[str] = []
     priceLabel: str = ""
     status: str = "Available"
-    techStack: List[str] = []
-    useCases: List[str] = []
-    valuePoints: List[str] = []
     demoUrl: str = ""
-    ctaLabel: str = "Get This Template"
+    badge: str = ""  # "", "Most Popular", "Best Seller", "Trending"
     published: bool = True
 
 class TemplateCreate(TemplateBase):
@@ -126,21 +120,36 @@ class TemplateUpdate(BaseModel):
     slug: Optional[str] = None
     category: Optional[str] = None
     excerpt: Optional[str] = None
-    description: Optional[str] = None
     thumbnailUrl: Optional[str] = None
-    gallery: Optional[List[str]] = None
     tags: Optional[List[str]] = None
-    features: Optional[List[str]] = None
     priceLabel: Optional[str] = None
     status: Optional[str] = None
-    techStack: Optional[List[str]] = None
-    useCases: Optional[List[str]] = None
-    valuePoints: Optional[List[str]] = None
     demoUrl: Optional[str] = None
-    ctaLabel: Optional[str] = None
+    badge: Optional[str] = None
     published: Optional[bool] = None
 
 class TemplateResponse(TemplateBase):
+    id: str
+    createdAt: str
+
+class ExpertBase(BaseModel):
+    name: str
+    role: str
+    image: str = ""
+    order: int = 0
+    published: bool = True
+
+class ExpertCreate(ExpertBase):
+    pass
+
+class ExpertUpdate(BaseModel):
+    name: Optional[str] = None
+    role: Optional[str] = None
+    image: Optional[str] = None
+    order: Optional[int] = None
+    published: Optional[bool] = None
+
+class ExpertResponse(ExpertBase):
     id: str
     createdAt: str
 
@@ -398,22 +407,12 @@ def seed_database():
                 "slug": "agency-pro-digital-agency",
                 "category": "Agency",
                 "excerpt": "A sleek, conversion-focused website template built for digital agencies that want to look premium and close deals faster.",
-                "description": "Agency Pro is a fully responsive, modern digital agency template designed with conversion in mind. Every section is crafted to guide visitors from curiosity to contact. Dark-themed with bold accents, this template communicates authority and professionalism.",
                 "thumbnailUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
-                "gallery": [
-                    "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800",
-                    "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800",
-                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800"
-                ],
                 "tags": ["Agency", "Dark Theme", "MERN Stack"],
-                "features": ["Hero with CTA", "Service Showcase", "Portfolio Gallery", "Testimonial Slider", "Contact Form", "Blog Section"],
                 "priceLabel": "$499",
                 "status": "Available",
-                "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-                "useCases": ["Digital Agencies", "Marketing Firms", "Creative Studios", "Consulting"],
-                "valuePoints": ["Mobile-first responsive design", "SEO-optimized structure", "Fast load times under 2 seconds"],
                 "demoUrl": "https://agencypro-demo.apixel.net",
-                "ctaLabel": "Get This Template",
+                "badge": "Most Popular",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=2)
             },
@@ -422,22 +421,12 @@ def seed_database():
                 "slug": "shoplaunch-ecommerce-starter",
                 "category": "E-Commerce",
                 "excerpt": "Launch your online store in days, not months. A beautiful e-commerce template with product pages, cart, and checkout flow.",
-                "description": "ShopLaunch gives you everything you need to start selling online. With built-in product grids, filter options, a smooth cart experience, and checkout flow — this template is designed to turn browsers into buyers.",
                 "thumbnailUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800",
-                "gallery": [
-                    "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800",
-                    "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800",
-                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"
-                ],
                 "tags": ["E-Commerce", "Shopping", "Product Store"],
-                "features": ["Product Grid", "Shopping Cart", "Checkout Flow", "Search & Filters", "Product Detail Pages", "Wishlist"],
                 "priceLabel": "$699",
                 "status": "Available",
-                "techStack": ["React", "Node.js", "MongoDB", "Stripe"],
-                "useCases": ["Online Stores", "Fashion Brands", "Handmade Shops", "Electronics"],
-                "valuePoints": ["Built-in payment integration ready", "Inventory management system", "Customer reviews section"],
                 "demoUrl": "https://shoplaunch-demo.apixel.net",
-                "ctaLabel": "Get This Template",
+                "badge": "Best Seller",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=5)
             },
@@ -446,22 +435,12 @@ def seed_database():
                 "slug": "foliox-portfolio-personal-brand",
                 "category": "Portfolio",
                 "excerpt": "Stand out from the crowd. A minimal yet bold portfolio template for freelancers, developers, and creatives.",
-                "description": "FolioX is a personal branding powerhouse. Showcase your work, share your story, and let potential clients reach you effortlessly. Minimal design with maximum impact — built to make you look like the expert you are.",
                 "thumbnailUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
-                "gallery": [
-                    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800",
-                    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800",
-                    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800"
-                ],
                 "tags": ["Portfolio", "Minimal", "Personal Brand"],
-                "features": ["Project Showcase", "About Section", "Skills Display", "Contact Form", "Resume Download", "Smooth Animations"],
                 "priceLabel": "$349",
                 "status": "Available",
-                "techStack": ["React", "Framer Motion", "Tailwind CSS"],
-                "useCases": ["Freelancers", "Developers", "Designers", "Photographers"],
-                "valuePoints": ["Lightning fast performance", "Smooth scroll animations", "One-page & multi-page layouts"],
                 "demoUrl": "https://foliox-demo.apixel.net",
-                "ctaLabel": "Get This Template",
+                "badge": "Trending",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=8)
             },
@@ -470,22 +449,12 @@ def seed_database():
                 "slug": "saaskit-saas-landing-page",
                 "category": "SaaS",
                 "excerpt": "Convert visitors into trial users. A high-converting SaaS landing page with pricing tables, feature sections, and CTA blocks.",
-                "description": "SaaSKit is engineered for software companies that need to acquire users fast. With pricing comparison tables, feature highlights, social proof sections, and strategically placed CTAs — every pixel is designed to drive sign-ups.",
                 "thumbnailUrl": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800",
-                "gallery": [
-                    "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800",
-                    "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800",
-                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"
-                ],
                 "tags": ["SaaS", "Landing Page", "Startup"],
-                "features": ["Pricing Table", "Feature Grid", "Testimonials", "FAQ Accordion", "Newsletter Signup", "Analytics Ready"],
                 "priceLabel": "$599",
                 "status": "Available",
-                "techStack": ["React", "Node.js", "Tailwind CSS", "Framer Motion"],
-                "useCases": ["SaaS Products", "Startups", "Tech Companies", "App Landing Pages"],
-                "valuePoints": ["A/B test ready structure", "Conversion-optimized layout", "Integration-ready contact forms"],
                 "demoUrl": "https://saaskit-demo.apixel.net",
-                "ctaLabel": "Get This Template",
+                "badge": "",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=12)
             },
@@ -494,22 +463,12 @@ def seed_database():
                 "slug": "restrohub-restaurant-cafe",
                 "category": "Restaurant",
                 "excerpt": "Make your restaurant irresistible online. A beautiful template with menu display, reservation system, and gallery.",
-                "description": "RestroHub brings your restaurant to life online. Showcase your menu with stunning imagery, accept table reservations, display opening hours, and let your food photography do the talking. Designed to make visitors hungry and ready to book.",
                 "thumbnailUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
-                "gallery": [
-                    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
-                    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
-                    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800"
-                ],
                 "tags": ["Restaurant", "Food", "Hospitality"],
-                "features": ["Menu Display", "Reservation Form", "Photo Gallery", "Opening Hours", "Location Map", "Customer Reviews"],
                 "priceLabel": "$449",
                 "status": "Available",
-                "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-                "useCases": ["Restaurants", "Cafes", "Bars", "Food Trucks"],
-                "valuePoints": ["Appetizing food photography layouts", "Online reservation system", "Google Maps integration"],
                 "demoUrl": "https://restrohub-demo.apixel.net",
-                "ctaLabel": "Get This Template",
+                "badge": "",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=15)
             },
@@ -518,28 +477,57 @@ def seed_database():
                 "slug": "edulearn-online-course-platform",
                 "category": "Education",
                 "excerpt": "Teach the world. A comprehensive course platform template with lesson pages, enrollment flow, and instructor profiles.",
-                "description": "EduLearn is built for educators, coaches, and training companies who want to sell courses online. With course listings, lesson pages, instructor profiles, and enrollment flow — it's everything you need to start your online education business.",
                 "thumbnailUrl": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800",
-                "gallery": [
-                    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
-                    "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800",
-                    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800"
-                ],
                 "tags": ["Education", "Courses", "E-Learning"],
-                "features": ["Course Listings", "Lesson Pages", "Instructor Profiles", "Enrollment Flow", "Progress Tracking", "Certificate System"],
                 "priceLabel": "$549",
                 "status": "Available",
-                "techStack": ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-                "useCases": ["Online Courses", "Coaching", "Corporate Training", "Tutoring"],
-                "valuePoints": ["Student dashboard included", "Video lesson support", "Payment gateway ready"],
                 "demoUrl": "https://edulearn-demo.apixel.net",
-                "ctaLabel": "Get This Template",
+                "badge": "",
                 "published": True,
                 "createdAt": datetime.now(timezone.utc) - timedelta(days=18)
             }
         ]
         db.templates.insert_many(templates)
         print("Templates seeded successfully")
+
+    # Seed experts (team members) if none exist
+    if db.experts.count_documents({}) == 0:
+        experts = [
+            {
+                "name": "Mahabub Islam",
+                "role": "Founder & CEO",
+                "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
+                "order": 1,
+                "published": True,
+                "createdAt": datetime.now(timezone.utc)
+            },
+            {
+                "name": "Tanvir Ahmed",
+                "role": "Lead Developer",
+                "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
+                "order": 2,
+                "published": True,
+                "createdAt": datetime.now(timezone.utc)
+            },
+            {
+                "name": "Sabrina Rahman",
+                "role": "Marketing Head",
+                "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
+                "order": 3,
+                "published": True,
+                "createdAt": datetime.now(timezone.utc)
+            },
+            {
+                "name": "Rifat Hossain",
+                "role": "Creative Director",
+                "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
+                "order": 4,
+                "published": True,
+                "createdAt": datetime.now(timezone.utc)
+            }
+        ]
+        db.experts.insert_many(experts)
+        print("Experts seeded successfully")
 
 # Run seed on startup
 @app.on_event("startup")
@@ -689,6 +677,43 @@ async def delete_template(id: str, user: str = Depends(verify_token)):
         raise HTTPException(status_code=404, detail="Template not found")
     return {"message": "Template deleted successfully"}
 
+# Expert (Team Member) Routes
+@app.get("/api/experts", response_model=List[ExpertResponse])
+async def get_experts(published_only: bool = True):
+    query = {"published": True} if published_only else {}
+    experts = list(db.experts.find(query).sort("order", 1))
+    return [serialize_doc(expert) for expert in experts]
+
+@app.post("/api/experts", response_model=ExpertResponse)
+async def create_expert(expert: ExpertCreate, user: str = Depends(verify_token)):
+    expert_dict = expert.model_dump()
+    expert_dict["createdAt"] = datetime.now(timezone.utc)
+    result = db.experts.insert_one(expert_dict)
+    expert_dict["_id"] = result.inserted_id
+    return serialize_doc(expert_dict)
+
+@app.put("/api/experts/{id}", response_model=ExpertResponse)
+async def update_expert(id: str, expert: ExpertUpdate, user: str = Depends(verify_token)):
+    update_data = {k: v for k, v in expert.model_dump().items() if v is not None}
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No data to update")
+
+    result = db.experts.find_one_and_update(
+        {"_id": ObjectId(id)},
+        {"$set": update_data},
+        return_document=True
+    )
+    if not result:
+        raise HTTPException(status_code=404, detail="Expert not found")
+    return serialize_doc(result)
+
+@app.delete("/api/experts/{id}")
+async def delete_expert(id: str, user: str = Depends(verify_token)):
+    result = db.experts.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Expert not found")
+    return {"message": "Expert deleted successfully"}
+
 # Contact Routes
 @app.post("/api/contact", response_model=ContactResponse)
 async def create_contact(contact: ContactCreate):
@@ -729,6 +754,7 @@ async def get_stats(user: str = Depends(verify_token)):
         "totalBlogs": db.blogs.count_documents({}),
         "totalServices": db.services.count_documents({}),
         "totalTemplates": db.templates.count_documents({}),
+        "totalExperts": db.experts.count_documents({}),
         "totalMessages": db.contacts.count_documents({}),
         "unreadMessages": db.contacts.count_documents({"read": False})
     }

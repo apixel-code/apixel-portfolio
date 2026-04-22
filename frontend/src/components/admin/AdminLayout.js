@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Briefcase, ChevronRight, FileText, LayoutDashboard, LayoutTemplate, LogOut, Menu, MessageSquare, Moon, Sun, X } from 'lucide-react';
+import { Briefcase, ChevronRight, FileText, LayoutDashboard, LayoutTemplate, LogOut, Menu, MessageSquare, Moon, Sun, Users, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -32,6 +32,7 @@ const AdminLayout = ({ children }) => {
     { name: 'Blogs', path: '/admin/blogs', icon: FileText },
     { name: 'Services', path: '/admin/services', icon: Briefcase },
     { name: 'Store', path: '/admin/templates', icon: LayoutTemplate },
+    { name: 'Experts', path: '/admin/experts', icon: Users },
     { name: 'Messages', path: '/admin/messages', icon: MessageSquare },
   ];
 
@@ -51,10 +52,10 @@ const AdminLayout = ({ children }) => {
       <div className={`p-4 md:p-6 border-b ${isAdminDark ? 'border-white/5' : 'border-slate-200'}`}>
         <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
           <img
-            src="/assets/f.png"
+            src={isAdminDark ? '/assets/f.png' : '/assets/f-light.png'}
             alt="Apixel Logo"
-            className="h-10 md:h-12 w-auto object-contain mix-blend-screen"
-            style={{ filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' }}
+            className={`h-10 md:h-12 w-auto object-contain ${isAdminDark ? 'mix-blend-screen' : ''}`}
+            style={isAdminDark ? { filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' } : undefined}
           />
           <span className={`text-xs font-dm-sans ${isAdminDark ? 'text-brand-cyan' : 'text-brand-purple'}`}>Admin</span>
         </Link>
