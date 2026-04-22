@@ -340,27 +340,48 @@ const Home = () => {
             </div>
 
             <div className="relative">
-              <motion.div
-                key={currentTestimonial}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                className="card-glass text-center py-12"
-                data-testid="testimonial-card"
-              >
-                <div className="flex justify-center gap-1 mb-6">
-                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} size={20} className="text-brand-gold fill-brand-gold" />
+              <div className="overflow-hidden rounded-2xl" data-testid="testimonial-slider">
+                <motion.div
+                  className="flex"
+                  animate={{ x: `-${currentTestimonial * 100}%` }}
+                  transition={{ type: 'spring', stiffness: 160, damping: 26, mass: 0.9 }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={(_e, info) => {
+                    const threshold = 80;
+                    const swipePower = Math.abs(info.offset.x) * info.velocity.x;
+                    if (info.offset.x < -threshold || swipePower < -10000) {
+                      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+                    } else if (info.offset.x > threshold || swipePower > 10000) {
+                      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+                    }
+                  }}
+                >
+                  {testimonials.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="w-full flex-shrink-0 px-1 select-none"
+                      data-testid={`testimonial-slide-${idx}`}
+                    >
+                      <div className="card-glass text-center py-12 cursor-grab active:cursor-grabbing">
+                        <div className="flex justify-center gap-1 mb-6">
+                          {[...Array(item.rating)].map((_, i) => (
+                            <Star key={i} size={20} className="text-brand-gold fill-brand-gold" />
+                          ))}
+                        </div>
+                        <p className="text-lg md:text-xl text-slate-300 italic mb-8 leading-relaxed">
+                          "{item.content}"
+                        </p>
+                        <div>
+                          <p className="font-syne font-semibold text-white">{item.name}</p>
+                          <p className="text-brand-cyan text-sm">{item.company}</p>
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </div>
-                <p className="text-lg md:text-xl text-slate-300 italic mb-8 leading-relaxed">
-                  "{testimonials[currentTestimonial].content}"
-                </p>
-                <div>
-                  <p className="font-syne font-semibold text-white">{testimonials[currentTestimonial].name}</p>
-                  <p className="text-brand-cyan text-sm">{testimonials[currentTestimonial].company}</p>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
 
               {/* Navigation */}
               <div className="flex justify-center gap-4 mt-8">
@@ -368,6 +389,7 @@ const Home = () => {
                   onClick={() => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
                   className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
                   data-testid="testimonial-prev-btn"
+                  aria-label="Previous testimonial"
                 >
                   <ChevronLeft size={24} className="text-white" />
                 </button>
@@ -376,8 +398,9 @@ const Home = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentTestimonial(index)}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentTestimonial ? 'bg-brand-cyan' : 'bg-white/20'
+                      aria-label={`Go to testimonial ${index + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        index === currentTestimonial ? 'w-6 bg-brand-cyan' : 'w-2 bg-white/20 hover:bg-white/40'
                       }`}
                     />
                   ))}
@@ -386,6 +409,7 @@ const Home = () => {
                   onClick={() => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)}
                   className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
                   data-testid="testimonial-next-btn"
+                  aria-label="Next testimonial"
                 >
                   <ChevronRight size={24} className="text-white" />
                 </button>
