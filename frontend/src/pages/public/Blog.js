@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 import Navbar from '../../components/ui/Navbar';
+import { useTheme } from '../../context/ThemeContext';
 
 
 const Blog = () => {
+  const { isDark } = useTheme();
   const [blogs, setBlogs] = useState([]);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -126,8 +128,10 @@ const Blog = () => {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-full text-sm font-dm-sans transition-all ${
                       selectedCategory === category
-                        ? 'bg-brand-purple text-white'
-                        : 'bg-white/5 text-slate-400 hover:bg-white/10'
+                        ? 'bg-brand-purple !text-white'
+                        : isDark
+                          ? 'bg-white/5 text-slate-400 hover:bg-white/10'
+                          : 'bg-slate-700 !text-white hover:bg-slate-600'
                     }`}
                     data-testid={`category-filter-${category.toLowerCase().replace(' ', '-')}`}
                   >

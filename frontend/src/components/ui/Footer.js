@@ -30,7 +30,7 @@ const Footer = () => {
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
               <img 
-                src={isDark ? "/assets/f.png" : "/assets/f-light.png"}
+                src={isDark ? "/assets/f.png" : "/assets/apixel.it.png"}
                 alt="Apixel Logo" 
                 className={`h-16 sm:h-20 w-auto object-contain ${isDark ? 'mix-blend-screen' : ''}`}
                 style={isDark ? { filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' } : {}}
@@ -149,7 +149,7 @@ const Footer = () => {
                   className="p-2 bg-brand-purple rounded-lg hover:bg-brand-purple/80 transition-colors"
                   data-testid="newsletter-submit-btn"
                 >
-                  <Send size={18} />
+                  <Send size={18} className="!text-white" />
                 </button>
               </div>
             </div>
