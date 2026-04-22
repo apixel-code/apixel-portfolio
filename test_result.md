@@ -108,7 +108,7 @@ backend:
   - task: "Experts CRUD API (GET/POST/PUT/DELETE /api/experts) + seed 4 default team members"
     implemented: true
     working: true
-    file: "backend/server.py"
+    file: "backend/server.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
@@ -119,10 +119,13 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ All experts CRUD endpoints working perfectly. GET /api/experts returns 4 published experts sorted by order. GET with auth returns all experts. POST/PUT/DELETE with auth work correctly. POST without auth properly returns 403. Created/updated/deleted test expert successfully."
+      - working: true
+        agent: "testing"
+        comment: "✅ RETESTED after Node.js conversion: All experts CRUD endpoints working perfectly. GET /api/experts returns 4 published experts sorted by order [1,2,3,4]. GET with auth returns all experts. POST/PUT/DELETE with auth work correctly. POST without auth properly returns 401. Created/updated/deleted test expert successfully."
   - task: "Template schema simplified + badge field"
     implemented: true
     working: true
-    file: "backend/server.py"
+    file: "backend/server.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
@@ -133,10 +136,13 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ Template schema simplified correctly. GET /api/templates returns only required fields (title, slug, category, excerpt, thumbnailUrl, tags, priceLabel, status, demoUrl, badge, published, id, createdAt). Removed fields (description, gallery, features, techStack, useCases, valuePoints, ctaLabel) are NOT present. Badge field working with values: Most Popular, Best Seller, Trending. POST/PUT/DELETE operations work correctly."
+      - working: true
+        agent: "testing"
+        comment: "✅ RETESTED after Node.js conversion: Template schema simplified correctly. GET /api/templates returns 6 templates with only required fields. Removed fields are NOT present. Badge field working with values: ['Most Popular', 'Best Seller', 'Trending', '', '', '']. POST/PUT/DELETE operations work correctly with minimal body (no description required)."
   - task: "/api/stats includes totalExperts"
     implemented: true
     working: true
-    file: "backend/server.py"
+    file: "backend/server.js"
     stuck_count: 0
     priority: "medium"
     needs_retesting: false
@@ -147,6 +153,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ GET /api/stats (with auth) correctly includes totalExperts field with count of 4 experts."
+      - working: true
+        agent: "testing"
+        comment: "✅ RETESTED after Node.js conversion: GET /api/stats (with auth) correctly includes totalExperts field with count of 4 experts."
 
 frontend:
   - task: "Admin Experts list + form pages (CRUD)"
@@ -284,3 +293,41 @@ agent_communication:
       - GET /api/stats (auth): Includes totalExperts field with correct count (4)
       
       All backend APIs are functioning correctly and ready for production use.
+  - agent: "testing"
+    message: |
+      ✅ NODE.JS CONVERSION TESTING COMPLETE - ALL TESTS PASSED (16/16)
+      
+      Comprehensive retesting completed after backend conversion from Python FastAPI to Node.js Express:
+      
+      🔐 Authentication: ✅ Working
+      - Login with correct credentials (admin@agency.com/Admin@123) returns access_token
+      - Login with wrong password returns 401 (as expected)
+      
+      👥 Experts CRUD: ✅ All Working (6/6 tests)
+      - GET /api/experts (public): Returns 4 published experts sorted by order [1,2,3,4]
+      - GET /api/experts?published_only=false (auth): Returns all 4 experts
+      - POST /api/experts (auth): Creates expert with id/createdAt
+      - PUT /api/experts/{id} (auth): Updates fields correctly (role: "Senior QA Engineer")
+      - DELETE /api/experts/{id} (auth): Deletes successfully
+      - POST without auth: Properly returns 401
+      
+      🎨 Templates Simplified Schema + Badge: ✅ All Working (4/4 tests)
+      - GET /api/templates: Returns 6 templates with correct simplified schema
+      - Required fields present: title, slug, category, excerpt, thumbnailUrl, tags, priceLabel, status, demoUrl, badge, published, id, createdAt
+      - Removed fields NOT present: description, gallery, features, techStack, useCases, valuePoints, ctaLabel
+      - Badge field working with values: ['Most Popular', 'Best Seller', 'Trending', '', '', '']
+      - POST /api/templates (auth): Works with minimal body (no description required)
+      - PUT /api/templates/{id} (auth): Badge updates work correctly
+      - DELETE /api/templates/{id} (auth): Deletes successfully
+      
+      📊 Stats Endpoint: ✅ Working (1/1 test)
+      - GET /api/stats (auth): Includes totalExperts field with correct count (4)
+      
+      🔗 Other Routes: ✅ All Working (3/3 tests)
+      - GET /api/health: Returns healthy status with service name
+      - GET /api/blogs: Returns 3 blogs
+      - GET /api/services: Returns 4 services
+      
+      🎯 SUCCESS RATE: 100% (16/16 tests passed)
+      
+      The Node.js Express backend is fully functional and all endpoints are working correctly. The conversion from Python FastAPI was successful with no functionality loss.

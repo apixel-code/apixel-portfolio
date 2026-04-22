@@ -158,18 +158,135 @@ async function seedDatabase() {
     await db.collection("admins").updateOne({ email: "admin@agency.com" }, { $set: { password: hashed } });
   }
 
-  // Templates
+  // Templates (simplified schema with badge)
   if ((await db.collection("templates").countDocuments()) === 0) {
     const now2 = Date.now();
     await db.collection("templates").insertMany([
-      { title: "Agency Pro - Digital Agency Website", slug: "agency-pro-digital-agency", category: "Agency", excerpt: "A sleek, conversion-focused website template built for digital agencies that want to look premium and close deals faster.", description: "Agency Pro is a fully responsive, modern digital agency template designed with conversion in mind.", thumbnailUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800", gallery: ["https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800","https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800","https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800"], tags: ["Agency","Dark Theme","MERN Stack"], features: ["Hero with CTA","Service Showcase","Portfolio Gallery","Testimonial Slider","Contact Form","Blog Section"], priceLabel: "$499", status: "Available", techStack: ["React","Node.js","MongoDB","Tailwind CSS"], useCases: ["Digital Agencies","Marketing Firms","Creative Studios","Consulting"], valuePoints: ["Mobile-first responsive design","SEO-optimized structure","Fast load times under 2 seconds"], demoUrl: "https://agencypro-demo.apixel.net", ctaLabel: "Get This Template", published: true, createdAt: new Date(now2 - 2*86400000) },
-      { title: "ShopLaunch - E-Commerce Starter", slug: "shoplaunch-ecommerce-starter", category: "E-Commerce", excerpt: "Launch your online store in days, not months. A beautiful e-commerce template with product pages, cart, and checkout flow.", description: "ShopLaunch gives you everything you need to start selling online.", thumbnailUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800", gallery: ["https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800","https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"], tags: ["E-Commerce","Shopping","Product Store"], features: ["Product Grid","Shopping Cart","Checkout Flow","Search & Filters","Product Detail Pages","Wishlist"], priceLabel: "$699", status: "Available", techStack: ["React","Node.js","MongoDB","Stripe"], useCases: ["Online Stores","Fashion Brands","Handmade Shops","Electronics"], valuePoints: ["Built-in payment integration ready","Inventory management system","Customer reviews section"], demoUrl: "https://shoplaunch-demo.apixel.net", ctaLabel: "Get This Template", published: true, createdAt: new Date(now2 - 5*86400000) },
-      { title: "FolioX - Portfolio & Personal Brand", slug: "foliox-portfolio-personal-brand", category: "Portfolio", excerpt: "Stand out from the crowd. A minimal yet bold portfolio template for freelancers, developers, and creatives.", description: "FolioX is a personal branding powerhouse.", thumbnailUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800", gallery: ["https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800","https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800","https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800"], tags: ["Portfolio","Minimal","Personal Brand"], features: ["Project Showcase","About Section","Skills Display","Contact Form","Resume Download","Smooth Animations"], priceLabel: "$349", status: "Available", techStack: ["React","Framer Motion","Tailwind CSS"], useCases: ["Freelancers","Developers","Designers","Photographers"], valuePoints: ["Lightning fast performance","Smooth scroll animations","One-page & multi-page layouts"], demoUrl: "https://foliox-demo.apixel.net", ctaLabel: "Get This Template", published: true, createdAt: new Date(now2 - 8*86400000) },
-      { title: "SaaSKit - SaaS Landing Page", slug: "saaskit-saas-landing-page", category: "SaaS", excerpt: "Convert visitors into trial users. A high-converting SaaS landing page with pricing tables, feature sections, and CTA blocks.", description: "SaaSKit is engineered for software companies that need to acquire users fast.", thumbnailUrl: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800", gallery: ["https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800","https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"], tags: ["SaaS","Landing Page","Startup"], features: ["Pricing Table","Feature Grid","Testimonials","FAQ Accordion","Newsletter Signup","Analytics Ready"], priceLabel: "$599", status: "Available", techStack: ["React","Node.js","Tailwind CSS","Framer Motion"], useCases: ["SaaS Products","Startups","Tech Companies","App Landing Pages"], valuePoints: ["A/B test ready structure","Conversion-optimized layout","Integration-ready contact forms"], demoUrl: "https://saaskit-demo.apixel.net", ctaLabel: "Get This Template", published: true, createdAt: new Date(now2 - 12*86400000) },
-      { title: "RestroHub - Restaurant & Cafe Website", slug: "restrohub-restaurant-cafe", category: "Restaurant", excerpt: "Make your restaurant irresistible online. A beautiful template with menu display, reservation system, and gallery.", description: "RestroHub brings your restaurant to life online.", thumbnailUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800", gallery: ["https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800","https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800","https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800"], tags: ["Restaurant","Food","Hospitality"], features: ["Menu Display","Reservation Form","Photo Gallery","Opening Hours","Location Map","Customer Reviews"], priceLabel: "$449", status: "Available", techStack: ["React","Node.js","MongoDB","Tailwind CSS"], useCases: ["Restaurants","Cafes","Bars","Food Trucks"], valuePoints: ["Appetizing food photography layouts","Online reservation system","Google Maps integration"], demoUrl: "https://restrohub-demo.apixel.net", ctaLabel: "Get This Template", published: true, createdAt: new Date(now2 - 15*86400000) },
-      { title: "EduLearn - Online Course Platform", slug: "edulearn-online-course-platform", category: "Education", excerpt: "Teach the world. A comprehensive course platform template with lesson pages, enrollment flow, and instructor profiles.", description: "EduLearn is built for educators, coaches, and training companies.", thumbnailUrl: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800", gallery: ["https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800","https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800","https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800"], tags: ["Education","Courses","E-Learning"], features: ["Course Listings","Lesson Pages","Instructor Profiles","Enrollment Flow","Progress Tracking","Certificate System"], priceLabel: "$549", status: "Available", techStack: ["React","Node.js","MongoDB","Tailwind CSS"], useCases: ["Online Courses","Coaching","Corporate Training","Tutoring"], valuePoints: ["Student dashboard included","Video lesson support","Payment gateway ready"], demoUrl: "https://edulearn-demo.apixel.net", ctaLabel: "Get This Template", published: true, createdAt: new Date(now2 - 18*86400000) },
+      {
+        title: "Agency Pro - Digital Agency Website",
+        slug: "agency-pro-digital-agency",
+        category: "Agency",
+        excerpt: "A sleek, conversion-focused website template built for digital agencies that want to look premium and close deals faster.",
+        thumbnailUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
+        tags: ["Agency", "Dark Theme", "MERN Stack"],
+        priceLabel: "$499",
+        status: "Available",
+        demoUrl: "https://agencypro-demo.apixel.net",
+        badge: "Most Popular",
+        published: true,
+        createdAt: new Date(now2 - 2 * 86400000),
+      },
+      {
+        title: "ShopLaunch - E-Commerce Starter",
+        slug: "shoplaunch-ecommerce-starter",
+        category: "E-Commerce",
+        excerpt: "Launch your online store in days, not months. A beautiful e-commerce template with product pages, cart, and checkout flow.",
+        thumbnailUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800",
+        tags: ["E-Commerce", "Shopping", "Product Store"],
+        priceLabel: "$699",
+        status: "Available",
+        demoUrl: "https://shoplaunch-demo.apixel.net",
+        badge: "Best Seller",
+        published: true,
+        createdAt: new Date(now2 - 5 * 86400000),
+      },
+      {
+        title: "FolioX - Portfolio & Personal Brand",
+        slug: "foliox-portfolio-personal-brand",
+        category: "Portfolio",
+        excerpt: "Stand out from the crowd. A minimal yet bold portfolio template for freelancers, developers, and creatives.",
+        thumbnailUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
+        tags: ["Portfolio", "Minimal", "Personal Brand"],
+        priceLabel: "$349",
+        status: "Available",
+        demoUrl: "https://foliox-demo.apixel.net",
+        badge: "Trending",
+        published: true,
+        createdAt: new Date(now2 - 8 * 86400000),
+      },
+      {
+        title: "SaaSKit - SaaS Landing Page",
+        slug: "saaskit-saas-landing-page",
+        category: "SaaS",
+        excerpt: "Convert visitors into trial users. A high-converting SaaS landing page with pricing tables, feature sections, and CTA blocks.",
+        thumbnailUrl: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800",
+        tags: ["SaaS", "Landing Page", "Startup"],
+        priceLabel: "$599",
+        status: "Available",
+        demoUrl: "https://saaskit-demo.apixel.net",
+        badge: "",
+        published: true,
+        createdAt: new Date(now2 - 12 * 86400000),
+      },
+      {
+        title: "RestroHub - Restaurant & Cafe Website",
+        slug: "restrohub-restaurant-cafe",
+        category: "Restaurant",
+        excerpt: "Make your restaurant irresistible online. A beautiful template with menu display, reservation system, and gallery.",
+        thumbnailUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
+        tags: ["Restaurant", "Food", "Hospitality"],
+        priceLabel: "$449",
+        status: "Available",
+        demoUrl: "https://restrohub-demo.apixel.net",
+        badge: "",
+        published: true,
+        createdAt: new Date(now2 - 15 * 86400000),
+      },
+      {
+        title: "EduLearn - Online Course Platform",
+        slug: "edulearn-online-course-platform",
+        category: "Education",
+        excerpt: "Teach the world. A comprehensive course platform template with lesson pages, enrollment flow, and instructor profiles.",
+        thumbnailUrl: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800",
+        tags: ["Education", "Courses", "E-Learning"],
+        priceLabel: "$549",
+        status: "Available",
+        demoUrl: "https://edulearn-demo.apixel.net",
+        badge: "",
+        published: true,
+        createdAt: new Date(now2 - 18 * 86400000),
+      },
     ]);
     console.log("Templates seeded");
+  }
+
+  // Experts (team members)
+  if ((await db.collection("experts").countDocuments()) === 0) {
+    await db.collection("experts").insertMany([
+      {
+        name: "Mahabub Islam",
+        role: "Founder & CEO",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
+        order: 1,
+        published: true,
+        createdAt: new Date(),
+      },
+      {
+        name: "Tanvir Ahmed",
+        role: "Lead Developer",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
+        order: 2,
+        published: true,
+        createdAt: new Date(),
+      },
+      {
+        name: "Sabrina Rahman",
+        role: "Marketing Head",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
+        order: 3,
+        published: true,
+        createdAt: new Date(),
+      },
+      {
+        name: "Rifat Hossain",
+        role: "Creative Director",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
+        order: 4,
+        published: true,
+        createdAt: new Date(),
+      },
+    ]);
+    console.log("Experts seeded");
   }
 }
 
@@ -298,6 +415,38 @@ app.delete("/api/templates/:id", verifyToken, async (req, res) => {
   res.json({ message: "Template deleted successfully" });
 });
 
+// ── Experts (Team Members) ───────────────────────────────
+app.get("/api/experts", async (req, res) => {
+  const publishedOnly = req.query.published_only !== "false";
+  const query = publishedOnly ? { published: true } : {};
+  const experts = await db.collection("experts").find(query).sort({ order: 1 }).toArray();
+  res.json(experts.map(serializeDoc));
+});
+
+app.post("/api/experts", verifyToken, async (req, res) => {
+  const data = { ...req.body, createdAt: new Date() };
+  const result = await db.collection("experts").insertOne(data);
+  res.json(serializeDoc({ _id: result.insertedId, ...data }));
+});
+
+app.put("/api/experts/:id", verifyToken, async (req, res) => {
+  const update = Object.fromEntries(Object.entries(req.body).filter(([, v]) => v != null));
+  if (!Object.keys(update).length) return res.status(400).json({ detail: "No data to update" });
+  const result = await db.collection("experts").findOneAndUpdate(
+    { _id: new ObjectId(req.params.id) },
+    { $set: update },
+    { returnDocument: "after" }
+  );
+  if (!result) return res.status(404).json({ detail: "Expert not found" });
+  res.json(serializeDoc(result));
+});
+
+app.delete("/api/experts/:id", verifyToken, async (req, res) => {
+  const result = await db.collection("experts").deleteOne({ _id: new ObjectId(req.params.id) });
+  if (result.deletedCount === 0) return res.status(404).json({ detail: "Expert not found" });
+  res.json({ message: "Expert deleted successfully" });
+});
+
 // ── Contacts ─────────────────────────────────────────────
 app.post("/api/contact", async (req, res) => {
   const data = { ...req.body, read: false, createdAt: new Date() };
@@ -328,14 +477,15 @@ app.delete("/api/contact/:id", verifyToken, async (req, res) => {
 
 // ── Stats ────────────────────────────────────────────────
 app.get("/api/stats", verifyToken, async (_req, res) => {
-  const [totalBlogs, totalServices, totalTemplates, totalMessages, unreadMessages] = await Promise.all([
+  const [totalBlogs, totalServices, totalTemplates, totalExperts, totalMessages, unreadMessages] = await Promise.all([
     db.collection("blogs").countDocuments(),
     db.collection("services").countDocuments(),
     db.collection("templates").countDocuments(),
+    db.collection("experts").countDocuments(),
     db.collection("contacts").countDocuments(),
     db.collection("contacts").countDocuments({ read: false }),
   ]);
-  res.json({ totalBlogs, totalServices, totalTemplates, totalMessages, unreadMessages });
+  res.json({ totalBlogs, totalServices, totalTemplates, totalExperts, totalMessages, unreadMessages });
 });
 
 // ── Start ────────────────────────────────────────────────
