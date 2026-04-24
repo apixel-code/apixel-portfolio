@@ -1,39 +1,40 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
+import { Toaster } from 'react-hot-toast';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 
 // Public Pages
-import Home from './pages/public/Home';
-import Services from './pages/public/Services';
+import About from './pages/public/About';
 import Blog from './pages/public/Blog';
 import BlogPost from './pages/public/BlogPost';
-import About from './pages/public/About';
 import Contact from './pages/public/Contact';
-import Templates from './pages/public/Templates';
+import Home from './pages/public/Home';
 import NotFound from './pages/public/NotFound';
+import PrivacyPolicy from './pages/public/PrivacyPolicy';
+import Services from './pages/public/Services';
+import Templates from './pages/public/Templates';
+import TermsOfService from './pages/public/TermsOfService';
 
 // Admin Pages
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminBlogs from './pages/admin/AdminBlogs';
 import AdminBlogForm from './pages/admin/AdminBlogForm';
-import AdminServices from './pages/admin/AdminServices';
-import AdminServiceForm from './pages/admin/AdminServiceForm';
-import AdminTemplates from './pages/admin/AdminTemplates';
-import AdminTemplateForm from './pages/admin/AdminTemplateForm';
-import AdminExperts from './pages/admin/AdminExperts';
+import AdminBlogs from './pages/admin/AdminBlogs';
+import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminExpertForm from './pages/admin/AdminExpertForm';
+import AdminExperts from './pages/admin/AdminExperts';
+import AdminLogin from './pages/admin/AdminLogin';
 import AdminMessages from './pages/admin/AdminMessages';
+import AdminServiceForm from './pages/admin/AdminServiceForm';
+import AdminServices from './pages/admin/AdminServices';
+import AdminTemplateForm from './pages/admin/AdminTemplateForm';
+import AdminTemplates from './pages/admin/AdminTemplates';
 
 // Components
-import WhatsAppButton from './components/ui/WhatsAppButton';
-import ScrollToTop from './components/ui/ScrollToTop';
 import ProtectedRoute from './components/admin/ProtectedRoute';
+import ScrollToTop from './components/ui/ScrollToTop';
+import WhatsAppButton from './components/ui/WhatsAppButton';
 
 function App() {
   return (
@@ -73,6 +74,8 @@ function App() {
             <Route path="/templates" element={<Templates />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
