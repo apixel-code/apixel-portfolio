@@ -54,7 +54,7 @@ const AdminLogin = () => {
             {/* Logo */}
             <div className="text-center mb-8">
               <img 
-                src="/assets/f.png" 
+                src="/assets/f-light.png" 
                 alt="Apixel Logo" 
                 className="h-16 sm:h-20 mx-auto mb-4 w-auto object-contain mix-blend-screen"
                 style={{ filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' }}
