@@ -27,7 +27,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
             <img 
-              src={isDark ? "/assets/f.png" : "/assets/apixel.it.png"}
+              src={isDark ? "/assets/f-light.png" : "/assets/f-dark.png"}
               alt="Apixel Logo" 
               className={`h-12 sm:h-14 md:h-16 w-auto object-contain ${isDark ? 'mix-blend-screen' : ''}`}
               style={isDark ? { filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.28))' } : {}}

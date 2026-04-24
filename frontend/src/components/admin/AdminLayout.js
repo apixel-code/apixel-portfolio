@@ -52,7 +52,7 @@ const AdminLayout = ({ children }) => {
       <div className={`p-4 md:p-6 border-b ${isAdminDark ? 'border-white/5' : 'border-slate-200'}`}>
         <Link to="/" className="flex items-center gap-3" aria-label="Apixel Home">
           <img
-            src={isAdminDark ? '/assets/f.png' : '/assets/apixel.it.png'}
+            src={isAdminDark ? '/assets/f-light.png' : '/assets/f-dark.png'}
             alt="Apixel Logo"
             className={`h-10 md:h-12 w-auto object-contain ${isAdminDark ? 'mix-blend-screen' : ''}`}
             style={isAdminDark ? { filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.24))' } : undefined}
