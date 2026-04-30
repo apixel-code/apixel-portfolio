@@ -42,7 +42,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a 
-                href="https://www.facebook.com/apixelltd" 
+                href="https://www.facebook.com/apixel.net" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 bg-white/5 rounded-lg hover:bg-brand-purple/20 transition-colors"
@@ -130,7 +130,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-brand-cyan mt-0.5" />
                 <span className="text-slate-400 text-sm">
-                  Baridhara, Dhaka, Bangladesh
+                  Kuril Chowrasta, Dhaka, Bangladesh
                 </span>
               </li>
             </ul>
