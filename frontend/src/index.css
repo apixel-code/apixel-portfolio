@@ -476,6 +476,10 @@ body {
   color: #0f172a;
 }
 
+.admin-light .btn-primary {
+  color: #ffffff !important;
+}
+
 .admin-date-input {
   color-scheme: dark;
 }

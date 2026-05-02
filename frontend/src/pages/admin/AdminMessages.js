@@ -255,17 +255,20 @@ const AdminMessages = () => {
                     data-testid="messages-export-end-date-input"
                   />
                 </label>
-                <select
-                  value={exportService}
-                  onChange={(event) => setExportService(event.target.value)}
-                  className="input-dark h-10 min-w-[190px] px-3 py-0 text-sm"
-                  data-testid="messages-export-service-select"
-                >
-                  <option value="">All services</option>
-                  {serviceOptions.map((service) => (
-                    <option key={service} value={service}>{service}</option>
-                  ))}
-                </select>
+                <label className="flex flex-col gap-1 text-xs text-slate-500">
+                  Service
+                  <select
+                    value={exportService}
+                    onChange={(event) => setExportService(event.target.value)}
+                    className="input-dark h-10 min-w-[190px] px-3 py-0 text-sm"
+                    data-testid="messages-export-service-select"
+                  >
+                    <option value="">All services</option>
+                    {serviceOptions.map((service) => (
+                      <option key={service} value={service}>{service}</option>
+                    ))}
+                  </select>
+                </label>
                 {hasActiveFilters && (
                   <button
                     type="button"
@@ -284,7 +287,7 @@ const AdminMessages = () => {
                   type="button"
                   onClick={handleDownloadCsv}
                   disabled={loading || hasDateRangeError || exportMessageCount === 0}
-                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-brand-purple px-4 text-sm font-medium text-white transition-colors hover:bg-brand-purple/80 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="btn-primary inline-flex h-10 items-center justify-center gap-2 !px-4 !py-0 text-sm disabled:cursor-not-allowed disabled:opacity-50"
                   data-testid="download-messages-csv-btn"
                 >
                   <Download size={16} />
