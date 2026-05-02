@@ -1,15 +1,89 @@
 import axios from 'axios';
-import { CheckCircle, Eye, Mail, Phone, Trash2 } from 'lucide-react';
+import { CheckCircle, Download, Eye, FileText, Mail, Phone, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import AdminLayout from '../../components/admin/AdminLayout';
 
+const EXPORT_COLUMNS = [
+  { label: 'Date (BD Time)', key: 'createdAt', xmlTag: 'date_bd_time' },
+  { label: 'Name', key: 'name', xmlTag: 'name' },
+  { label: 'Email', key: 'email', xmlTag: 'email' },
+  { label: 'Phone', key: 'phone', xmlTag: 'phone' },
+  { label: 'Service', key: 'service', xmlTag: 'service' },
+  { label: 'Message', key: 'message', xmlTag: 'message' },
+  { label: 'Status', key: 'read', xmlTag: 'status' },
+];
+
+const formatExportDate = (dateString) => {
+  if (!dateString) return '';
+
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return '';
+
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Dhaka',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+
+  return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`;
+};
+
+const getMessageField = (message, key) => {
+  if (key === 'createdAt') return formatExportDate(message.createdAt);
+  if (key === 'read') return message.read ? 'Read' : 'Unread';
+  return message[key] || '';
+};
+
+const escapeCsvValue = (value) => {
+  const stringValue = String(value).replace(/\r?\n/g, ' ');
+  return `"${stringValue.replace(/"/g, '""')}"`;
+};
+
+const escapeXmlValue = (value) => String(value)
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&apos;');
+
+const downloadFile = ({ content, fileName, mimeType }) => {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+};
+
+const getExportFileDate = () => formatExportDate(new Date()).slice(0, 10);
+
+const getMessageDateKey = (message) => formatExportDate(message.createdAt).slice(0, 10);
+
+const getMessageService = (message) => message.service || 'Not selected';
+
+const getServiceSlug = (service) => service.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [exportStartDate, setExportStartDate] = useState('');
+  const [exportEndDate, setExportEndDate] = useState('');
+  const [exportService, setExportService] = useState('');
 
   const fetchMessages = async () => {
     try {
@@ -68,6 +142,82 @@ const AdminMessages = () => {
     });
   };
 
+  const getExportMessages = () => {
+    return messages.filter((message) => {
+      const messageDate = getMessageDateKey(message);
+      const matchesStartDate = !exportStartDate || messageDate >= exportStartDate;
+      const matchesEndDate = !exportEndDate || messageDate <= exportEndDate;
+      const matchesService = !exportService || getMessageService(message) === exportService;
+
+      return matchesStartDate && matchesEndDate && matchesService;
+    });
+  };
+
+  const hasDateRangeError = exportStartDate && exportEndDate && exportStartDate > exportEndDate;
+  const hasActiveFilters = exportStartDate || exportEndDate || exportService;
+  const getFilterLabel = () => {
+    if (exportStartDate && exportEndDate) return `${exportStartDate}-to-${exportEndDate}`;
+    if (exportStartDate) return `from-${exportStartDate}`;
+    if (exportEndDate) return `until-${exportEndDate}`;
+    return getExportFileDate();
+  };
+
+  const handleDownloadCsv = () => {
+    if (hasDateRangeError) {
+      toast.error('From date cannot be after To date');
+      return;
+    }
+
+    const exportMessages = getExportMessages();
+
+    if (exportMessages.length === 0) {
+      toast.error(hasActiveFilters ? 'No messages found for the selected filters' : 'No messages available to download');
+      return;
+    }
+
+    const header = EXPORT_COLUMNS.map((column) => escapeCsvValue(column.label)).join(',');
+    const rows = exportMessages.map((message) => (
+      EXPORT_COLUMNS.map((column) => escapeCsvValue(getMessageField(message, column.key))).join(',')
+    ));
+
+    downloadFile({
+      content: [header, ...rows].join('\n'),
+      fileName: `apixel-contact-messages-${getFilterLabel()}${exportService ? `-${getServiceSlug(exportService)}` : ''}.csv`,
+      mimeType: 'text/csv;charset=utf-8;',
+    });
+  };
+
+  const handleDownloadXml = () => {
+    if (hasDateRangeError) {
+      toast.error('From date cannot be after To date');
+      return;
+    }
+
+    const exportMessages = getExportMessages();
+
+    if (exportMessages.length === 0) {
+      toast.error(hasActiveFilters ? 'No messages found for the selected filters' : 'No messages available to download');
+      return;
+    }
+
+    const rows = exportMessages.map((message) => {
+      const fields = EXPORT_COLUMNS.map((column) => {
+        return `    <${column.xmlTag}>${escapeXmlValue(getMessageField(message, column.key))}</${column.xmlTag}>`;
+      }).join('\n');
+
+      return `  <message>\n${fields}\n  </message>`;
+    }).join('\n');
+
+    downloadFile({
+      content: `<?xml version="1.0" encoding="UTF-8"?>\n<messages exported_at="${new Date().toISOString()}"${exportStartDate ? ` filtered_from_date="${exportStartDate}"` : ''}${exportEndDate ? ` filtered_to_date="${exportEndDate}"` : ''}${exportService ? ` filtered_service="${escapeXmlValue(exportService)}"` : ''}>\n${rows}\n</messages>\n`,
+      fileName: `apixel-contact-messages-${getFilterLabel()}${exportService ? `-${getServiceSlug(exportService)}` : ''}.xml`,
+      mimeType: 'application/xml;charset=utf-8;',
+    });
+  };
+
+  const exportMessageCount = hasDateRangeError ? 0 : getExportMessages().length;
+  const serviceOptions = [...new Set(messages.map(getMessageService))].sort();
+
   return (
     <>
       <Helmet>
@@ -78,9 +228,89 @@ const AdminMessages = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Messages List */}
           <div className="lg:col-span-2 card-glass overflow-hidden">
-            <div className="p-4 border-b border-white/5">
-              <h2 className="font-syne font-semibold text-lg text-white">Contact Messages</h2>
-              <p className="text-slate-400 text-sm">{messages.length} total messages</p>
+            <div className="p-4 border-b border-white/5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="font-syne font-semibold text-lg text-white">Contact Messages</h2>
+                <p className="text-slate-400 text-sm">{messages.length} total messages</p>
+              </div>
+              <div className="flex flex-col gap-2 sm:items-end">
+                <div className="flex flex-wrap items-center gap-2">
+                  <label className="flex flex-col gap-1 text-xs text-slate-500">
+                    From
+                    <input
+                      type="date"
+                      value={exportStartDate}
+                      onChange={(event) => setExportStartDate(event.target.value)}
+                      className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                      data-testid="messages-export-start-date-input"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-1 text-xs text-slate-500">
+                    To
+                    <input
+                      type="date"
+                      value={exportEndDate}
+                      onChange={(event) => setExportEndDate(event.target.value)}
+                      className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                      data-testid="messages-export-end-date-input"
+                    />
+                  </label>
+                  <select
+                    value={exportService}
+                    onChange={(event) => setExportService(event.target.value)}
+                    className="h-10 self-end rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                    data-testid="messages-export-service-select"
+                  >
+                    <option value="">All services</option>
+                    {serviceOptions.map((service) => (
+                      <option key={service} value={service}>{service}</option>
+                    ))}
+                  </select>
+                  {hasActiveFilters && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setExportStartDate('');
+                        setExportEndDate('');
+                        setExportService('');
+                      }}
+                      className="h-10 self-end rounded-lg bg-white/5 px-3 text-sm text-slate-300 transition-colors hover:bg-white/10"
+                      data-testid="messages-export-clear-filters-btn"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={handleDownloadCsv}
+                    disabled={loading || hasDateRangeError || exportMessageCount === 0}
+                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-purple px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-purple/80 disabled:cursor-not-allowed disabled:opacity-50"
+                    data-testid="download-messages-csv-btn"
+                  >
+                    <Download size={16} />
+                    Download CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDownloadXml}
+                    disabled={loading || hasDateRangeError || exportMessageCount === 0}
+                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
+                    data-testid="download-messages-xml-btn"
+                  >
+                    <FileText size={16} />
+                    XML
+                  </button>
+                </div>
+                <p className="text-xs text-slate-500">
+                  {hasDateRangeError
+                    ? 'From date must be before To date'
+                    : hasActiveFilters
+                    ? `${exportMessageCount} messages match selected filters`
+                    : 'Downloads include all dates and services'}
+                </p>
+              </div>
             </div>
 
             {loading ? (
