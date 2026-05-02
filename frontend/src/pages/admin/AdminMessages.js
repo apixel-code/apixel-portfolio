@@ -228,87 +228,84 @@ const AdminMessages = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Messages List */}
           <div className="lg:col-span-2 card-glass overflow-hidden">
-            <div className="p-4 border-b border-white/5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
+            <div className="border-b border-white/5 p-4">
+              <div className="mb-4">
                 <h2 className="font-syne font-semibold text-lg text-white">Contact Messages</h2>
                 <p className="text-slate-400 text-sm">{messages.length} total messages</p>
               </div>
-              <div className="flex flex-col gap-2 sm:items-end">
-                <div className="flex flex-wrap items-center gap-2">
-                  <label className="flex flex-col gap-1 text-xs text-slate-500">
-                    From
-                    <input
-                      type="date"
-                      value={exportStartDate}
-                      onChange={(event) => setExportStartDate(event.target.value)}
-                      className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
-                      data-testid="messages-export-start-date-input"
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1 text-xs text-slate-500">
-                    To
-                    <input
-                      type="date"
-                      value={exportEndDate}
-                      onChange={(event) => setExportEndDate(event.target.value)}
-                      className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
-                      data-testid="messages-export-end-date-input"
-                    />
-                  </label>
-                  <select
-                    value={exportService}
-                    onChange={(event) => setExportService(event.target.value)}
-                    className="h-10 self-end rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
-                    data-testid="messages-export-service-select"
-                  >
-                    <option value="">All services</option>
-                    {serviceOptions.map((service) => (
-                      <option key={service} value={service}>{service}</option>
-                    ))}
-                  </select>
-                  {hasActiveFilters && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setExportStartDate('');
-                        setExportEndDate('');
-                        setExportService('');
-                      }}
-                      className="h-10 self-end rounded-lg bg-white/5 px-3 text-sm text-slate-300 transition-colors hover:bg-white/10"
-                      data-testid="messages-export-clear-filters-btn"
-                    >
-                      Clear
-                    </button>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2">
+
+              <div className="flex flex-wrap items-end gap-2">
+                <label className="flex flex-col gap-1 text-xs text-slate-500">
+                  From
+                  <input
+                    type="date"
+                    value={exportStartDate}
+                    onChange={(event) => setExportStartDate(event.target.value)}
+                    className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                    data-testid="messages-export-start-date-input"
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-xs text-slate-500">
+                  To
+                  <input
+                    type="date"
+                    value={exportEndDate}
+                    onChange={(event) => setExportEndDate(event.target.value)}
+                    className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                    data-testid="messages-export-end-date-input"
+                  />
+                </label>
+                <select
+                  value={exportService}
+                  onChange={(event) => setExportService(event.target.value)}
+                  className="h-10 min-w-[190px] rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                  data-testid="messages-export-service-select"
+                >
+                  <option value="">All services</option>
+                  {serviceOptions.map((service) => (
+                    <option key={service} value={service}>{service}</option>
+                  ))}
+                </select>
+                {hasActiveFilters && (
                   <button
                     type="button"
-                    onClick={handleDownloadCsv}
-                    disabled={loading || hasDateRangeError || exportMessageCount === 0}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-purple px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-purple/80 disabled:cursor-not-allowed disabled:opacity-50"
-                    data-testid="download-messages-csv-btn"
+                    onClick={() => {
+                      setExportStartDate('');
+                      setExportEndDate('');
+                      setExportService('');
+                    }}
+                    className="h-10 rounded-lg bg-white/5 px-3 text-sm text-slate-300 transition-colors hover:bg-white/10"
+                    data-testid="messages-export-clear-filters-btn"
                   >
-                    <Download size={16} />
-                    Download CSV
+                    Clear
                   </button>
-                  <button
-                    type="button"
-                    onClick={handleDownloadXml}
-                    disabled={loading || hasDateRangeError || exportMessageCount === 0}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
-                    data-testid="download-messages-xml-btn"
-                  >
-                    <FileText size={16} />
-                    XML
-                  </button>
-                </div>
-                <p className="text-xs text-slate-500">
+                )}
+                <button
+                  type="button"
+                  onClick={handleDownloadCsv}
+                  disabled={loading || hasDateRangeError || exportMessageCount === 0}
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-brand-purple px-4 text-sm font-medium text-white transition-colors hover:bg-brand-purple/80 disabled:cursor-not-allowed disabled:opacity-50"
+                  data-testid="download-messages-csv-btn"
+                >
+                  <Download size={16} />
+                  Download CSV
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDownloadXml}
+                  disabled={loading || hasDateRangeError || exportMessageCount === 0}
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-white/10 px-4 text-sm font-medium text-slate-200 transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
+                  data-testid="download-messages-xml-btn"
+                >
+                  <FileText size={16} />
+                  XML
+                </button>
+                <p className={`pb-2 text-xs ${hasDateRangeError ? 'text-red-400' : 'text-slate-500'}`}>
                   {hasDateRangeError
                     ? 'From date must be before To date'
                     : hasActiveFilters
-                    ? `${exportMessageCount} messages match selected filters`
-                    : 'Downloads include all dates and services'}
+                    ? `${exportMessageCount} matching messages`
+                    : 'All dates and services'}
                 </p>
               </div>
             </div>
