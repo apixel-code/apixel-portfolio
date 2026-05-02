@@ -134,7 +134,7 @@ const Contact = () => {
                 <div className="card-glass aspect-video overflow-hidden relative">
                   <iframe
                     title="APIXEL Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14602.68955799066!2d90.41529897690046!3d23.79991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7892e5499bb%3A0xffd7daa16a67b43e!2sBaridhara!5e0!3m2!1sen!2sbd!4v1703692800000!5m2!1sen!2sbd"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.0948491908453!2d90.4211277740055!3d23.81522600936528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c700732da8e1%3A0x42bcc7f7436071c1!2sKuril%20Chowrasta!5e0!3m2!1sen!2sbd!4v1777725348708!5m2!1sen!2sbd"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
