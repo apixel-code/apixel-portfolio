@@ -254,6 +254,12 @@ async function run() {
     await client.connect();
     const db = client.db(DB_NAME);
 
+    if (process.argv.includes("--clear")) {
+      const result = await db.collection("contacts").deleteMany({ seedSource: SEED_SOURCE });
+      console.log(`Removed ${result.deletedCount} seeded contact messages from ${DB_NAME}.contacts`);
+      return;
+    }
+
     if (process.argv.includes("--reset")) {
       const result = await db.collection("contacts").deleteMany({ seedSource: SEED_SOURCE });
       console.log(`Removed ${result.deletedCount} existing seeded contact messages.`);
