@@ -84,6 +84,9 @@ const AdminMessages = () => {
   const [exportStartDate, setExportStartDate] = useState('');
   const [exportEndDate, setExportEndDate] = useState('');
   const [exportService, setExportService] = useState('');
+  const [appliedStartDate, setAppliedStartDate] = useState('');
+  const [appliedEndDate, setAppliedEndDate] = useState('');
+  const [appliedService, setAppliedService] = useState('');
 
   const fetchMessages = async () => {
     try {
@@ -145,25 +148,50 @@ const AdminMessages = () => {
   const getExportMessages = () => {
     return messages.filter((message) => {
       const messageDate = getMessageDateKey(message);
-      const matchesStartDate = !exportStartDate || messageDate >= exportStartDate;
-      const matchesEndDate = !exportEndDate || messageDate <= exportEndDate;
-      const matchesService = !exportService || getMessageService(message) === exportService;
+      const matchesStartDate = !appliedStartDate || messageDate >= appliedStartDate;
+      const matchesEndDate = !appliedEndDate || messageDate <= appliedEndDate;
+      const matchesService = !appliedService || getMessageService(message) === appliedService;
 
       return matchesStartDate && matchesEndDate && matchesService;
     });
   };
 
   const hasDateRangeError = exportStartDate && exportEndDate && exportStartDate > exportEndDate;
-  const hasActiveFilters = exportStartDate || exportEndDate || exportService;
+  const hasAppliedDateRangeError = appliedStartDate && appliedEndDate && appliedStartDate > appliedEndDate;
+  const hasActiveFilters = appliedStartDate || appliedEndDate || appliedService;
+  const hasDraftFilters = exportStartDate || exportEndDate || exportService;
+  const hasPendingFilterChanges = exportStartDate !== appliedStartDate || exportEndDate !== appliedEndDate || exportService !== appliedService;
   const getFilterLabel = () => {
-    if (exportStartDate && exportEndDate) return `${exportStartDate}-to-${exportEndDate}`;
-    if (exportStartDate) return `from-${exportStartDate}`;
-    if (exportEndDate) return `until-${exportEndDate}`;
+    if (appliedStartDate && appliedEndDate) return `${appliedStartDate}-to-${appliedEndDate}`;
+    if (appliedStartDate) return `from-${appliedStartDate}`;
+    if (appliedEndDate) return `until-${appliedEndDate}`;
     return getExportFileDate();
   };
 
-  const handleDownloadCsv = () => {
+  const handleApplyFilters = () => {
     if (hasDateRangeError) {
+      toast.error('From date cannot be after To date');
+      return;
+    }
+
+    setAppliedStartDate(exportStartDate);
+    setAppliedEndDate(exportEndDate);
+    setAppliedService(exportService);
+    setSelectedMessage(null);
+  };
+
+  const handleClearFilters = () => {
+    setExportStartDate('');
+    setExportEndDate('');
+    setExportService('');
+    setAppliedStartDate('');
+    setAppliedEndDate('');
+    setAppliedService('');
+    setSelectedMessage(null);
+  };
+
+  const handleDownloadCsv = () => {
+    if (hasAppliedDateRangeError) {
       toast.error('From date cannot be after To date');
       return;
     }
@@ -182,13 +210,13 @@ const AdminMessages = () => {
 
     downloadFile({
       content: [header, ...rows].join('\n'),
-      fileName: `apixel-contact-messages-${getFilterLabel()}${exportService ? `-${getServiceSlug(exportService)}` : ''}.csv`,
+      fileName: `apixel-contact-messages-${getFilterLabel()}${appliedService ? `-${getServiceSlug(appliedService)}` : ''}.csv`,
       mimeType: 'text/csv;charset=utf-8;',
     });
   };
 
   const handleDownloadXml = () => {
-    if (hasDateRangeError) {
+    if (hasAppliedDateRangeError) {
       toast.error('From date cannot be after To date');
       return;
     }
@@ -209,13 +237,14 @@ const AdminMessages = () => {
     }).join('\n');
 
     downloadFile({
-      content: `<?xml version="1.0" encoding="UTF-8"?>\n<messages exported_at="${new Date().toISOString()}"${exportStartDate ? ` filtered_from_date="${exportStartDate}"` : ''}${exportEndDate ? ` filtered_to_date="${exportEndDate}"` : ''}${exportService ? ` filtered_service="${escapeXmlValue(exportService)}"` : ''}>\n${rows}\n</messages>\n`,
-      fileName: `apixel-contact-messages-${getFilterLabel()}${exportService ? `-${getServiceSlug(exportService)}` : ''}.xml`,
+      content: `<?xml version="1.0" encoding="UTF-8"?>\n<messages exported_at="${new Date().toISOString()}"${appliedStartDate ? ` filtered_from_date="${appliedStartDate}"` : ''}${appliedEndDate ? ` filtered_to_date="${appliedEndDate}"` : ''}${appliedService ? ` filtered_service="${escapeXmlValue(appliedService)}"` : ''}>\n${rows}\n</messages>\n`,
+      fileName: `apixel-contact-messages-${getFilterLabel()}${appliedService ? `-${getServiceSlug(appliedService)}` : ''}.xml`,
       mimeType: 'application/xml;charset=utf-8;',
     });
   };
 
-  const exportMessageCount = hasDateRangeError ? 0 : getExportMessages().length;
+  const filteredMessages = hasAppliedDateRangeError ? [] : getExportMessages();
+  const exportMessageCount = filteredMessages.length;
   const serviceOptions = [...new Set(messages.map(getMessageService))].sort();
 
   return (
@@ -231,7 +260,11 @@ const AdminMessages = () => {
             <div className="border-b border-white/5 p-4">
               <div className="mb-4">
                 <h2 className="font-syne font-semibold text-lg text-white">Contact Messages</h2>
-                <p className="text-slate-400 text-sm">{messages.length} total messages</p>
+                <p className="text-slate-400 text-sm">
+                  {hasActiveFilters
+                    ? `${filteredMessages.length} of ${messages.length} messages shown`
+                    : `${messages.length} total messages`}
+                </p>
               </div>
 
               <div className="flex flex-wrap items-end gap-2">
@@ -269,14 +302,19 @@ const AdminMessages = () => {
                     ))}
                   </select>
                 </label>
-                {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={handleApplyFilters}
+                  disabled={loading || hasDateRangeError}
+                  className="h-10 rounded-lg bg-brand-cyan/20 px-4 text-sm font-medium text-brand-cyan transition-colors hover:bg-brand-cyan/30 disabled:cursor-not-allowed disabled:opacity-50"
+                  data-testid="messages-apply-filters-btn"
+                >
+                  Filter
+                </button>
+                {(hasDraftFilters || hasActiveFilters) && (
                   <button
                     type="button"
-                    onClick={() => {
-                      setExportStartDate('');
-                      setExportEndDate('');
-                      setExportService('');
-                    }}
+                    onClick={handleClearFilters}
                     className="h-10 rounded-lg bg-white/5 px-3 text-sm text-slate-300 transition-colors hover:bg-white/10"
                     data-testid="messages-export-clear-filters-btn"
                   >
@@ -286,7 +324,7 @@ const AdminMessages = () => {
                 <button
                   type="button"
                   onClick={handleDownloadCsv}
-                  disabled={loading || hasDateRangeError || exportMessageCount === 0}
+                  disabled={loading || hasAppliedDateRangeError || exportMessageCount === 0}
                   className="btn-primary inline-flex h-10 items-center justify-center gap-2 !px-4 !py-0 text-sm disabled:cursor-not-allowed disabled:opacity-50"
                   data-testid="download-messages-csv-btn"
                 >
@@ -296,7 +334,7 @@ const AdminMessages = () => {
                 <button
                   type="button"
                   onClick={handleDownloadXml}
-                  disabled={loading || hasDateRangeError || exportMessageCount === 0}
+                  disabled={loading || hasAppliedDateRangeError || exportMessageCount === 0}
                   className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-white/10 px-4 text-sm font-medium text-slate-300 transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
                   data-testid="download-messages-xml-btn"
                 >
@@ -306,6 +344,8 @@ const AdminMessages = () => {
                 <p className={`pb-2 text-xs ${hasDateRangeError ? 'text-red-400' : 'text-slate-500'}`}>
                   {hasDateRangeError
                     ? 'From date must be before To date'
+                    : hasPendingFilterChanges
+                    ? 'Click Filter to apply changes'
                     : hasActiveFilters
                     ? `${exportMessageCount} matching messages`
                     : 'All dates and services'}
@@ -317,9 +357,13 @@ const AdminMessages = () => {
               <div className="p-8 text-center text-slate-400">Loading...</div>
             ) : messages.length === 0 ? (
               <div className="p-8 text-center text-slate-400">No messages yet</div>
+            ) : filteredMessages.length === 0 ? (
+              <div className="p-8 text-center text-slate-400">
+                {hasAppliedDateRangeError ? 'Fix the date range to view messages' : 'No messages match the selected filters'}
+              </div>
             ) : (
               <div className="divide-y divide-white/5">
-                {messages.map((message, index) => (
+                {filteredMessages.map((message, index) => (
                   <div
                     key={message.id}
                     onClick={() => {
