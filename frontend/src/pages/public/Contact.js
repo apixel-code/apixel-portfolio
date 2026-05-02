@@ -6,6 +6,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
+import { pushContactFormSuccess, pushPageView } from '../../utils/dataLayer';
 
 
 const Contact = () => {
@@ -27,6 +28,14 @@ const Contact = () => {
     'Other',
   ];
 
+  React.useEffect(() => {
+    pushPageView({
+      pageType: 'contact',
+      pageTitle: 'Contact - Apixel',
+      contentGroup: 'Lead Generation',
+    });
+  }, []);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -37,6 +46,7 @@ const Contact = () => {
 
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, formData);
+      pushContactFormSuccess({ selectedService: formData.service });
       setIsSubmitted(true);
       toast.success('Message sent successfully! We\'ll get back to you soon.');
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });

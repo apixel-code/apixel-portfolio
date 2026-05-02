@@ -14,14 +14,37 @@
     <title>Apixel | Complete IT Solution</title>
     <meta name="google-site-verification" content="ROzMoROIhk9TQ1iFHJrI6J7hzbvCyuSllEg-2k-_AkA" />
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TSDLS3S2');</script>
-<!-- End Google Tag Manager -->
+    <script>
+      /*
+        The dataLayer must exist before the GTM container loads so full page
+        reloads and early page metadata pushes are captured reliably.
+      */
+      window.dataLayer = window.dataLayer || [];
+
+      (function(w,d,s,l,i){
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),
+          dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+        f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TSDLS3S2');
+    </script>
+    <!-- End Google Tag Manager -->
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TSDLS3S2"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+        title="Google Tag Manager"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Flame, Layers3, Star, Tag, TrendingUp } from 'lucide-react';
+import { pushAddToCart, pushViewItem } from '../../utils/dataLayer';
 import { resolveImageUrl } from '../../utils/imageUrl';
 
 const BADGE_STYLES = {
@@ -13,6 +14,20 @@ const TemplateCard = ({ template, index = 0 }) => {
   const BadgeIcon = badge?.icon;
   const visitUrl = template.demoUrl || '#';
   const hasDemo = !!template.demoUrl;
+
+  const handleProductClick = () => {
+    pushViewItem({
+      item: template,
+      index,
+      itemListName: 'Store Templates',
+    });
+
+    pushAddToCart({
+      item: template,
+      index,
+      itemListName: 'Store Templates',
+    });
+  };
 
   return (
     <motion.article
@@ -92,6 +107,7 @@ const TemplateCard = ({ template, index = 0 }) => {
             href={visitUrl}
             target={hasDemo ? '_blank' : '_self'}
             rel={hasDemo ? 'noopener noreferrer' : undefined}
+            onClick={handleProductClick}
             className="inline-flex items-center gap-1.5 text-brand-cyan text-sm font-medium group-hover:gap-2.5 transition-all"
             data-testid={`template-visit-${index}`}
           >

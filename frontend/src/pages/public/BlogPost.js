@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 import Navbar from '../../components/ui/Navbar';
+import { pushPageView } from '../../utils/dataLayer';
 
 
 const BlogPost = () => {
@@ -36,6 +37,22 @@ const BlogPost = () => {
     };
     fetchBlog();
   }, [slug]);
+
+  useEffect(() => {
+    if (blog) {
+      pushPageView({
+        pageType: 'blog_post',
+        pageTitle: blog.title,
+        contentGroup: 'Blog',
+        extra: {
+          post_title: blog.title,
+          post_category: blog.category,
+          post_author: blog.author,
+          post_slug: blog.slug,
+        },
+      });
+    }
+  }, [blog]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {

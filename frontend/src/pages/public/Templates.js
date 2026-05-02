@@ -8,6 +8,7 @@ import TemplateCard from '../../components/templates/TemplateCard';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 import Navbar from '../../components/ui/Navbar';
+import { pushPageView, pushViewItemList } from '../../utils/dataLayer';
 
 const Templates = () => {
   const [templates, setTemplates] = useState([]);
@@ -38,6 +39,24 @@ const Templates = () => {
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentTemplates = templates.slice(indexOfFirstCard, indexOfLastCard);
+
+  useEffect(() => {
+    pushPageView({
+      pageType: 'store',
+      pageTitle: 'Store - Apixel',
+      contentGroup: 'Store',
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!loading && currentTemplates.length > 0) {
+      pushViewItemList({
+        items: currentTemplates,
+        itemListId: 'store_templates',
+        itemListName: 'Store Templates',
+      });
+    }
+  }, [currentTemplates, loading]);
 
   return (
     <>

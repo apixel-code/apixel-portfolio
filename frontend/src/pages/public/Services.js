@@ -7,6 +7,7 @@ import axios from 'axios';
 import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
+import { pushPageView, pushViewItemList } from '../../utils/dataLayer';
 
 
 const Services = () => {
@@ -21,6 +22,14 @@ const Services = () => {
   };
 
   useEffect(() => {
+    pushPageView({
+      pageType: 'service',
+      pageTitle: 'Services - Apixel',
+      contentGroup: 'Services',
+    });
+  }, []);
+
+  useEffect(() => {
     const fetchServices = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/services`);
@@ -33,6 +42,16 @@ const Services = () => {
     };
     fetchServices();
   }, []);
+
+  useEffect(() => {
+    if (!loading && services.length > 0) {
+      pushViewItemList({
+        items: services,
+        itemListId: 'services',
+        itemListName: 'Services',
+      });
+    }
+  }, [loading, services]);
 
   return (
     <>

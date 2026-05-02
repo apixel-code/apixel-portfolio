@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/ui/Footer';
 import Navbar from '../../components/ui/Navbar';
+import { pushPageView } from '../../utils/dataLayer';
 import { resolveImageUrl } from '../../utils/imageUrl';
 
 const DEFAULT_TEAM = [
@@ -32,6 +33,14 @@ const DEFAULT_TEAM = [
 
 const About = () => {
   const [team, setTeam] = useState(DEFAULT_TEAM);
+
+  useEffect(() => {
+    pushPageView({
+      pageType: 'about',
+      pageTitle: 'About - Apixel',
+      contentGroup: 'Marketing Pages',
+    });
+  }, []);
 
   useEffect(() => {
     const fetchExperts = async () => {

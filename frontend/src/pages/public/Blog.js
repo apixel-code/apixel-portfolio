@@ -8,6 +8,7 @@ import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 import Navbar from '../../components/ui/Navbar';
 import { useTheme } from '../../context/ThemeContext';
+import { pushPageView } from '../../utils/dataLayer';
 
 
 const Blog = () => {
@@ -19,6 +20,14 @@ const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 6;
+
+  useEffect(() => {
+    pushPageView({
+      pageType: 'blog_listing',
+      pageTitle: 'Blog - Apixel',
+      contentGroup: 'Blog',
+    });
+  }, []);
 
   useEffect(() => {
     const fetchBlogs = async () => {

@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/ui/Footer';
 import Navbar from '../../components/ui/Navbar';
+import { pushPageView } from '../../utils/dataLayer';
 
 
 // Typewriter Effect Component
@@ -117,6 +118,14 @@ const Home = () => {
       rating: 5,
     },
   ];
+
+  useEffect(() => {
+    pushPageView({
+      pageType: 'home',
+      pageTitle: 'Home - Apixel',
+      contentGroup: 'Marketing Pages',
+    });
+  }, []);
 
   useEffect(() => {
     const fetchServices = async () => {
