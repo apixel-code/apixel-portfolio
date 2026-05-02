@@ -241,7 +241,7 @@ const AdminMessages = () => {
                     type="date"
                     value={exportStartDate}
                     onChange={(event) => setExportStartDate(event.target.value)}
-                    className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                    className="input-dark admin-date-input h-10 px-3 py-0 text-sm"
                     data-testid="messages-export-start-date-input"
                   />
                 </label>
@@ -251,14 +251,14 @@ const AdminMessages = () => {
                     type="date"
                     value={exportEndDate}
                     onChange={(event) => setExportEndDate(event.target.value)}
-                    className="h-10 rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                    className="input-dark admin-date-input h-10 px-3 py-0 text-sm"
                     data-testid="messages-export-end-date-input"
                   />
                 </label>
                 <select
                   value={exportService}
                   onChange={(event) => setExportService(event.target.value)}
-                  className="h-10 min-w-[190px] rounded-lg border border-white/10 bg-white/10 px-3 text-sm text-white outline-none transition-colors [color-scheme:dark] hover:bg-white/15 focus:border-brand-cyan"
+                  className="input-dark h-10 min-w-[190px] px-3 py-0 text-sm"
                   data-testid="messages-export-service-select"
                 >
                   <option value="">All services</option>
@@ -294,7 +294,7 @@ const AdminMessages = () => {
                   type="button"
                   onClick={handleDownloadXml}
                   disabled={loading || hasDateRangeError || exportMessageCount === 0}
-                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-white/10 px-4 text-sm font-medium text-slate-200 transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-white/10 px-4 text-sm font-medium text-slate-300 transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
                   data-testid="download-messages-xml-btn"
                 >
                   <FileText size={16} />

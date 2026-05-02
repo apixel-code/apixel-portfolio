@@ -476,6 +476,14 @@ body {
   color: #0f172a;
 }
 
+.admin-date-input {
+  color-scheme: dark;
+}
+
+.admin-light .admin-date-input {
+  color-scheme: light;
+}
+
 .admin-light .text-brand-cyan {
   color: #7c3aed;
 }
