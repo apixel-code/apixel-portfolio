@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
@@ -71,7 +71,8 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/templates" element={<Templates />} />
+            <Route path="/store" element={<Templates />} />
+            <Route path="/templates" element={<Navigate to="/store" replace />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
