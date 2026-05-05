@@ -58,7 +58,7 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, title: 'Email', value: 'contact.apixel@gmail.com', link: 'mailto:contact.apixel@gmail.com' },
+    { icon: Mail, title: 'Email', value: 'info@apixel.net', link: 'mailto:contact.apixel@gmail.com' },
     { icon: Phone, title: 'Phone', value: '+880 1754 407 239', link: 'tel:+8801754407239' },
     { icon: MapPin, title: 'Address', value: 'Kuril Chowrasta, Dhaka, Bangladesh', link: null },
     { icon: Clock, title: 'Working Hours', value: 'Sun - Thu: 10AM - 7PM', link: null },
