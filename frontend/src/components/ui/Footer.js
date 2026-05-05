@@ -112,7 +112,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <Mail size={18} className="text-brand-cyan mt-0.5" />
                 <a 
-                  href="mailto:contact.apixel@gmail.com"
+                  href="mailto:info@apixel.net"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
                   contact.apixel@gmail.com
