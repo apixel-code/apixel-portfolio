@@ -115,7 +115,7 @@ const Footer = () => {
                   href="mailto:info@apixel.net"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
-                  contact.apixel@gmail.com
+                  info@apixel.net
                 </a>
               </li>
               <li className="flex items-start gap-3">
