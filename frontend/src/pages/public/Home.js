@@ -256,7 +256,7 @@ const Home = () => {
         </section>
 
         {/* Prestigious Clients */}
-        <section className="py-14 border-y border-white/5 bg-white/[0.02] overflow-hidden">
+        <section className="client-marquee-section py-14 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
             <div className="text-center">
               <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">Trusted By</span>
@@ -267,8 +267,8 @@ const Home = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-brand-dark to-transparent z-10" />
+            <div className="client-marquee-fade client-marquee-fade-left" />
+            <div className="client-marquee-fade client-marquee-fade-right" />
 
             <motion.div
               className="flex w-max gap-5"
@@ -278,9 +278,9 @@ const Home = () => {
               {[...prestigiousClients, ...prestigiousClients].map((client, index) => (
                 <div
                   key={`${client}-${index}`}
-                  className="min-w-[190px] h-20 rounded-xl border border-white/10 bg-white/5 px-6 flex items-center justify-center"
+                  className="client-logo-card min-w-[190px] h-20 px-6 flex items-center justify-center"
                 >
-                  <span className="font-syne font-semibold text-lg text-slate-200 whitespace-nowrap">
+                  <span className="client-logo-text font-syne font-semibold text-lg whitespace-nowrap">
                     {client}
                   </span>
                 </div>
