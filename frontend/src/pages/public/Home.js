@@ -160,6 +160,17 @@ const Home = () => {
     { icon: TrendingUp, title: 'Result Driven', description: 'Focus on ROI and measurable outcomes' },
   ];
 
+  const prestigiousClients = [
+    'TechStart BD',
+    'Fashion Hub',
+    'Global Traders',
+    'Urban Nest',
+    'EduCare Plus',
+    'HealthBridge',
+    'RetailX',
+    'Nexa Foods',
+  ];
+
   return (
     <>
       <Helmet>
@@ -173,7 +184,7 @@ const Home = () => {
 
       <main className="bg-brand-dark overflow-hidden">
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center bg-grid pt-20">
+        <section className="relative min-h-[82vh] flex items-center justify-center bg-grid pt-20 pb-10">
           {/* Background Effects */}
           <div className="absolute inset-0 bg-gradient-radial from-brand-purple/10 via-transparent to-transparent" />
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-purple/20 rounded-full blur-3xl animate-pulse-slow" />
@@ -232,7 +243,7 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2"
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:block"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
@@ -244,10 +255,44 @@ const Home = () => {
           </motion.div>
         </section>
 
+        {/* Prestigious Clients */}
+        <section className="py-14 border-y border-white/5 bg-white/[0.02] overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <div className="text-center">
+              <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">Trusted By</span>
+              <h2 className="font-syne font-bold text-2xl md:text-4xl text-white mt-3">
+                Prestigious Clients We Have Worked With
+              </h2>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-brand-dark to-transparent z-10" />
+
+            <motion.div
+              className="flex w-max gap-5"
+              animate={{ x: ['0%', '-50%'] }}
+              transition={{ duration: 28, ease: 'linear', repeat: Infinity }}
+            >
+              {[...prestigiousClients, ...prestigiousClients].map((client, index) => (
+                <div
+                  key={`${client}-${index}`}
+                  className="min-w-[190px] h-20 rounded-xl border border-white/10 bg-white/5 px-6 flex items-center justify-center"
+                >
+                  <span className="font-syne font-semibold text-lg text-slate-200 whitespace-nowrap">
+                    {client}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
         {/* Services Section */}
-        <AnimatedSection className="py-20 md:py-32">
+        <AnimatedSection className="py-14 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
+            <div className="text-center mb-10">
               <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">What We Do</span>
               <h2 className="font-syne font-bold text-3xl md:text-5xl text-white mt-4">Our Services</h2>
             </div>
