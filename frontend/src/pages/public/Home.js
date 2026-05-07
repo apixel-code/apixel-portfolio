@@ -308,20 +308,34 @@ const Home = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     whileHover={{ y: -10 }}
-                    className="card-glass group cursor-pointer"
+                    className="service-card-home group"
                     data-testid={`service-card-${index}`}
                   >
-                    <div className="w-14 h-14 bg-brand-purple/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-purple/40 transition-colors">
-                      <IconComponent size={28} className="text-brand-cyan" />
+                    <div className="service-card-home__glow" />
+                    <div className="relative z-10 flex h-full flex-col">
+                      <div className="mb-6 flex items-start justify-between gap-4">
+                        <div className="service-card-home__icon">
+                          <IconComponent size={28} />
+                        </div>
+                        <span className="service-card-home__number">
+                          0{index + 1}
+                        </span>
+                      </div>
+
+                      <h3 className="font-syne font-semibold text-xl text-white mb-3 leading-snug">
+                        {service.name}
+                      </h3>
+                      <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                        {service.description}
+                      </p>
+
+                      <Link 
+                        to="/contact" 
+                        className="service-card-home__link"
+                      >
+                        Discuss This Service <ArrowRight size={16} />
+                      </Link>
                     </div>
-                    <h3 className="font-syne font-semibold text-xl text-white mb-3">{service.name}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed mb-4">{service.description}</p>
-                    <Link 
-                      to="/contact" 
-                      className="text-brand-cyan text-sm font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all"
-                    >
-                      Learn More <ArrowRight size={16} />
-                    </Link>
                   </motion.div>
                 );
               })}

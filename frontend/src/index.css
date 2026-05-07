@@ -161,6 +161,109 @@ body {
   box-shadow: 0 0 30px rgba(147, 51, 234, 0.2);
 }
 
+/* Home service cards */
+.service-card-home {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.035);
+  padding: 24px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.service-card-home::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, #9333EA, #00F5FF, #FFD700);
+  opacity: 0.85;
+}
+
+.service-card-home:hover {
+  border-color: rgba(0, 245, 255, 0.42);
+  background:
+    linear-gradient(180deg, rgba(147, 51, 234, 0.13), rgba(255, 255, 255, 0.035)),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28), 0 0 28px rgba(0, 245, 255, 0.12);
+}
+
+.service-card-home__glow {
+  position: absolute;
+  right: -56px;
+  top: -56px;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: rgba(0, 245, 255, 0.12);
+  filter: blur(34px);
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.service-card-home:hover .service-card-home__glow {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.service-card-home__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00F5FF;
+  background: rgba(0, 245, 255, 0.1);
+  border: 1px solid rgba(0, 245, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card-home__icon svg {
+  transition: transform 0.3s ease;
+}
+
+.service-card-home:hover .service-card-home__icon {
+  color: #ffffff;
+  background: rgba(147, 51, 234, 0.42);
+  border-color: rgba(0, 245, 255, 0.42);
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 14px 28px rgba(0, 245, 255, 0.14);
+}
+
+.service-card-home:hover .service-card-home__icon svg {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.service-card-home__number {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(248, 250, 252, 0.38);
+}
+
+.service-card-home__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  color: #00F5FF;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.service-card-home:hover .service-card-home__link {
+  gap: 12px;
+  color: #FFD700;
+}
+
 /* Client marquee */
 .client-marquee-section {
   position: relative;
@@ -330,6 +433,37 @@ body {
 .light-mode .card-glass:hover {
   border-color: rgba(147, 51, 234, 0.35);
   box-shadow: 0 4px 20px rgba(147, 51, 234, 0.1);
+}
+
+.light-mode .service-card-home {
+  border-color: rgba(15, 23, 42, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.86)),
+    #ffffff;
+  box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
+}
+
+.light-mode .service-card-home:hover {
+  border-color: rgba(147, 51, 234, 0.32);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.12);
+}
+
+.light-mode .service-card-home__icon {
+  color: #7e22ce;
+  background: rgba(147, 51, 234, 0.08);
+  border-color: rgba(147, 51, 234, 0.16);
+}
+
+.light-mode .service-card-home__number {
+  color: rgba(15, 23, 42, 0.34);
+}
+
+.light-mode .service-card-home__link {
+  color: #7e22ce;
+}
+
+.light-mode .service-card-home:hover .service-card-home__link {
+  color: #0f766e;
 }
 
 .light-mode .blog-post-content,
