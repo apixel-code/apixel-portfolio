@@ -313,16 +313,16 @@ const Home = () => {
                   >
                     <div className="service-card-home__glow" />
                     <div className="relative z-10 flex h-full flex-col">
-                      <div className="mb-6 flex items-start justify-between gap-4">
+                      <div className="mb-4 flex items-start justify-between gap-4">
                         <div className="service-card-home__icon">
-                          <IconComponent size={28} />
+                          <IconComponent size={24} />
                         </div>
                       </div>
 
-                      <h3 className="font-syne font-semibold text-xl text-white mb-3 leading-snug">
+                      <h3 className="font-syne font-semibold text-lg text-white mb-2 leading-snug">
                         {service.name}
                       </h3>
-                      <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                      <p className="text-slate-400 text-sm leading-relaxed mb-5 flex-1 line-clamp-3">
                         {service.description}
                       </p>
 
