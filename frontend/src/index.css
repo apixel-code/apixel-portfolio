@@ -201,6 +201,70 @@ body {
   background: linear-gradient(to left, #020617, rgba(2, 6, 23, 0));
 }
 
+/* Blog article content */
+.blog-post-content {
+  color: #cbd5e1;
+}
+
+.blog-post-content h1,
+.blog-post-content h2,
+.blog-post-content h3,
+.blog-post-content h4 {
+  font-family: 'Syne', sans-serif;
+  color: #00F5FF !important;
+  line-height: 1.25;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.22);
+}
+
+.blog-post-content h2 {
+  border-left: 5px solid #00F5FF;
+  padding-left: 15px;
+}
+
+.blog-post-content p,
+.blog-post-content li {
+  color: #d1d5db !important;
+  line-height: 1.75;
+}
+
+.blog-post-content strong {
+  color: #FFD700 !important;
+}
+
+.blog-post-content ul,
+.blog-post-content ol {
+  color: #d1d5db !important;
+}
+
+.blog-post-content blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.25em;
+  color: #fab1a0 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-left: 5px solid #ff7675 !important;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+.blog-post-content div {
+  border-radius: 12px;
+}
+
+.blog-post-content div[style*="background"],
+.blog-post-content .blog-callout {
+  padding: 20px;
+  margin-top: 25px;
+  background: rgba(0, 245, 255, 0.1) !important;
+  border: 1px dashed #00F5FF !important;
+}
+
+.blog-post-content hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.45), transparent) !important;
+  margin: 30px 0;
+}
+
 /* Input styles */
 .input-dark {
   @apply bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 focus:border-brand-purple focus:ring-1 focus:ring-brand-purple focus:outline-none transition-all w-full;
@@ -266,6 +330,81 @@ body {
 .light-mode .card-glass:hover {
   border-color: rgba(147, 51, 234, 0.35);
   box-shadow: 0 4px 20px rgba(147, 51, 234, 0.1);
+}
+
+.light-mode .blog-post-content,
+.light-mode .blog-post-content p,
+.light-mode .blog-post-content li,
+.light-mode .blog-post-content ul,
+.light-mode .blog-post-content ol {
+  color: #334155 !important;
+}
+
+.light-mode .blog-post-content h1,
+.light-mode .blog-post-content h2,
+.light-mode .blog-post-content h3,
+.light-mode .blog-post-content h4,
+.light-mode .blog-post-content strong {
+  color: #0f766e !important;
+  text-shadow: none !important;
+}
+
+.light-mode .blog-post-content h2 {
+  border-left-color: #0f766e !important;
+}
+
+.light-mode .blog-post-content a {
+  color: #7e22ce !important;
+}
+
+.light-mode .blog-post-content code {
+  color: #0891b2 !important;
+  background-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+.light-mode .blog-post-content pre {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+.light-mode .blog-post-content blockquote {
+  color: #475569 !important;
+  background: rgba(147, 51, 234, 0.06) !important;
+  border-left-color: rgba(147, 51, 234, 0.55) !important;
+}
+
+.light-mode .blog-post-content [style*="color"] {
+  color: #334155 !important;
+}
+
+.light-mode .blog-post-content h1[style*="color"],
+.light-mode .blog-post-content h2[style*="color"],
+.light-mode .blog-post-content h3[style*="color"],
+.light-mode .blog-post-content h4[style*="color"] {
+  color: #0f766e !important;
+  text-shadow: none !important;
+  border-left-color: #0f766e !important;
+}
+
+.light-mode .blog-post-content strong[style*="color"],
+.light-mode .blog-post-content li strong,
+.light-mode .blog-post-content p strong {
+  color: #7e22ce !important;
+}
+
+.light-mode .blog-post-content div[style*="background"],
+.light-mode .blog-post-content blockquote[style*="background"] {
+  background: rgba(147, 51, 234, 0.06) !important;
+  border-color: rgba(147, 51, 234, 0.35) !important;
+}
+
+.light-mode .blog-post-content div[style*="background"] span,
+.light-mode .blog-post-content div[style*="background"] strong {
+  color: #334155 !important;
+}
+
+.light-mode .blog-post-content hr {
+  background: linear-gradient(to right, transparent, rgba(15, 23, 42, 0.25), transparent) !important;
 }
 
 .light-mode .client-marquee-section {

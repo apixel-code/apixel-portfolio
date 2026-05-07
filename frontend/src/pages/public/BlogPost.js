@@ -9,6 +9,25 @@ import Loading from '../../components/ui/Loading';
 import Navbar from '../../components/ui/Navbar';
 import { pushPageView } from '../../utils/dataLayer';
 
+const escapeHtml = (value) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
+const formatBlogContent = (content = '') => {
+  const hasHtmlTags = /<\/?[a-z][\s\S]*>/i.test(content);
+  if (hasHtmlTags) return content;
+
+  return content
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .map((block) => `<p>${escapeHtml(block).replace(/\n/g, '<br />')}</p>`)
+    .join('');
+};
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -176,7 +195,7 @@ const BlogPost = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="prose prose-invert prose-lg max-w-none
+            className="blog-post-content prose prose-invert prose-lg max-w-none
               prose-headings:font-syne prose-headings:text-white
               prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6
               prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
@@ -188,7 +207,7 @@ const BlogPost = () => {
               prose-li:my-2
               prose-code:text-brand-cyan prose-code:bg-white/5 prose-code:px-2 prose-code:py-1 prose-code:rounded
               prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            dangerouslySetInnerHTML={{ __html: formatBlogContent(blog.content) }}
             data-testid="blog-content"
           />
 

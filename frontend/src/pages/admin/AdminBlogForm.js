@@ -270,7 +270,7 @@ const AdminBlogForm = () => {
 
               {/* Content */}
               <div>
-                <label className="block text-sm text-slate-400 mb-2">Content (HTML) *</label>
+                <label className="block text-sm text-slate-400 mb-2">Content (plain text or HTML) *</label>
                 <textarea
                   name="content"
                   value={formData.content}
@@ -278,7 +278,7 @@ const AdminBlogForm = () => {
                   required
                   rows={15}
                   className="input-dark resize-none font-mono text-sm"
-                  placeholder="<h2>Introduction</h2><p>Your content here...</p>"
+                  placeholder="Write normal blog text here. Use blank lines between paragraphs. You can also paste simple HTML if needed."
                   data-testid="blog-content-input"
                 />
               </div>
