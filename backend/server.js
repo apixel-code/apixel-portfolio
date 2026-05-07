@@ -59,6 +59,7 @@ async function seedDatabase() {
     await db.collection("services").insertMany([
       {
         name: "Website Development (MERN)",
+        slug: "website-development-mern",
         description:
           "Custom web applications built with MongoDB, Express.js, React, and Node.js. Scalable, fast, and modern solutions tailored to your business needs.",
         features: ["Custom React Frontend", "Node.js Backend", "MongoDB Database", "RESTful APIs", "Responsive Design", "SEO Optimized"],
@@ -69,6 +70,7 @@ async function seedDatabase() {
       },
       {
         name: "Meta & Google Ads",
+        slug: "meta-google-ads",
         description:
           "Strategic advertising campaigns with advanced Conversion API integration and comprehensive tracking setup for maximum ROI.",
         features: ["Facebook & Instagram Ads", "Google Ads Management", "Conversion API Setup", "Pixel Implementation", "A/B Testing", "Monthly Reports"],
@@ -79,6 +81,7 @@ async function seedDatabase() {
       },
       {
         name: "Social Media Management",
+        slug: "social-media-management",
         description:
           "Complete social media presence management. Content creation, scheduling, engagement, and growth strategies across all platforms.",
         features: ["Content Calendar", "Daily Posting", "Community Management", "Hashtag Strategy", "Analytics Reports", "Influencer Outreach"],
@@ -89,6 +92,7 @@ async function seedDatabase() {
       },
       {
         name: "Graphic Design",
+        slug: "graphic-design",
         description:
           "Eye-catching visual designs for your brand. From logos to marketing materials, we create designs that make an impact.",
         features: ["Logo Design", "Brand Identity", "Social Media Graphics", "Print Materials", "UI/UX Design", "Motion Graphics"],
@@ -99,6 +103,16 @@ async function seedDatabase() {
       },
     ]);
     console.log("Services seeded");
+  }
+
+  const servicesWithoutSlug = await db.collection("services").find({
+    $or: [{ slug: { $exists: false } }, { slug: "" }, { slug: null }],
+  }).toArray();
+  for (const service of servicesWithoutSlug) {
+    await db.collection("services").updateOne(
+      { _id: service._id },
+      { $set: { slug: slugify(service.name) } }
+    );
   }
 
   // Blogs
@@ -351,14 +365,21 @@ app.get("/api/services", async (_req, res) => {
   res.json(services.map(serializeDoc));
 });
 
+app.get("/api/services/slug/:slug", async (req, res) => {
+  const service = await db.collection("services").findOne({ slug: req.params.slug });
+  if (!service) return res.status(404).json({ detail: "Service not found" });
+  res.json(serializeDoc(service));
+});
+
 app.post("/api/services", verifyToken, async (req, res) => {
-  const data = { ...req.body, createdAt: new Date() };
+  const data = { ...req.body, slug: slugify(req.body.name || ""), createdAt: new Date() };
   const result = await db.collection("services").insertOne(data);
   res.json(serializeDoc({ _id: result.insertedId, ...data }));
 });
 
 app.put("/api/services/:id", verifyToken, async (req, res) => {
   const update = Object.fromEntries(Object.entries(req.body).filter(([, v]) => v != null));
+  if (update.name) update.slug = slugify(update.name);
   if (!Object.keys(update).length) return res.status(400).json({ detail: "No data to update" });
   const result = await db.collection("services").findOneAndUpdate(
     { _id: new ObjectId(req.params.id) },

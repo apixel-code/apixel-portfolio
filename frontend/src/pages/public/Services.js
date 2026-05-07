@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Code, Target, Share2, Palette, CheckCircle, ArrowRight } from 'lucide-react';
@@ -9,10 +9,17 @@ import Footer from '../../components/ui/Footer';
 import Loading from '../../components/ui/Loading';
 import { pushPageView, pushViewItemList } from '../../utils/dataLayer';
 
+const getServiceAnchor = (service) =>
+  `service-${service.slug || service.name
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '')}`;
 
 const Services = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { slug } = useParams();
 
   const serviceIcons = {
     'Code': Code,
@@ -52,6 +59,20 @@ const Services = () => {
       });
     }
   }, [loading, services]);
+
+  useEffect(() => {
+    if (loading || !slug) return;
+
+    const scrollToService = () => {
+      const target = document.getElementById(`service-${slug}`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    const timeout = setTimeout(scrollToService, 100);
+    return () => clearTimeout(timeout);
+  }, [loading, services, slug]);
 
   return (
     <>
@@ -96,12 +117,13 @@ const Services = () => {
                   
                   return (
                     <motion.div
+                      id={getServiceAnchor(service)}
                       key={service.id}
                       initial={{ opacity: 0, y: 50 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.1 }}
                       viewport={{ once: true }}
-                      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
+                      className={`scroll-mt-28 flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
                       data-testid={`service-detail-${index}`}
                     >
                       {/* Icon/Visual Side */}
