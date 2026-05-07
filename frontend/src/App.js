@@ -33,6 +33,7 @@ import AdminTemplates from './pages/admin/AdminTemplates';
 
 // Components
 import ProtectedRoute from './components/admin/ProtectedRoute';
+import MessengerButton from './components/ui/MessengerButton';
 import ScrollToTop from './components/ui/ScrollToTop';
 import WhatsAppButton from './components/ui/WhatsAppButton';
 
@@ -127,6 +128,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
+        <MessengerButton />
         <WhatsAppButton />
       </Router>
     </AuthProvider>
