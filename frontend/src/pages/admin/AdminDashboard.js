@@ -44,7 +44,7 @@ const AdminDashboard = () => {
   const statCards = [
     { title: 'Total Blogs', value: stats.totalBlogs, icon: FileText, color: 'purple' },
     { title: 'Total Services', value: stats.totalServices, icon: Briefcase, color: 'cyan' },
-    { title: 'Total Store Items', value: stats.totalTemplates, icon: LayoutTemplate, color: 'gold' },
+    { title: 'Total Shop Items', value: stats.totalTemplates, icon: LayoutTemplate, color: 'gold' },
     { title: 'Total Experts', value: stats.totalExperts, icon: UserSquare2, color: 'cyan' },
     { title: 'Total Messages', value: stats.totalMessages, icon: MessageSquare, color: 'gold' },
     { title: 'Unread Messages', value: stats.unreadMessages, icon: Users, color: 'red' },
@@ -53,7 +53,7 @@ const AdminDashboard = () => {
   const quickActions = [
     { title: 'New Blog', path: '/admin/blogs/new', icon: FileText },
     { title: 'New Service', path: '/admin/services/new', icon: Briefcase },
-    { title: 'New Store Item', path: '/admin/templates/new', icon: LayoutTemplate },
+    { title: 'New Shop Item', path: '/admin/templates/new', icon: LayoutTemplate },
     { title: 'New Expert', path: '/admin/experts/new', icon: UserSquare2 },
     { title: 'View Messages', path: '/admin/messages', icon: MessageSquare },
   ];

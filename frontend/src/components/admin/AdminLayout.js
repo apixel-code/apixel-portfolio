@@ -31,7 +31,7 @@ const AdminLayout = ({ children }) => {
     { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Blogs', path: '/admin/blogs', icon: FileText },
     { name: 'Services', path: '/admin/services', icon: Briefcase },
-    { name: 'Store', path: '/admin/templates', icon: LayoutTemplate },
+    { name: 'Shop', path: '/admin/templates', icon: LayoutTemplate },
     { name: 'Experts', path: '/admin/experts', icon: Users },
     { name: 'Messages', path: '/admin/messages', icon: MessageSquare },
   ];

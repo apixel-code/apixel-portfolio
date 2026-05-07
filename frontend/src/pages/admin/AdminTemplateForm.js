@@ -60,7 +60,7 @@ const AdminTemplateForm = () => {
             });
           }
         } catch (error) {
-          toast.error('Failed to fetch store item');
+          toast.error('Failed to fetch shop item');
           navigate('/admin/templates');
         } finally {
           setFetching(false);
@@ -108,15 +108,15 @@ const AdminTemplateForm = () => {
 
       if (isEdit) {
         await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/templates/${id}`, data, { headers });
-        toast.success('Store item updated successfully');
+        toast.success('Shop item updated successfully');
       } else {
         await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/templates`, data, { headers });
-        toast.success('Store item created successfully');
+        toast.success('Shop item created successfully');
       }
 
       navigate('/admin/templates');
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Failed to save store item');
+      toast.error(error.response?.data?.detail || 'Failed to save shop item');
     } finally {
       setLoading(false);
     }
@@ -133,7 +133,7 @@ const AdminTemplateForm = () => {
   return (
     <>
       <Helmet>
-        <title>{isEdit ? 'Edit Store Item' : 'New Store Item'} - Apixel Admin</title>
+        <title>{isEdit ? 'Edit Shop Item' : 'New Shop Item'} - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>
@@ -146,7 +146,7 @@ const AdminTemplateForm = () => {
               <ArrowLeft size={20} className="text-slate-400" />
             </button>
             <h1 className="font-syne font-bold text-2xl text-white">
-              {isEdit ? 'Edit Store Item' : 'New Store Item'}
+              {isEdit ? 'Edit Shop Item' : 'New Shop Item'}
             </h1>
           </div>
 
@@ -161,7 +161,7 @@ const AdminTemplateForm = () => {
                   onChange={handleTitleChange}
                   required
                   className="input-dark"
-                  placeholder="Enter store item title"
+                  placeholder="Enter shop item title"
                   data-testid="template-title-input"
                 />
               </div>
@@ -235,7 +235,7 @@ const AdminTemplateForm = () => {
                 {formData.thumbnailUrl && (
                   <img
                     src={resolveImageUrl(formData.thumbnailUrl)}
-                    alt="Store item thumbnail preview"
+                    alt="Shop item thumbnail preview"
                     className="mt-3 h-36 rounded-xl object-cover border border-white/10"
                   />
                 )}
@@ -312,7 +312,7 @@ const AdminTemplateForm = () => {
                   className="w-5 h-5 rounded border-white/20 bg-white/5 text-brand-purple focus:ring-brand-purple"
                   data-testid="template-published-checkbox"
                 />
-                <label htmlFor="published" className="text-white">Publish this store item</label>
+                <label htmlFor="published" className="text-white">Publish this shop item</label>
               </div>
             </div>
 
@@ -331,7 +331,7 @@ const AdminTemplateForm = () => {
                 data-testid="template-submit-btn"
               >
                 <Save size={18} />
-                {loading ? 'Saving...' : (isEdit ? 'Update Store Item' : 'Create Store Item')}
+                {loading ? 'Saving...' : (isEdit ? 'Update Shop Item' : 'Create Shop Item')}
               </button>
             </div>
           </form>

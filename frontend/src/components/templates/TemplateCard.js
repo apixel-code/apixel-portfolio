@@ -19,13 +19,13 @@ const TemplateCard = ({ template, index = 0 }) => {
     pushViewItem({
       item: template,
       index,
-      itemListName: 'Store Templates',
+      itemListName: 'Shop Templates',
     });
 
     pushAddToCart({
       item: template,
       index,
-      itemListName: 'Store Templates',
+      itemListName: 'Shop Templates',
     });
   };
 

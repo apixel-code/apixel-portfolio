@@ -31,17 +31,17 @@ const AdminTemplates = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this store item?')) return;
+    if (!window.confirm('Are you sure you want to delete this shop item?')) return;
 
     try {
       const token = localStorage.getItem('apixel_token');
       await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/templates/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast.success('Store item deleted successfully');
+      toast.success('Shop item deleted successfully');
       fetchTemplates();
     } catch (error) {
-      toast.error('Failed to delete store item');
+      toast.error('Failed to delete shop item');
     }
   };
 
@@ -61,7 +61,7 @@ const AdminTemplates = () => {
   return (
     <>
       <Helmet>
-        <title>Store Management - Apixel Admin</title>
+        <title>Shop Management - Apixel Admin</title>
       </Helmet>
 
       <AdminLayout>
@@ -71,7 +71,7 @@ const AdminTemplates = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
               <input
                 type="text"
-                placeholder="Search store items..."
+                placeholder="Search shop items..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="input-dark pl-12 w-full"
@@ -84,7 +84,7 @@ const AdminTemplates = () => {
               data-testid="new-template-btn"
             >
               <Plus size={18} />
-              New Store Item
+              New Shop Item
             </Link>
           </div>
 
@@ -93,7 +93,7 @@ const AdminTemplates = () => {
               <div className="p-8 text-center text-slate-400">Loading...</div>
             ) : filteredTemplates.length === 0 ? (
               <div className="p-8 text-center text-slate-400">
-                {searchTerm ? 'No store items found matching your search.' : 'No store items yet. Create your first one!'}
+                {searchTerm ? 'No shop items found matching your search.' : 'No shop items yet. Create your first one!'}
               </div>
             ) : (
               <div className="overflow-x-auto">

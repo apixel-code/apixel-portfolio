@@ -42,9 +42,9 @@ const Templates = () => {
 
   useEffect(() => {
     pushPageView({
-      pageType: 'store',
-      pageTitle: 'Store - Apixel',
-      contentGroup: 'Store',
+      pageType: 'shop',
+      pageTitle: 'Shop - Apixel',
+      contentGroup: 'Shop',
     });
   }, []);
 
@@ -52,8 +52,8 @@ const Templates = () => {
     if (!loading && currentTemplates.length > 0) {
       pushViewItemList({
         items: currentTemplates,
-        itemListId: 'store_templates',
-        itemListName: 'Store Templates',
+        itemListId: 'shop_templates',
+        itemListName: 'Shop Templates',
       });
     }
   }, [currentTemplates, loading]);
@@ -61,10 +61,10 @@ const Templates = () => {
   return (
     <>
       <Helmet>
-        <title>Store - Apixel | Ready-to-Launch Website Store</title>
+        <title>Shop - Apixel | Ready-to-Launch Website Designs</title>
         <meta
           name="description"
-          content="Explore premium website designs in the Apixel store for agencies, SaaS products, portfolios, and hospitality brands."
+          content="Explore premium website designs in the Apixel shop for agencies, SaaS products, portfolios, and hospitality brands."
         />
       </Helmet>
 
@@ -100,10 +100,10 @@ const Templates = () => {
             ) : templates.length === 0 ? (
               <div className="card-glass text-center py-16">
                 <h3 className="font-syne font-semibold text-2xl text-white mb-4">
-                  No store items published yet
+                  No shop items published yet
                 </h3>
                 <p className="text-slate-400 max-w-xl mx-auto">
-                  New store items will appear here as soon as they are added from the admin panel and published.
+                  New shop items will appear here as soon as they are added from the admin panel and published.
                 </p>
               </div>
             ) : (
@@ -172,7 +172,7 @@ const Templates = () => {
               className="card-glass text-center"
             >
               <h2 className="font-syne font-bold text-3xl md:text-4xl text-white mb-5">
-                Need a Store Design Customized for Your Brand?
+                Need a Shop Design Customized for Your Brand?
               </h2>
               <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
                 We can adapt any layout to your content, services, and conversion goals while keeping the premium

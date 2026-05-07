@@ -317,9 +317,6 @@ const Home = () => {
                         <div className="service-card-home__icon">
                           <IconComponent size={28} />
                         </div>
-                        <span className="service-card-home__number">
-                          0{index + 1}
-                        </span>
                       </div>
 
                       <h3 className="font-syne font-semibold text-xl text-white mb-3 leading-snug">

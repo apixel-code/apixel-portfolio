@@ -240,14 +240,6 @@ body {
   transform: rotate(-6deg) scale(1.08);
 }
 
-.service-card-home__number {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(248, 250, 252, 0.38);
-}
-
 .service-card-home__link {
   display: inline-flex;
   align-items: center;
@@ -452,10 +444,6 @@ body {
   color: #7e22ce;
   background: rgba(147, 51, 234, 0.08);
   border-color: rgba(147, 51, 234, 0.16);
-}
-
-.light-mode .service-card-home__number {
-  color: rgba(15, 23, 42, 0.34);
 }
 
 .light-mode .service-card-home__link {

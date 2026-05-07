@@ -101,7 +101,7 @@ export const pushViewItemList = ({ items, itemListId, itemListName }) => {
   });
 };
 
-export const pushAddToCart = ({ item, index = 0, itemListName = 'Store' }) => {
+export const pushAddToCart = ({ item, index = 0, itemListName = 'Shop' }) => {
   const value = parsePrice(item);
 
   pushToDataLayer({ ecommerce: null });
