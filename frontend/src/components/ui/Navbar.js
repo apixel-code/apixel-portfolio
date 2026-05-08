@@ -1,6 +1,19 @@
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, Menu, Moon, Sun, X } from 'lucide-react';
+import {
+  ArrowRight,
+  ChevronDown,
+  Code,
+  LayoutGrid,
+  Menu,
+  Moon,
+  Palette,
+  Share2,
+  Sparkles,
+  Sun,
+  Target,
+  X,
+} from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
@@ -11,6 +24,15 @@ const getServiceSlug = (service) =>
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
+
+const serviceIcons = {
+  Code,
+  Target,
+  Share2,
+  Palette,
+};
+
+const getServiceIcon = (service) => serviceIcons[service.icon] || Sparkles;
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +52,7 @@ const Navbar = () => {
   ];
 
   const isActive = (path) => location.pathname === path;
-  const isServicesActive = location.pathname === '/services';
+  const isServicesActive = location.pathname.startsWith('/services');
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -79,7 +101,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10 lg:gap-12">
             {navLinks.slice(0, 2).map((link) => (
               <Link
                 key={link.path}
@@ -128,36 +150,52 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.98 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-1/2 top-full mt-5 w-72 -translate-x-1/2 rounded-xl border border-white/10 bg-brand-dark/95 p-3 shadow-2xl shadow-black/30 backdrop-blur-xl"
+                    className="absolute left-1/2 top-full mt-5 w-[24rem] -translate-x-1/2 rounded-2xl border border-white/10 bg-brand-dark/95 p-3 shadow-2xl shadow-black/35 backdrop-blur-xl"
                     role="menu"
                     data-testid="services-dropdown-menu"
                   >
-                    <Link
-                      to="/services"
-                      onClick={() => setIsServicesOpen(false)}
-                      className="block rounded-lg px-4 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-                      role="menuitem"
-                    >
-                      All Services
-                    </Link>
-                    <div className="my-2 h-px bg-white/10" />
                     {services.length > 0 ? (
-                      services.map((service) => (
-                        <Link
-                          key={service.id || service.name}
-                          to={`/services/${getServiceSlug(service)}`}
-                          onClick={() => setIsServicesOpen(false)}
-                          className="block rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-white/10 hover:text-brand-cyan transition-colors"
-                          role="menuitem"
-                        >
-                          {service.name}
-                        </Link>
-                      ))
+                      <div className="grid grid-cols-1 gap-1.5">
+                        {services.map((service) => {
+                          const ServiceIcon = getServiceIcon(service);
+
+                          return (
+                            <Link
+                              key={service.id || service.name}
+                              to={`/services/${getServiceSlug(service)}`}
+                              onClick={() => setIsServicesOpen(false)}
+                              className="group flex min-w-0 items-center gap-3 rounded-xl px-3 py-3 transition-all hover:bg-white/10"
+                              role="menuitem"
+                            >
+                              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-cyan transition-all group-hover:border-brand-cyan/40 group-hover:bg-brand-purple/30 group-hover:text-white">
+                                <ServiceIcon size={19} />
+                              </span>
+                              <span className="block min-w-0 flex-1 truncate text-sm font-semibold text-white transition-colors group-hover:text-brand-cyan">
+                                {service.name}
+                              </span>
+                              <ArrowRight size={15} className="flex-shrink-0 text-slate-600 transition-all group-hover:translate-x-1 group-hover:text-brand-cyan" />
+                            </Link>
+                          );
+                        })}
+                      </div>
                     ) : (
-                      <p className="px-4 py-3 text-sm text-slate-500">
+                      <p className="rounded-xl px-4 py-3 text-sm text-slate-500">
                         Services loading...
                       </p>
                     )}
+                    <div className="my-3 h-px bg-white/10" />
+                    <Link
+                      to="/services"
+                      onClick={() => setIsServicesOpen(false)}
+                      className="group flex items-center gap-3 rounded-xl border border-brand-cyan/20 bg-brand-cyan/10 px-4 py-3 transition-all hover:border-brand-cyan/40 hover:bg-brand-cyan/15"
+                      role="menuitem"
+                    >
+                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-cyan text-brand-dark">
+                        <LayoutGrid size={19} />
+                      </span>
+                      <span className="min-w-0 flex-1 text-sm font-semibold text-white">View All Services</span>
+                      <ArrowRight size={16} className="text-brand-cyan transition-transform group-hover:translate-x-1" />
+                    </Link>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -192,7 +230,7 @@ const Navbar = () => {
               className="btn-primary text-sm py-2 px-6"
               data-testid="nav-get-started-btn"
             >
-              Get Started
+              Hire Us
             </Link>
           </div>
 
@@ -264,30 +302,41 @@ const Navbar = () => {
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="mt-2 space-y-1 border-l border-white/10 pl-4">
-                        <Link
-                          to="/services"
-                          onClick={() => setIsOpen(false)}
-                          className="block py-2 text-sm font-semibold text-white"
-                        >
-                          All Services
-                        </Link>
+                      <div className="mt-3 space-y-2 border-l border-white/10 pl-4">
                         {services.length > 0 ? (
-                          services.map((service) => (
-                            <Link
-                              key={service.id || service.name}
-                              to={`/services/${getServiceSlug(service)}`}
-                              onClick={() => setIsOpen(false)}
-                              className="block py-2 text-sm text-slate-400 hover:text-brand-cyan"
-                            >
-                              {service.name}
-                            </Link>
-                          ))
+                          services.map((service) => {
+                            const ServiceIcon = getServiceIcon(service);
+
+                            return (
+                              <Link
+                                key={service.id || service.name}
+                                to={`/services/${getServiceSlug(service)}`}
+                                onClick={() => setIsOpen(false)}
+                                className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-300 hover:bg-white/10 hover:text-brand-cyan"
+                              >
+                                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-cyan">
+                                  <ServiceIcon size={18} />
+                                </span>
+                                <span className="min-w-0 flex-1 truncate">{service.name}</span>
+                              </Link>
+                            );
+                          })
                         ) : (
                           <p className="py-2 text-sm text-slate-500">
                             Services loading...
                           </p>
                         )}
+                        <Link
+                          to="/services"
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 rounded-xl bg-brand-cyan/10 px-3 py-3 text-sm font-semibold text-white"
+                        >
+                          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-cyan text-brand-dark">
+                            <LayoutGrid size={18} />
+                          </span>
+                          <span className="min-w-0 flex-1">All Services</span>
+                          <ArrowRight size={15} className="text-brand-cyan" />
+                        </Link>
                       </div>
                     </motion.div>
                   )}
@@ -310,7 +359,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className="btn-primary block text-center mt-4"
               >
-                Get Started
+                Hire Us
               </Link>
             </div>
           </motion.div>

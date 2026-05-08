@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Award, ChevronLeft, ChevronRight, Code, Palette, Share2, Star, Target, TrendingUp, Users, Zap } from 'lucide-react';
+import { ArrowRight, BadgeCheck, CalendarClock, Clock, Code, Megaphone, Palette, Share2, Star, Target, User, Users } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -89,7 +89,7 @@ const AnimatedSection = ({ children, className = '' }) => {
 
 const Home = () => {
   const [services, setServices] = useState([]);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [recentBlogs, setRecentBlogs] = useState([]);
 
   const serviceIcons = {
     'Code': Code,
@@ -140,24 +140,22 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
+    const fetchRecentBlogs = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
+        setRecentBlogs(Array.isArray(response.data) ? response.data.slice(0, 3) : []);
+      } catch (error) {
+        console.error('Error fetching recent blogs:', error);
+      }
+    };
+    fetchRecentBlogs();
+  }, []);
 
   const stats = [
-    { label: 'Projects Completed', value: 150, suffix: '+' },
-    { label: 'Happy Clients', value: 80, suffix: '+' },
-    { label: 'Years Experience', value: 5, suffix: '+' },
-    { label: 'Ads Managed', value: 500, suffix: 'K+' },
-  ];
-
-  const whyChooseUs = [
-    { icon: Zap, title: 'Fast Delivery', description: 'Quick turnaround without compromising quality' },
-    { icon: Users, title: 'Expert Team', description: 'Skilled professionals with years of experience' },
-    { icon: Award, title: 'Quality First', description: 'Premium solutions tailored to your needs' },
-    { icon: TrendingUp, title: 'Result Driven', description: 'Focus on ROI and measurable outcomes' },
+    { label: 'Projects Completed', value: 150, suffix: '+', icon: BadgeCheck },
+    { label: 'Happy Clients', value: 80, suffix: '+', icon: Users },
+    { label: 'Years Experience', value: 5, suffix: '+', icon: CalendarClock },
+    { label: 'Ads Managed', value: 500, suffix: 'K+', icon: Megaphone },
   ];
 
   const prestigiousClients = [
@@ -341,143 +339,177 @@ const Home = () => {
         </AnimatedSection>
 
         {/* Stats Section */}
-        <AnimatedSection className="py-20 bg-gradient-to-b from-brand-purple/5 to-transparent">
+        <AnimatedSection className="stats-section py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center"
-                  data-testid={`stat-${index}`}
-                >
-                  <div className="font-syne font-bold text-4xl md:text-5xl text-white mb-2">
-                    <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                  </div>
-                  <p className="text-slate-400 font-dm-sans text-sm">{stat.label}</p>
-                </motion.div>
-              ))}
+            <div className="stats-shell relative overflow-hidden rounded-2xl px-4 py-8 sm:px-6 lg:px-8">
+              <div className="stats-shell__line absolute inset-x-0 top-0 h-px" />
+              <motion.div
+                className="stats-shell__beam absolute top-0 h-full w-32"
+                animate={{ x: ['-140%', '920%'] }}
+                transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+              />
+
+              <div className="relative z-10 mb-8 flex flex-col items-center gap-3 text-center">
+                <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">Our Impact</span>
+                <h2 className="font-syne font-bold text-3xl md:text-4xl text-white">Numbers That Tell the Story</h2>
+              </div>
+
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {stats.map((stat, index) => {
+                  const Icon = stat.icon;
+
+                  return (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, y: 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      whileHover={{ y: -6 }}
+                      transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
+                      viewport={{ once: true }}
+                      className="stats-card group relative min-h-[172px] overflow-hidden rounded-2xl p-5"
+                      data-testid={`stat-${index}`}
+                    >
+                      <div className="stats-card__accent absolute inset-x-0 top-0 h-1" />
+                      <div className="mb-6 flex items-center justify-between gap-4">
+                        <motion.div
+                          className="stats-card__icon flex h-12 w-12 items-center justify-center rounded-xl"
+                          animate={{ y: [0, -3, 0] }}
+                          transition={{ duration: 3 + index * 0.25, repeat: Infinity, ease: 'easeInOut' }}
+                        >
+                          <Icon size={22} />
+                        </motion.div>
+                      </div>
+                      <div className="stats-card__number font-syne font-bold text-4xl md:text-5xl mb-2">
+                        <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                      </div>
+                      <p className="stats-card__label font-dm-sans text-sm">{stat.label}</p>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </AnimatedSection>
 
-        {/* Why Choose Us */}
+        {/* Recent Blog */}
         <AnimatedSection className="py-20 md:py-32">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">Why Us</span>
-              <h2 className="font-syne font-bold text-3xl md:text-5xl text-white mt-4">Why Choose Apixel</h2>
+            <div className="mb-12 text-center">
+              <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">Recent Blog</span>
+              <h2 className="font-syne font-bold text-3xl md:text-5xl text-white mt-4">Latest Insights</h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {whyChooseUs.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-center"
+            {recentBlogs.length > 0 && (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {recentBlogs.map((blog, index) => (
+                    <motion.article
+                      key={blog.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="group h-full flex flex-col rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-brand-purple/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.2)]"
+                      data-testid={`home-recent-blog-card-${index}`}
+                    >
+                      <div className="aspect-[16/9] w-full overflow-hidden bg-brand-dark">
+                        <img
+                          src={blog.thumbnailUrl || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800'}
+                          alt={blog.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                      </div>
+
+                      <div className="p-5 flex-1 flex flex-col">
+                        <span className="inline-block w-fit px-3 py-1 bg-brand-purple/20 text-brand-cyan text-xs font-dm-sans rounded-full mb-3">
+                          {blog.category}
+                        </span>
+
+                        <h3 className="font-syne font-semibold text-xl text-white mb-3 group-hover:text-brand-cyan transition-colors line-clamp-2">
+                          <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
+                        </h3>
+
+                        <p className="text-slate-400 text-sm mb-4 line-clamp-2 flex-1">{blog.excerpt}</p>
+
+                        <div className="flex items-center gap-3 text-xs text-slate-500 mb-4">
+                          <span className="flex items-center gap-1 truncate">
+                            <User size={14} />
+                            {blog.author}
+                          </span>
+                          <span className="flex items-center gap-1 truncate">
+                            <Clock size={14} />
+                            {blog.readTime}
+                          </span>
+                        </div>
+
+                        <div className="mt-auto pt-4 border-t border-white/10">
+                          <Link
+                            to={`/blog/${blog.slug}`}
+                            className="text-brand-cyan text-sm font-medium inline-flex items-center gap-2 group-hover:gap-3 transition-all"
+                          >
+                            Read More <ArrowRight size={16} />
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.article>
+                  ))}
+                </div>
+
+                <div className="mt-12 flex justify-center">
+                  <Link
+                    to="/blog"
+                    className="btn-secondary inline-flex items-center gap-2"
+                    data-testid="home-recent-blog-view-all"
                   >
-                    <div className="w-16 h-16 bg-brand-purple/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <Icon size={32} className="text-brand-gold" />
-                    </div>
-                    <h3 className="font-syne font-semibold text-xl text-white mb-3">{item.title}</h3>
-                    <p className="text-slate-400 text-sm">{item.description}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
+                    View All Articles
+                    <ArrowRight size={18} />
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </AnimatedSection>
 
         {/* Testimonials */}
-        <AnimatedSection className="py-20 bg-gradient-to-b from-brand-purple/5 to-transparent">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection className="py-20 bg-gradient-to-b from-brand-purple/5 to-transparent overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <span className="text-brand-cyan text-sm font-dm-sans font-bold uppercase tracking-widest">Testimonials</span>
               <h2 className="font-syne font-bold text-3xl md:text-5xl text-white mt-4">What Clients Say</h2>
             </div>
 
             <div className="relative">
-              <div className="overflow-hidden rounded-2xl" data-testid="testimonial-slider">
+              <div className="overflow-hidden" data-testid="testimonial-marquee">
                 <motion.div
-                  className="flex"
-                  animate={{ x: `-${currentTestimonial * 100}%` }}
-                  transition={{ type: 'spring', stiffness: 160, damping: 26, mass: 0.9 }}
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.2}
-                  onDragEnd={(_e, info) => {
-                    const threshold = 80;
-                    const swipePower = Math.abs(info.offset.x) * info.velocity.x;
-                    if (info.offset.x < -threshold || swipePower < -10000) {
-                      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-                    } else if (info.offset.x > threshold || swipePower > 10000) {
-                      setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-                    }
-                  }}
+                  className="flex w-max gap-6"
+                  animate={{ x: ['0%', '-50%'] }}
+                  transition={{ duration: 30, ease: 'linear', repeat: Infinity }}
                 >
-                  {testimonials.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="w-full flex-shrink-0 px-1 select-none"
-                      data-testid={`testimonial-slide-${idx}`}
+                  {[...testimonials, ...testimonials].map((item, idx) => (
+                    <article
+                      key={`${item.name}-${idx}`}
+                      className="card-glass flex min-h-[310px] w-[300px] flex-shrink-0 flex-col justify-between p-6 text-left sm:w-[360px] md:w-[410px]"
+                      data-testid={`testimonial-card-${idx}`}
                     >
-                      <div className="card-glass text-center py-12 cursor-grab active:cursor-grabbing">
-                        <div className="flex justify-center gap-1 mb-6">
+                      <div>
+                        <div className="flex gap-1 mb-5">
                           {[...Array(item.rating)].map((_, i) => (
-                            <Star key={i} size={20} className="text-brand-gold fill-brand-gold" />
+                            <Star key={i} size={18} className="text-brand-gold fill-brand-gold" />
                           ))}
                         </div>
-                        <p className="text-lg md:text-xl text-slate-300 italic mb-8 leading-relaxed">
+                        <p className="text-base md:text-lg text-slate-300 leading-relaxed">
                           "{item.content}"
                         </p>
-                        <div>
-                          <p className="font-syne font-semibold text-white">{item.name}</p>
-                          <p className="text-brand-cyan text-sm">{item.company}</p>
-                        </div>
                       </div>
-                    </div>
+
+                      <div className="mt-8 border-t border-white/10 pt-5">
+                        <p className="font-syne font-semibold text-white">{item.name}</p>
+                        <p className="text-brand-cyan text-sm">{item.company}</p>
+                      </div>
+                    </article>
                   ))}
                 </motion.div>
-              </div>
-
-              {/* Navigation */}
-              <div className="flex justify-center gap-4 mt-8">
-                <button
-                  onClick={() => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-                  className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
-                  data-testid="testimonial-prev-btn"
-                  aria-label="Previous testimonial"
-                >
-                  <ChevronLeft size={24} className="text-white" />
-                </button>
-                <div className="flex gap-2 items-center">
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentTestimonial(index)}
-                      aria-label={`Go to testimonial ${index + 1}`}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        index === currentTestimonial ? 'w-6 bg-brand-cyan' : 'w-2 bg-white/20 hover:bg-white/40'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <button
-                  onClick={() => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)}
-                  className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
-                  data-testid="testimonial-next-btn"
-                  aria-label="Next testimonial"
-                >
-                  <ChevronRight size={24} className="text-white" />
-                </button>
               </div>
             </div>
           </div>

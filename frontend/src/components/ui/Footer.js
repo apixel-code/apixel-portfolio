@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -134,25 +134,6 @@ const Footer = () => {
                 </span>
               </li>
             </ul>
-            
-            {/* Newsletter */}
-            <div className="mt-6">
-              <h5 className="text-white text-sm font-medium mb-3">Subscribe to Newsletter</h5>
-              <div className="flex gap-2">
-                <input 
-                  type="email" 
-                  placeholder="Enter your email"
-                  className="input-dark text-sm py-2 flex-1"
-                  data-testid="newsletter-email-input"
-                />
-                <button 
-                  className="p-2 bg-brand-purple rounded-lg hover:bg-brand-purple/80 transition-colors"
-                  data-testid="newsletter-submit-btn"
-                >
-                  <Send size={18} className="!text-white" />
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
