@@ -130,7 +130,7 @@ const Home = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/services`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/services/categories`);
         setServices(response.data);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -318,7 +318,7 @@ const Home = () => {
                       </div>
 
                       <h3 className="font-syne font-semibold text-lg text-white mb-2 leading-snug">
-                        {service.name}
+                        {service.title}
                       </h3>
                       <p className="text-slate-400 text-sm leading-relaxed mb-5 flex-1 line-clamp-3">
                         {service.description}

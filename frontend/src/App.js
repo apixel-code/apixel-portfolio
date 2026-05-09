@@ -10,11 +10,13 @@ import { ThemeProvider } from './context/ThemeContext';
 import About from './pages/public/About';
 import Blog from './pages/public/Blog';
 import BlogPost from './pages/public/BlogPost';
+import CategoryPage from './pages/public/CategoryPage';
 import Contact from './pages/public/Contact';
 import Home from './pages/public/Home';
 import NotFound from './pages/public/NotFound';
 import PrivacyPolicy from './pages/public/PrivacyPolicy';
-import Services from './pages/public/Services';
+import ServicesPage from './pages/public/ServicesPage';
+import SubCategoryPage from './pages/public/SubCategoryPage';
 import Templates from './pages/public/Templates';
 import TermsOfService from './pages/public/TermsOfService';
 
@@ -26,7 +28,7 @@ import AdminExpertForm from './pages/admin/AdminExpertForm';
 import AdminExperts from './pages/admin/AdminExperts';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminMessages from './pages/admin/AdminMessages';
-import AdminServiceForm from './pages/admin/AdminServiceForm';
+import AdminServiceSubCategories from './pages/admin/AdminServiceSubCategories';
 import AdminServices from './pages/admin/AdminServices';
 import AdminTemplateForm from './pages/admin/AdminTemplateForm';
 import AdminTemplates from './pages/admin/AdminTemplates';
@@ -69,8 +71,9 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/services/:slug" element={<Services />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:categorySlug" element={<CategoryPage />} />
+            <Route path="/services/:categorySlug/:subCategorySlug" element={<SubCategoryPage />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/shop" element={<Templates />} />
@@ -96,11 +99,8 @@ function App() {
             <Route path="/admin/services" element={
               <ProtectedRoute><AdminServices /></ProtectedRoute>
             } />
-            <Route path="/admin/services/new" element={
-              <ProtectedRoute><AdminServiceForm /></ProtectedRoute>
-            } />
-            <Route path="/admin/services/edit/:id" element={
-              <ProtectedRoute><AdminServiceForm /></ProtectedRoute>
+            <Route path="/admin/services/subcategories" element={
+              <ProtectedRoute><AdminServiceSubCategories /></ProtectedRoute>
             } />
             <Route path="/admin/templates" element={
               <ProtectedRoute><AdminTemplates /></ProtectedRoute>

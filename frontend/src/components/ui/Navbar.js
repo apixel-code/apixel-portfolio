@@ -19,7 +19,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 
 const getServiceSlug = (service) =>
-  service.slug || service.name
+  service.slug || (service.title || service.name)
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_-]+/g, '-')
@@ -57,7 +57,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/services`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/services/categories`);
         if (Array.isArray(response.data) && response.data.length > 0) {
           setServices(response.data);
         }
@@ -171,7 +171,7 @@ const Navbar = () => {
                                 <ServiceIcon size={19} />
                               </span>
                               <span className="block min-w-0 flex-1 truncate text-sm font-semibold text-white transition-colors group-hover:text-brand-cyan">
-                                {service.name}
+                                {service.title || service.name}
                               </span>
                               <ArrowRight size={15} className="flex-shrink-0 text-slate-600 transition-all group-hover:translate-x-1 group-hover:text-brand-cyan" />
                             </Link>
@@ -317,7 +317,7 @@ const Navbar = () => {
                                 <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-brand-cyan">
                                   <ServiceIcon size={18} />
                                 </span>
-                                <span className="min-w-0 flex-1 truncate">{service.name}</span>
+                                <span className="min-w-0 flex-1 truncate">{service.title || service.name}</span>
                               </Link>
                             );
                           })

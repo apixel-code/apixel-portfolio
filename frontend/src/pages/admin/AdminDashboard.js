@@ -52,7 +52,7 @@ const AdminDashboard = () => {
 
   const quickActions = [
     { title: 'New Blog', path: '/admin/blogs/new', icon: FileText },
-    { title: 'New Service', path: '/admin/services/new', icon: Briefcase },
+    { title: 'Manage Services', path: '/admin/services', icon: Briefcase },
     { title: 'New Shop Item', path: '/admin/templates/new', icon: LayoutTemplate },
     { title: 'New Expert', path: '/admin/experts/new', icon: UserSquare2 },
     { title: 'View Messages', path: '/admin/messages', icon: MessageSquare },

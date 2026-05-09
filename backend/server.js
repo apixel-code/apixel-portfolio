@@ -5,6 +5,9 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { MongoClient, ObjectId } = require("mongodb");
+const createServicesRoutes = require("./routes/services.routes");
+const { SERVICE_CATEGORY_COLLECTION } = require("./models/serviceCategory.model");
+const { SERVICE_SUB_CATEGORY_COLLECTION } = require("./models/serviceSubCategory.model");
 
 // ── Config ──────────────────────────────────────────────
 const PORT = process.env.PORT || 8001;
@@ -51,258 +54,6 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json({ detail: "Invalid token" });
   }
 };
-
-// ── Seed Data ───────────────────────────────────────────
-async function seedDatabase() {
-  // Services
-  if ((await db.collection("services").countDocuments()) === 0) {
-    await db.collection("services").insertMany([
-      {
-        name: "Website Development (MERN)",
-        slug: "website-development-mern",
-        description:
-          "Custom web applications built with MongoDB, Express.js, React, and Node.js. Scalable, fast, and modern solutions tailored to your business needs.",
-        features: ["Custom React Frontend", "Node.js Backend", "MongoDB Database", "RESTful APIs", "Responsive Design", "SEO Optimized"],
-        icon: "Code",
-        priceRange: "$2,000 - $15,000",
-        order: 1,
-        createdAt: new Date(),
-      },
-      {
-        name: "Meta & Google Ads",
-        slug: "meta-google-ads",
-        description:
-          "Strategic advertising campaigns with advanced Conversion API integration and comprehensive tracking setup for maximum ROI.",
-        features: ["Facebook & Instagram Ads", "Google Ads Management", "Conversion API Setup", "Pixel Implementation", "A/B Testing", "Monthly Reports"],
-        icon: "Target",
-        priceRange: "$500 - $5,000/month",
-        order: 2,
-        createdAt: new Date(),
-      },
-      {
-        name: "Social Media Management",
-        slug: "social-media-management",
-        description:
-          "Complete social media presence management. Content creation, scheduling, engagement, and growth strategies across all platforms.",
-        features: ["Content Calendar", "Daily Posting", "Community Management", "Hashtag Strategy", "Analytics Reports", "Influencer Outreach"],
-        icon: "Share2",
-        priceRange: "$300 - $2,000/month",
-        order: 3,
-        createdAt: new Date(),
-      },
-      {
-        name: "Graphic Design",
-        slug: "graphic-design",
-        description:
-          "Eye-catching visual designs for your brand. From logos to marketing materials, we create designs that make an impact.",
-        features: ["Logo Design", "Brand Identity", "Social Media Graphics", "Print Materials", "UI/UX Design", "Motion Graphics"],
-        icon: "Palette",
-        priceRange: "$200 - $3,000",
-        order: 4,
-        createdAt: new Date(),
-      },
-    ]);
-    console.log("Services seeded");
-  }
-
-  const servicesWithoutSlug = await db.collection("services").find({
-    $or: [{ slug: { $exists: false } }, { slug: "" }, { slug: null }],
-  }).toArray();
-  for (const service of servicesWithoutSlug) {
-    await db.collection("services").updateOne(
-      { _id: service._id },
-      { $set: { slug: slugify(service.name) } }
-    );
-  }
-
-  // Blogs
-  if ((await db.collection("blogs").countDocuments()) === 0) {
-    const now = Date.now();
-    await db.collection("blogs").insertMany([
-      {
-        title: "Building Scalable Web Apps with the MERN Stack in 2024",
-        slug: "building-scalable-web-apps-mern-stack-2024",
-        excerpt: "Learn the best practices for building modern, scalable web applications using MongoDB, Express.js, React, and Node.js.",
-        content: `<h2>Introduction to MERN Stack</h2><p>The MERN stack has become one of the most popular choices for building full-stack web applications. It combines four powerful technologies: MongoDB, Express.js, React, and Node.js.</p><h2>Why Choose MERN?</h2><p>MERN offers several advantages:</p><ul><li><strong>JavaScript Everywhere:</strong> Use one language for both frontend and backend</li><li><strong>JSON Data Flow:</strong> Seamless data transfer between all layers</li><li><strong>Rich Ecosystem:</strong> Access to millions of npm packages</li><li><strong>Scalability:</strong> Perfect for building apps that need to grow</li></ul><h2>Best Practices for 2024</h2><p>To build truly scalable applications, follow these practices:</p><ol><li>Use TypeScript for type safety</li><li>Implement proper state management with Redux or Zustand</li><li>Set up CI/CD pipelines early</li><li>Write comprehensive tests</li><li>Use Docker for containerization</li></ol><h2>Conclusion</h2><p>The MERN stack continues to evolve and remains a solid choice for modern web development.</p>`,
-        author: "APIXEL Team",
-        category: "Web Development",
-        tags: ["MERN", "React", "Node.js", "MongoDB", "Web Development"],
-        thumbnailUrl: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800",
-        published: true,
-        readTime: "8 min read",
-        createdAt: new Date(now - 5 * 86400000),
-      },
-      {
-        title: "Mastering Facebook Ads: A Complete Guide to Conversion API",
-        slug: "mastering-facebook-ads-conversion-api-guide",
-        excerpt: "Discover how to set up and optimize Facebook's Conversion API for better tracking and improved ad performance.",
-        content: `<h2>What is Conversion API?</h2><p>Facebook's Conversion API (CAPI) is a business tool that lets you share web and offline events directly from your server to Facebook.</p><h2>Why You Need Conversion API</h2><p>With increasing privacy restrictions and iOS 14+ changes, the Pixel alone isn't enough.</p><h2>Setting Up Conversion API</h2><ol><li>Create a System User in Business Settings</li><li>Generate an Access Token</li><li>Set up server-side event tracking</li><li>Implement event deduplication</li><li>Test with the Events Manager</li></ol><h2>Conclusion</h2><p>Conversion API is essential for accurate tracking and optimal ad performance.</p>`,
-        author: "APIXEL Team",
-        category: "Digital Marketing",
-        tags: ["Facebook Ads", "Conversion API", "Digital Marketing", "Tracking"],
-        thumbnailUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800",
-        published: true,
-        readTime: "10 min read",
-        createdAt: new Date(now - 10 * 86400000),
-      },
-      {
-        title: "Social Media Trends That Will Dominate 2024",
-        slug: "social-media-trends-dominate-2024",
-        excerpt: "Stay ahead of the curve with these emerging social media trends that are shaping the digital landscape.",
-        content: `<h2>The Social Media Landscape in 2024</h2><p>Social media continues to evolve rapidly.</p><h2>1. Short-Form Video Dominance</h2><p>TikTok, Instagram Reels, and YouTube Shorts continue to dominate.</p><h2>2. AI-Powered Content Creation</h2><p>AI tools are revolutionizing how we create content.</p><h2>3. Social Commerce Growth</h2><p>Shopping directly through social platforms is becoming mainstream.</p><h2>4. Community Building</h2><p>Brands are focusing on building engaged communities.</p><h2>Conclusion</h2><p>Adapting to these trends early will give your brand a competitive edge.</p>`,
-        author: "APIXEL Team",
-        category: "Social Media",
-        tags: ["Social Media", "Trends", "Marketing", "Content Strategy"],
-        thumbnailUrl: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800",
-        published: true,
-        readTime: "7 min read",
-        createdAt: new Date(now - 15 * 86400000),
-      },
-    ]);
-    console.log("Blogs seeded");
-  }
-
-  // Admin
-  const adminExists = await db.collection("admins").findOne({ email: "admin@agency.com" });
-  const hashed = await bcrypt.hash("Admin@123", 10);
-  if (!adminExists) {
-    await db.collection("admins").insertOne({ email: "admin@agency.com", password: hashed, createdAt: new Date() });
-    console.log("Admin seeded");
-  } else {
-    await db.collection("admins").updateOne({ email: "admin@agency.com" }, { $set: { password: hashed } });
-  }
-
-  // Templates (simplified schema with badge)
-  if ((await db.collection("templates").countDocuments()) === 0) {
-    const now2 = Date.now();
-    await db.collection("templates").insertMany([
-      {
-        title: "Agency Pro - Digital Agency Website",
-        slug: "agency-pro-digital-agency",
-        category: "Agency",
-        excerpt: "A sleek, conversion-focused website template built for digital agencies that want to look premium and close deals faster.",
-        thumbnailUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
-        tags: ["Agency", "Dark Theme", "MERN Stack"],
-        priceLabel: "$499",
-        status: "Available",
-        demoUrl: "https://agencypro-demo.apixel.net",
-        badge: "Most Popular",
-        published: true,
-        createdAt: new Date(now2 - 2 * 86400000),
-      },
-      {
-        title: "ShopLaunch - E-Commerce Starter",
-        slug: "shoplaunch-ecommerce-starter",
-        category: "E-Commerce",
-        excerpt: "Launch your online store in days, not months. A beautiful e-commerce template with product pages, cart, and checkout flow.",
-        thumbnailUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800",
-        tags: ["E-Commerce", "Shopping", "Product Store"],
-        priceLabel: "$699",
-        status: "Available",
-        demoUrl: "https://shoplaunch-demo.apixel.net",
-        badge: "Best Seller",
-        published: true,
-        createdAt: new Date(now2 - 5 * 86400000),
-      },
-      {
-        title: "FolioX - Portfolio & Personal Brand",
-        slug: "foliox-portfolio-personal-brand",
-        category: "Portfolio",
-        excerpt: "Stand out from the crowd. A minimal yet bold portfolio template for freelancers, developers, and creatives.",
-        thumbnailUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
-        tags: ["Portfolio", "Minimal", "Personal Brand"],
-        priceLabel: "$349",
-        status: "Available",
-        demoUrl: "https://foliox-demo.apixel.net",
-        badge: "Trending",
-        published: true,
-        createdAt: new Date(now2 - 8 * 86400000),
-      },
-      {
-        title: "SaaSKit - SaaS Landing Page",
-        slug: "saaskit-saas-landing-page",
-        category: "SaaS",
-        excerpt: "Convert visitors into trial users. A high-converting SaaS landing page with pricing tables, feature sections, and CTA blocks.",
-        thumbnailUrl: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800",
-        tags: ["SaaS", "Landing Page", "Startup"],
-        priceLabel: "$599",
-        status: "Available",
-        demoUrl: "https://saaskit-demo.apixel.net",
-        badge: "",
-        published: true,
-        createdAt: new Date(now2 - 12 * 86400000),
-      },
-      {
-        title: "RestroHub - Restaurant & Cafe Website",
-        slug: "restrohub-restaurant-cafe",
-        category: "Restaurant",
-        excerpt: "Make your restaurant irresistible online. A beautiful template with menu display, reservation system, and gallery.",
-        thumbnailUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
-        tags: ["Restaurant", "Food", "Hospitality"],
-        priceLabel: "$449",
-        status: "Available",
-        demoUrl: "https://restrohub-demo.apixel.net",
-        badge: "",
-        published: true,
-        createdAt: new Date(now2 - 15 * 86400000),
-      },
-      {
-        title: "EduLearn - Online Course Platform",
-        slug: "edulearn-online-course-platform",
-        category: "Education",
-        excerpt: "Teach the world. A comprehensive course platform template with lesson pages, enrollment flow, and instructor profiles.",
-        thumbnailUrl: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800",
-        tags: ["Education", "Courses", "E-Learning"],
-        priceLabel: "$549",
-        status: "Available",
-        demoUrl: "https://edulearn-demo.apixel.net",
-        badge: "",
-        published: true,
-        createdAt: new Date(now2 - 18 * 86400000),
-      },
-    ]);
-    console.log("Templates seeded");
-  }
-
-  // Experts (team members)
-  if ((await db.collection("experts").countDocuments()) === 0) {
-    await db.collection("experts").insertMany([
-      {
-        name: "Mahabub Islam",
-        role: "Founder & CEO",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
-        order: 1,
-        published: true,
-        createdAt: new Date(),
-      },
-      {
-        name: "Tanvir Ahmed",
-        role: "Lead Developer",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
-        order: 2,
-        published: true,
-        createdAt: new Date(),
-      },
-      {
-        name: "Sabrina Rahman",
-        role: "Marketing Head",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
-        order: 3,
-        published: true,
-        createdAt: new Date(),
-      },
-      {
-        name: "Rifat Hossain",
-        role: "Creative Director",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
-        order: 4,
-        published: true,
-        createdAt: new Date(),
-      },
-    ]);
-    console.log("Experts seeded");
-  }
-}
 
 // ── Routes ───────────────────────────────────────────────
 
@@ -357,43 +108,6 @@ app.delete("/api/blogs/:id", verifyToken, async (req, res) => {
   const result = await db.collection("blogs").deleteOne({ _id: new ObjectId(req.params.id) });
   if (result.deletedCount === 0) return res.status(404).json({ detail: "Blog not found" });
   res.json({ message: "Blog deleted successfully" });
-});
-
-// ── Services ─────────────────────────────────────────────
-app.get("/api/services", async (_req, res) => {
-  const services = await db.collection("services").find().sort({ order: 1 }).toArray();
-  res.json(services.map(serializeDoc));
-});
-
-app.get("/api/services/slug/:slug", async (req, res) => {
-  const service = await db.collection("services").findOne({ slug: req.params.slug });
-  if (!service) return res.status(404).json({ detail: "Service not found" });
-  res.json(serializeDoc(service));
-});
-
-app.post("/api/services", verifyToken, async (req, res) => {
-  const data = { ...req.body, slug: slugify(req.body.name || ""), createdAt: new Date() };
-  const result = await db.collection("services").insertOne(data);
-  res.json(serializeDoc({ _id: result.insertedId, ...data }));
-});
-
-app.put("/api/services/:id", verifyToken, async (req, res) => {
-  const update = Object.fromEntries(Object.entries(req.body).filter(([, v]) => v != null));
-  if (update.name) update.slug = slugify(update.name);
-  if (!Object.keys(update).length) return res.status(400).json({ detail: "No data to update" });
-  const result = await db.collection("services").findOneAndUpdate(
-    { _id: new ObjectId(req.params.id) },
-    { $set: update },
-    { returnDocument: "after" }
-  );
-  if (!result) return res.status(404).json({ detail: "Service not found" });
-  res.json(serializeDoc(result));
-});
-
-app.delete("/api/services/:id", verifyToken, async (req, res) => {
-  const result = await db.collection("services").deleteOne({ _id: new ObjectId(req.params.id) });
-  if (result.deletedCount === 0) return res.status(404).json({ detail: "Service not found" });
-  res.json({ message: "Service deleted successfully" });
 });
 
 // ── Templates ────────────────────────────────────────────
@@ -498,15 +212,25 @@ app.delete("/api/contact/:id", verifyToken, async (req, res) => {
 
 // ── Stats ────────────────────────────────────────────────
 app.get("/api/stats", verifyToken, async (_req, res) => {
-  const [totalBlogs, totalServices, totalTemplates, totalExperts, totalMessages, unreadMessages] = await Promise.all([
+  const [totalBlogs, totalServiceCategories, totalServiceSubCategories, totalTemplates, totalExperts, totalMessages, unreadMessages] = await Promise.all([
     db.collection("blogs").countDocuments(),
-    db.collection("services").countDocuments(),
+    db.collection(SERVICE_CATEGORY_COLLECTION).countDocuments(),
+    db.collection(SERVICE_SUB_CATEGORY_COLLECTION).countDocuments(),
     db.collection("templates").countDocuments(),
     db.collection("experts").countDocuments(),
     db.collection("contacts").countDocuments(),
     db.collection("contacts").countDocuments({ read: false }),
   ]);
-  res.json({ totalBlogs, totalServices, totalTemplates, totalExperts, totalMessages, unreadMessages });
+  res.json({
+    totalBlogs,
+    totalServices: totalServiceCategories,
+    totalServiceCategories,
+    totalServiceSubCategories,
+    totalTemplates,
+    totalExperts,
+    totalMessages,
+    unreadMessages,
+  });
 });
 
 // ── Start ────────────────────────────────────────────────
@@ -516,7 +240,7 @@ async function start() {
   db = client.db(DB_NAME);
   console.log("MongoDB connected");
 
-  await seedDatabase();
+  app.use("/api/services", createServicesRoutes(db, verifyToken));
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`APIXEL API running on port ${PORT}`);
