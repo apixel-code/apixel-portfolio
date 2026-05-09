@@ -87,6 +87,18 @@ const AnimatedSection = ({ children, className = '' }) => {
   );
 };
 
+const MotionLink = motion(Link);
+
+const getServicePath = (service) => {
+  const slug = service.slug || service.name
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  return `/services/${slug}`;
+};
+
 const Home = () => {
   const [services, setServices] = useState([]);
   const [recentBlogs, setRecentBlogs] = useState([]);
@@ -299,7 +311,8 @@ const Home = () => {
               {services.map((service, index) => {
                 const IconComponent = serviceIcons[service.icon] || Code;
                 return (
-                  <motion.div
+                  <MotionLink
+                    to={getServicePath(service)}
                     key={service.id}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -308,6 +321,7 @@ const Home = () => {
                     whileHover={{ y: -10 }}
                     className="service-card-home group"
                     data-testid={`service-card-${index}`}
+                    aria-label={`View ${service.name} service details`}
                   >
                     <div className="service-card-home__glow" />
                     <div className="relative z-10 flex h-full flex-col">
@@ -324,14 +338,11 @@ const Home = () => {
                         {service.description}
                       </p>
 
-                      <Link 
-                        to="/contact" 
-                        className="service-card-home__link"
-                      >
-                        Discuss This Service <ArrowRight size={16} />
-                      </Link>
+                      <span className="service-card-home__link">
+                        View Service <ArrowRight size={16} />
+                      </span>
                     </div>
-                  </motion.div>
+                  </MotionLink>
                 );
               })}
             </div>
