@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Briefcase, FileText, LayoutTemplate, MessageSquare, Users, UserSquare2 } from 'lucide-react';
+import { ArrowUpRight, Briefcase, CalendarCheck, FileText, LayoutTemplate, MessageSquare, Users, UserSquare2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -15,8 +15,10 @@ const AdminDashboard = () => {
     totalExperts: 0,
     totalMessages: 0,
     unreadMessages: 0,
+    totalBookings: 0,
   });
   const [recentMessages, setRecentMessages] = useState([]);
+  const [recentBookings, setRecentBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,13 +27,15 @@ const AdminDashboard = () => {
         const token = localStorage.getItem('apixel_token');
         const headers = { Authorization: `Bearer ${token}` };
         
-        const [statsRes, messagesRes] = await Promise.all([
+        const [statsRes, messagesRes, bookingsRes] = await Promise.all([
           axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/stats`, { headers }),
           axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, { headers }),
+          axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bookings`, { headers }),
         ]);
         
         setStats(statsRes.data);
         setRecentMessages(messagesRes.data.slice(0, 5));
+        setRecentBookings(bookingsRes.data.slice(0, 5));
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       } finally {
@@ -48,6 +52,7 @@ const AdminDashboard = () => {
     { title: 'Total Experts', value: stats.totalExperts, icon: UserSquare2, color: 'cyan' },
     { title: 'Total Messages', value: stats.totalMessages, icon: MessageSquare, color: 'gold' },
     { title: 'Unread Messages', value: stats.unreadMessages, icon: Users, color: 'red' },
+    { title: 'Bookings', value: stats.totalBookings, icon: CalendarCheck, color: 'cyan' },
   ];
 
   const quickActions = [
@@ -133,6 +138,51 @@ const AdminDashboard = () => {
                 );
               })}
             </div>
+          </div>
+
+          {/* Recent Bookings */}
+          <div className="card-glass">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-syne font-semibold text-lg text-white">Recent Bookings</h2>
+              <span className="text-brand-cyan text-sm flex items-center gap-1">
+                Pending Requests <ArrowUpRight size={14} />
+              </span>
+            </div>
+
+            {loading ? (
+              <p className="text-slate-400">Loading...</p>
+            ) : recentBookings.length === 0 ? (
+              <p className="text-slate-400">No bookings yet</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-white/10">
+                      <th className="text-left text-slate-400 text-sm font-dm-sans py-3 px-4">Name</th>
+                      <th className="text-left text-slate-400 text-sm font-dm-sans py-3 px-4">Email</th>
+                      <th className="text-left text-slate-400 text-sm font-dm-sans py-3 px-4">Meeting</th>
+                      <th className="text-left text-slate-400 text-sm font-dm-sans py-3 px-4">Date</th>
+                      <th className="text-left text-slate-400 text-sm font-dm-sans py-3 px-4">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recentBookings.map((booking, index) => (
+                      <tr key={booking.id} className="border-b border-white/5" data-testid={`booking-row-${index}`}>
+                        <td className="py-3 px-4 text-white">{booking.name}</td>
+                        <td className="py-3 px-4 text-slate-300">{booking.email}</td>
+                        <td className="py-3 px-4 text-slate-300">{booking.platform} at {booking.timeSlot}</td>
+                        <td className="py-3 px-4 text-slate-400 text-sm">{formatDate(booking.date)}</td>
+                        <td className="py-3 px-4">
+                          <span className="px-2 py-1 rounded-full text-xs bg-yellow-500/20 text-yellow-400">
+                            {booking.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
 
           {/* Recent Messages */}

@@ -4,7 +4,9 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
 const { MongoClient, ObjectId } = require("mongodb");
+const createBookingsRoutes = require("./routes/bookings.routes");
 const createServicesRoutes = require("./routes/services.routes");
 const { SERVICE_CATEGORY_COLLECTION } = require("./models/serviceCategory.model");
 const { SERVICE_SUB_CATEGORY_COLLECTION } = require("./models/serviceSubCategory.model");
@@ -212,7 +214,7 @@ app.delete("/api/contact/:id", verifyToken, async (req, res) => {
 
 // ── Stats ────────────────────────────────────────────────
 app.get("/api/stats", verifyToken, async (_req, res) => {
-  const [totalBlogs, totalServiceCategories, totalServiceSubCategories, totalTemplates, totalExperts, totalMessages, unreadMessages] = await Promise.all([
+  const [totalBlogs, totalServiceCategories, totalServiceSubCategories, totalTemplates, totalExperts, totalMessages, unreadMessages, totalBookings] = await Promise.all([
     db.collection("blogs").countDocuments(),
     db.collection(SERVICE_CATEGORY_COLLECTION).countDocuments(),
     db.collection(SERVICE_SUB_CATEGORY_COLLECTION).countDocuments(),
@@ -220,6 +222,7 @@ app.get("/api/stats", verifyToken, async (_req, res) => {
     db.collection("experts").countDocuments(),
     db.collection("contacts").countDocuments(),
     db.collection("contacts").countDocuments({ read: false }),
+    db.collection("bookings").countDocuments(),
   ]);
   res.json({
     totalBlogs,
@@ -230,6 +233,7 @@ app.get("/api/stats", verifyToken, async (_req, res) => {
     totalExperts,
     totalMessages,
     unreadMessages,
+    totalBookings,
   });
 });
 
@@ -240,7 +244,11 @@ async function start() {
   db = client.db(DB_NAME);
   console.log("MongoDB connected");
 
+  await mongoose.connect(MONGO_URL, { dbName: DB_NAME });
+  console.log("Mongoose connected");
+
   app.use("/api/services", createServicesRoutes(db, verifyToken));
+  app.use("/api/v1/bookings", createBookingsRoutes(verifyToken));
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`APIXEL API running on port ${PORT}`);

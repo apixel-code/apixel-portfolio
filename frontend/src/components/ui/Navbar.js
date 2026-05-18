@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import BookingModal from '../booking/BookingModal';
 import { useTheme } from '../../context/ThemeContext';
 
 const getServiceSlug = (service) =>
@@ -38,6 +39,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [services, setServices] = useState([]);
   const location = useLocation();
   const { isDark, toggleTheme } = useTheme();
@@ -225,13 +227,14 @@ const Navbar = () => {
             >
               {isDark ? <Sun size={16} className="text-brand-gold" /> : <Moon size={16} className="text-brand-purple" />}
             </button>
-            <Link
-              to="/contact"
+            <button
+              type="button"
+              onClick={() => setIsBookingOpen(true)}
               className="btn-primary text-sm py-2 px-6"
               data-testid="nav-get-started-btn"
             >
               Hire Us
-            </Link>
+            </button>
           </div>
 
           {/* Mobile: Toggle + Menu Button */}
@@ -354,17 +357,21 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to="/contact"
-                onClick={() => setIsOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsOpen(false);
+                  setIsBookingOpen(true);
+                }}
                 className="btn-primary block text-center mt-4"
               >
                 Hire Us
-              </Link>
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </nav>
   );
 };

@@ -173,6 +173,87 @@ body {
   box-shadow: 0 0 30px rgba(147, 51, 234, 0.2);
 }
 
+.booking-datepicker .react-datepicker {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #F8FAFC;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.booking-datepicker .react-datepicker__month-container {
+  width: 100%;
+}
+
+.booking-datepicker .react-datepicker__header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  padding-top: 0.5rem;
+}
+
+.booking-datepicker .react-datepicker__navigation {
+  top: 0.75rem;
+}
+
+.booking-datepicker .react-datepicker__navigation-icon::before {
+  border-color: #94A3B8;
+}
+
+.booking-datepicker .react-datepicker__current-month,
+.booking-datepicker .react-datepicker__day-name,
+.booking-datepicker .react-datepicker__day {
+  color: #F8FAFC;
+}
+
+.booking-datepicker .react-datepicker__current-month {
+  padding-bottom: 0.35rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+}
+
+.booking-datepicker .react-datepicker__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.booking-datepicker .react-datepicker__day-names {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-bottom: 0;
+}
+
+.booking-datepicker .react-datepicker__day-name,
+.booking-datepicker .react-datepicker__day {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  margin: 0.1rem auto;
+  width: 2rem;
+}
+
+.booking-datepicker .react-datepicker__day-name {
+  color: #94A3B8;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.booking-datepicker .react-datepicker__day:hover,
+.booking-datepicker .react-datepicker__day--keyboard-selected,
+.booking-datepicker .react-datepicker__day--selected {
+  background: #00F5FF;
+  color: #020617;
+}
+
+.booking-datepicker .react-datepicker__day--disabled {
+  color: rgba(148, 163, 184, 0.35);
+}
+
+.booking-datepicker .react-datepicker__day--outside-month {
+  color: rgba(148, 163, 184, 0.45);
+}
+
 /* Home service cards */
 .service-card-home {
   position: relative;
